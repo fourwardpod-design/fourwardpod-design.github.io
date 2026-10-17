@@ -8,8 +8,8 @@
  *   POST {type:'booking'}  → logs the slot a visitor opened in Google Calendar to the "Bookings" tab
  *
  * Deploy once (about 5 minutes, signed in as fourwardpod@gmail.com)
- *   1. Open https://sheets.new and name the sheet "Fourward leads".
- *   2. Extensions → Apps Script. Replace Code.gs with this file. Save.
+ *   1. Open https://sheets.new and name the sheet "Fourward leads"; put its ID in SHEET_ID below.
+ *   2. Extensions → Apps Script (or a standalone project at script.google.com). Replace Code.gs with this file. Save.
  *   3. Deploy → New deployment → type "Web app".
  *        Execute as: Me        Who has access: Anyone
  *      Deploy, then Authorize access (Advanced → Go to project → Allow).
@@ -20,6 +20,9 @@
  */
 
 const TEAM = 'fourwardpod@gmail.com';
+// The "Fourward leads" sheet on the fourwardpod Google account. A script created from the sheet
+// (Extensions → Apps Script) can leave this as is; a standalone script needs the ID.
+const SHEET_ID = '1L_crfYf97khTdndtTgyO1m-_OBM8pmkzT2pbizAibY0';
 const SITE = 'https://fourwardpod-design.github.io/';
 const BOOK = SITE + '#book';
 
@@ -31,7 +34,7 @@ function doPost(e) {
   let d = {};
   try { d = JSON.parse((e && e.postData && e.postData.contents) || '{}'); } catch (err) { return out({ ok: false, error: 'bad json' }); }
   if (d.website) return out({ ok: true });                       // honeypot field filled: a bot
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(SHEET_ID);
   const type = String(d.type || '');
   const when = new Date();
 
