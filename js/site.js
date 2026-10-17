@@ -396,7 +396,7 @@
       reqBtn.setAttribute('aria-disabled', 'false');
       var iso = function (ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); };
       var gcalHref = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + encodeURIComponent('Free session with Fourward') +
+        '&text=' + encodeURIComponent('Growth Strategy Session with Fourward') +
         '&dates=' + iso(start) + '/' + iso(end) +
         '&details=' + encodeURIComponent('30 minutes with the Fourward team: your free SEO, AEO and GEO audit walk-through.\n\nWe will cover where search, AI answers and pipeline stand today, and what a 30-day plan would move.\n\nYour website:\nThe number you need to move:\n\nBooked from ' + location.origin + location.pathname) +
         '&add=' + encodeURIComponent(FOURWARD.emails.join(','));
