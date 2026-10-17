@@ -551,16 +551,15 @@ html.static .panel.is-active{animation:none}
 .confirm .sum svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;opacity:.8}
 .day.is-today::after{background:rgba(11,11,12,.35)}
 
-/* ---------- footer: four-lane colour wash rising from the bottom edge ---------- */
-.footer{position:relative;overflow:hidden;isolation:isolate;background:#F7F7F5;border-top:0}
-.footer::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;z-index:3;background:linear-gradient(90deg,var(--d) 0%,var(--g) 34%,var(--s) 67%,var(--r) 100%)}
-.footer .wash{--mask:linear-gradient(to top,#000 45%,rgba(0,0,0,.55) 100%);--wash:
-  radial-gradient(46% 95% at 4% 96%,#FFC9A0 0%,rgba(255,201,160,0) 64%),
-  radial-gradient(44% 90% at 34% 100%,#FFADD0 0%,rgba(255,173,208,0) 64%),
-  radial-gradient(44% 90% at 66% 100%,#9FE7D3 0%,rgba(159,231,211,0) 64%),
-  radial-gradient(46% 95% at 96% 96%,#C8B4FF 0%,rgba(200,180,255,0) 64%),
-  radial-gradient(60% 70% at 50% 0%,#FFE98F 0%,rgba(255,233,143,0) 60%)}
-.footer .wash::before{opacity:.62}
-.footer .wash::after{opacity:.9}
+/* ---------- footer: a quiet colour wash low in the footer ---------- */
+.footer{position:relative;overflow:hidden;isolation:isolate;background:#F8F8F6;border-top:1px solid var(--line)}
+.footer::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;z-index:3;background:linear-gradient(90deg,rgba(255,90,43,.35),rgba(232,23,124,.3) 34%,rgba(0,179,154,.3) 67%,rgba(110,69,232,.35));opacity:.6}
+.footer .wash{--mask:linear-gradient(to top,#000 0%,rgba(0,0,0,.6) 30%,transparent 62%);--wash:
+  radial-gradient(44% 80% at 6% 100%,#FFE1CC 0%,rgba(255,225,204,0) 62%),
+  radial-gradient(40% 70% at 36% 100%,#FFD9E8 0%,rgba(255,217,232,0) 62%),
+  radial-gradient(40% 70% at 64% 100%,#D6F3EC 0%,rgba(214,243,236,0) 62%),
+  radial-gradient(44% 80% at 94% 100%,#E4DBFF 0%,rgba(228,219,255,0) 62%)}
+.footer .wash::before{opacity:.5}
+.footer .wash::after{opacity:.55;-webkit-mask-image:radial-gradient(circle,#000 1.1px,transparent 1.6px);-webkit-mask-size:7px 7px;mask-image:radial-gradient(circle,#000 1.1px,transparent 1.6px);mask-size:7px 7px}
 .footer > .wrap{position:relative;z-index:2}
-.foot-bottom{border-top-color:rgba(11,11,12,.1)}
+.foot-bottom{border-top-color:rgba(11,11,12,.08)}
