@@ -718,4 +718,38 @@
     if (vq) { var vd = cleanDomain(decodeURIComponent(vq[1])); if (vd) { vInput.value = vd; run(vd); } }
   }
 
+
+  /* ---------- 8. process: the monthly rhythm ----------
+     When the section scrolls into view a cursor sweeps across thirty days; each dot lights as it
+     passes and wakes the card it belongs to. Hovering a card highlights its lane, and back. */
+  var rh = $('#rhythm');
+  if (rh) {
+    var rhDots = $$('.rh-lane i', rh).map(function (el) { return { el: el, d: parseFloat(el.style.getPropertyValue('--d')) || 1, kind: el.closest('.rh-row').getAttribute('data-kind') }; });
+    var rhCards = {}, rhRows = {};
+    $$('.rh-card', rh).forEach(function (c) { rhCards[c.getAttribute('data-kind')] = c; });
+    $$('.rh-row', rh).forEach(function (r) { rhRows[r.getAttribute('data-kind')] = r; });
+    var rhSet = function (p, quiet) {
+      rh.style.setProperty('--p', p.toFixed(4));
+      rhDots.forEach(function (o) {
+        if (o.el.classList.contains('is-lit') || p < (o.d - 0.5) / 30) return;
+        o.el.classList.add('is-lit');
+        var c = rhCards[o.kind]; if (!c) return;
+        c.classList.add('is-lit');
+        if (!quiet) { c.classList.remove('is-pulse'); void c.offsetWidth; c.classList.add('is-pulse'); }
+      });
+    };
+    var rhPlay = function () {
+      if (prefersReduced || staticMode) { rhSet(1, true); rh.classList.add('is-done'); return; }
+      var t0 = null, dur = 5600;
+      var tick = function (now) { if (t0 === null) t0 = now; var p = Math.min(1, (now - t0) / dur); rhSet(p); if (p < 1) requestAnimationFrame(tick); else setTimeout(function () { rh.classList.add('is-done'); }, 600); };
+      requestAnimationFrame(tick);
+    };
+    if (prefersReduced || staticMode || !('IntersectionObserver' in window)) rhPlay();
+    else { var rio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { rhPlay(); rio.disconnect(); } }); }, { threshold: 0.3 }); rio.observe(rh); }
+    Object.keys(rhCards).forEach(function (k) {
+      var on = function () { rh.setAttribute('data-focus', k); }, off = function () { rh.removeAttribute('data-focus'); };
+      [rhCards[k], rhRows[k]].forEach(function (el) { if (el) { el.addEventListener('pointerenter', on); el.addEventListener('pointerleave', off); } });
+    });
+  }
+
 })();

@@ -9,11 +9,11 @@
 <meta property="og:description" content="Four senior marketers who ran search, brand, lifecycle and events inside one B2B SaaS growth team. Now they run them for yours.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B0B0C'/%3E%3Cpath d='M8 24 16 8l8 16h-4.6L16 16.9 12.6 24z' fill='%23FBAF20'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B0B0C'/%3E%3Cg transform='translate(6.4 10.4) scale(.55)'%3E%3Cpath d='M0 20 4.4 0h3.6L3.6 20z' fill='%23fff'/%3E%3Cpath d='M9 20 13.4 0h3.6L12.6 20z' fill='%23fff'/%3E%3Cpath d='M18 20 22.4 0h3.6L21.6 20z' fill='%23fff'/%3E%3Cpath d='M27 20 31.4 0H35l-4.4 20z' fill='%23FBAF20'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="css/site.css?v=10">
+<link rel="stylesheet" href="css/site.css?v=12">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Fourward","description":"A four-lane marketing pod for B2B SaaS companies: search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.","areaServed":"Worldwide","knowsAbout":["SEO","Generative engine optimisation","Content marketing","Public relations","Marketing automation","Demand generation","Field marketing","Events"],"employee":[{"@type":"Person","name":"Sharang Misri","jobTitle":"Lifecycle & demand generation","sameAs":"https://linkedin.com/in/sharang-misri"},{"@type":"Person","name":"Deepak Sharma","jobTitle":"Search, content & AI visibility","sameAs":"https://linkedin.com/in/deepak-sharma-4403bb227"},{"@type":"Person","name":"Geetanjali Sharma","jobTitle":"Brand, PR & partnerships","sameAs":"https://linkedin.com/in/geetanjali007"},{"@type":"Person","name":"Rishabh Gautam","jobTitle":"Field marketing & events","sameAs":"https://linkedin.com/in/rishabh-gautam-397361169"}]}
 </script>
@@ -22,6 +22,7 @@
 <div class="frame" aria-hidden="true"><i></i></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fw-mark" viewBox="0 0 35 20"><path d="M0 20 4.4 0h3.6L3.6 20z"/><path d="M9 20 13.4 0h3.6L12.6 20z"/><path d="M18 20 22.4 0h3.6L21.6 20z"/><path d="M27 20 31.4 0H35l-4.4 20z" fill="#FBAF20"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-arrow-ne" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
@@ -53,7 +54,7 @@
 <!-- nav -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Fourward home"><img src="assets/logo-ink.svg" alt="Fourward" width="150" height="40"></a>
+    <a class="brand" href="#top" aria-label="Fourward home"><svg class="brand-mark" aria-hidden="true"><use href="#fw-mark"/></svg><span class="brand-word">Fourward</span></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
@@ -559,13 +560,72 @@
         <span class="eyebrow">How we work</span>
         <h2 class="h2" style="margin-top:18px">No black box. One plan, one dashboard, one rhythm.</h2>
       </div>
-      <p class="lead">A reporting rhythm you can plan around, so you always know what shipped and what it moved.</p>
+      <p class="lead">A rhythm you can plan around: a baseline on day one, a note every week, a call every two weeks and a full report every month.</p>
     </div>
-    <div class="steps reveal">
-      <div class="step"><span class="when"><svg><use href="#i-flag"/></svg>Start</span><h3>Baseline report</h3><p>What is indexed, what ranks, what AI says about you and where pipeline leaks. Every later report is measured against it.</p><span class="n">01</span></div>
-      <div class="step"><span class="when"><svg><use href="#i-calendar"/></svg>Weekly</span><h3>Progress update</h3><p>What shipped, what moved and what is next, in one short written note. Rankings and AI answers are tracked every week.</p><span class="n">02</span></div>
-      <div class="step"><span class="when"><svg><use href="#i-phone"/></svg>Every two weeks</span><h3>Review call</h3><p>Results by lane against the targets we agreed. We cut what is not working, back what is, and set the next two weeks.</p><span class="n">03</span></div>
-      <div class="step"><span class="when"><svg><use href="#i-chart"/></svg>Monthly</span><h3>Full report</h3><p>Traffic, rankings, AI citations, coverage and pipeline on one dashboard, with what we learned and next month's plan.</p><span class="n">04</span></div>
+    <div class="rhythm reveal" id="rhythm">
+      <div class="rh-cards">
+        <article class="rh-card" data-kind="base" data-tone="d">
+          <div class="wash" aria-hidden="true"></div>
+          <div class="rh-vis rh-vis-base" aria-hidden="true">
+            <div class="rh-ring"><svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="arc" cx="22" cy="22" r="18" pathLength="100"/></svg><b>Day 1</b></div>
+            <ul class="rh-bars"><li><span>Indexed</span><i style="--w:78%"></i></li><li><span>Ranking</span><i style="--w:46%"></i></li><li><span>AI answers</span><i style="--w:22%"></i></li><li><span>Pipeline</span><i style="--w:34%"></i></li></ul>
+          </div>
+          <span class="rh-when"><svg><use href="#i-flag"/></svg>Day 1</span>
+          <h3>Baseline report</h3>
+          <p>Where you stand: what ranks, what AI says about you, where pipeline leaks.</p>
+        </article>
+        <article class="rh-card" data-kind="week" data-tone="g">
+          <div class="wash" aria-hidden="true"></div>
+          <div class="rh-vis rh-vis-note" aria-hidden="true">
+            <div class="rh-note-head"><b>Progress note</b><span>Friday</span></div>
+            <ul>
+              <li><i class="ic ok"><svg><use href="#i-check"/></svg></i><span>Shipped</span><em style="--w:72%"></em></li>
+              <li><i class="ic up"><svg><use href="#i-arrow-ne"/></svg></i><span>Moved</span><em style="--w:54%"></em></li>
+              <li><i class="ic nx"><svg><use href="#i-arrow"/></svg></i><span>Next</span><em style="--w:64%"></em></li>
+            </ul>
+          </div>
+          <span class="rh-when"><svg><use href="#i-calendar"/></svg>Every week</span>
+          <h3>Progress note</h3>
+          <p>What shipped, what moved and what is next, in one short note.</p>
+        </article>
+        <article class="rh-card" data-kind="call" data-tone="s">
+          <div class="wash" aria-hidden="true"></div>
+          <div class="rh-vis rh-vis-call" aria-hidden="true">
+            <div class="rh-grid">
+              <img src="assets/team/sharang.jpg" alt="" loading="lazy" style="object-position:center 22%">
+              <img src="assets/team/deepak.jpg" alt="" loading="lazy" style="object-position:center 14%">
+              <img src="assets/team/geetanjali.jpg" alt="" loading="lazy" style="object-position:52% 30%">
+              <img src="assets/team/rishabh.jpg" alt="" loading="lazy" style="object-position:30% 22%">
+            </div>
+            <span class="rh-live"><i></i>Review · 30 min</span>
+          </div>
+          <span class="rh-when"><svg><use href="#i-phone"/></svg>Every two weeks</span>
+          <h3>Review call</h3>
+          <p>All four lane owners against your targets. Cut what lags, back what works.</p>
+        </article>
+        <article class="rh-card" data-kind="month" data-tone="r">
+          <div class="wash" aria-hidden="true"></div>
+          <div class="rh-vis rh-vis-chart" aria-hidden="true">
+            <div class="rh-chart-head"><span>Traffic</span><span>AI citations</span><span>Pipeline</span></div>
+            <svg viewBox="0 0 200 80" preserveAspectRatio="none"><path class="area" d="M0 66 C30 62 45 58 62 54 S100 44 122 38 S160 22 200 12 L200 80 L0 80 Z"/><path class="line" d="M0 66 C30 62 45 58 62 54 S100 44 122 38 S160 22 200 12" pathLength="100"/></svg>
+          </div>
+          <span class="rh-when"><svg><use href="#i-chart"/></svg>Every month</span>
+          <h3>Full report</h3>
+          <p>Traffic, AI citations, coverage and pipeline on one dashboard.</p>
+        </article>
+      </div>
+
+      <div class="rh-score" aria-label="A month with Fourward">
+        <div class="rh-score-head"><span>A month with Fourward</span><span class="rh-legend">Each dot is something you receive</span></div>
+        <div class="rh-plot">
+          <div class="rh-row" data-kind="base"><span class="rh-lab"><svg><use href="#i-flag"/></svg>Baseline</span><div class="rh-lane"><i style="--d:1"></i></div></div>
+          <div class="rh-row" data-kind="week"><span class="rh-lab"><svg><use href="#i-calendar"/></svg>Progress note</span><div class="rh-lane"><i style="--d:5"></i><i style="--d:12"></i><i style="--d:19"></i><i style="--d:26"></i></div></div>
+          <div class="rh-row" data-kind="call"><span class="rh-lab"><svg><use href="#i-phone"/></svg>Review call</span><div class="rh-lane"><i style="--d:14"></i><i style="--d:28"></i></div></div>
+          <div class="rh-row" data-kind="month"><span class="rh-lab"><svg><use href="#i-chart"/></svg>Full report</span><div class="rh-lane"><i style="--d:30"></i></div></div>
+          <div class="rh-axis"><span></span><div class="rh-days"><span style="--d:1">Day 1</span><span style="--d:8">Week 2</span><span style="--d:15">Week 3</span><span style="--d:22">Week 4</span><span style="--d:30">Day 30</span></div></div>
+          <i class="rh-cursor" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
 
     <div class="sec-head reveal" style="margin-top:clamp(56px,7vw,96px)">
@@ -670,7 +730,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="assets/logo-ink.svg" alt="Fourward" width="150" height="40">
+        <a class="brand" href="#top" aria-label="Fourward home"><svg class="brand-mark" aria-hidden="true"><use href="#fw-mark"/></svg><span class="brand-word">Fourward</span></a>
         <p>Four lanes, one direction. A senior marketing pod for B2B SaaS companies that want the whole department, not a vendor.</p>
       </div>
       <div class="foot-col">
@@ -709,6 +769,6 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=10" defer></script>
+<script src="js/site.js?v=12" defer></script>
 </body>
 </html>
