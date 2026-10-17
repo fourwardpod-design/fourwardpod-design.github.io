@@ -25,6 +25,14 @@ node ../tools/serve.js . 4174
 3. **Working hours.** `workStart`, `workEnd`, `slotMin`, `daysAhead` and `leadHours` are at the top of `js/site.js`. Times are defined in India time and shown in the visitor's zone.
 4. **Logos.** The wall shows 12. `dextr.svg` is in the folder but not placed. Hirect's file came from a small source and is slightly soft; replace it when a sharper file is available. Zelto has no usable logo (the domain now belongs to another company).
 
+## The AI visibility check (hero)
+
+The card in the hero runs live checks in the visitor's browser, no server involved: the site's own HTML (title, description, H1, Open Graph, JSON-LD and Organization schema) via r.jina.ai, robots.txt rules for GPTBot, PerplexityBot, Google-Extended and ClaudeBot, llms.txt, and the entity record the engines lean on (Wikipedia, then DuckDuckGo). It scores the domain out of 100 and quotes the most machine-readable sentence it found. `?check=domain.com` runs it on load.
+
+Results are cached in the visitor's browser for 24 hours per domain. The page fetcher (r.jina.ai) limits anonymous callers per domain; when it is busy the card falls back to Microlink for the title, description and logo and marks the rest "not checked right now" instead of scoring. A free key from jina.ai pasted into `jinaKey` in `js/site.js` removes that limit.
+
+The literal engine answers ("what ChatGPT says") need API keys, so they live in `server/ai-check-worker.js`, a Cloudflare Worker you deploy once with your OpenAI, Perplexity and Gemini keys. Paste its URL into `aiCheckUrl` at the top of `js/site.js` and three "X says" cards appear under the checks, each flagged with whether the answer names the brand.
+
 ## The Talk bar
 
 The floating pill at the bottom (modelled on Conduit's composer) has no backend. It answers the usual questions with short replies that point at the section carrying the proof, and hands anything else to the team by email with the message pre-filled. The intents and answers are the `answers` list in the Talk block of `js/site.js`; add a line there to teach it a new question. The mic uses the browser's own speech recognition (Chrome, Edge, Safari) and hides itself elsewhere. To connect a real assistant later, replace the `reply()` function with a fetch to your endpoint.

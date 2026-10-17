@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="css/site.css?v=8">
+<link rel="stylesheet" href="css/site.css?v=10">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Fourward","description":"A four-lane marketing pod for B2B SaaS companies: search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.","areaServed":"Worldwide","knowsAbout":["SEO","Generative engine optimisation","Content marketing","Public relations","Marketing automation","Demand generation","Field marketing","Events"],"employee":[{"@type":"Person","name":"Sharang Misri","jobTitle":"Lifecycle & demand generation","sameAs":"https://linkedin.com/in/sharang-misri"},{"@type":"Person","name":"Deepak Sharma","jobTitle":"Search, content & AI visibility","sameAs":"https://linkedin.com/in/deepak-sharma-4403bb227"},{"@type":"Person","name":"Geetanjali Sharma","jobTitle":"Brand, PR & partnerships","sameAs":"https://linkedin.com/in/geetanjali007"},{"@type":"Person","name":"Rishabh Gautam","jobTitle":"Field marketing & events","sameAs":"https://linkedin.com/in/rishabh-gautam-397361169"}]}
 </script>
@@ -82,12 +82,41 @@
         </div>
       </div>
       <div class="hero-side">
-        <p class="lead">Fourward is four senior marketers who ran search, brand, lifecycle and events side by side inside one B2B SaaS growth team. Content that ranks and gets quoted by AI. Press that earns trust. Email and webinars that turn readers into demos. Events that put buyers in the room. One plan, shipped weekly, measured on pipeline.</p>
-        <div class="hero-meta">
-          <span><svg><use href="#i-search"/></svg>Search</span>
-          <span><svg><use href="#i-mega"/></svg>Brand</span>
-          <span><svg><use href="#i-mail"/></svg>Lifecycle</span>
-          <span><svg><use href="#i-pin"/></svg>Events</span>
+        <p class="lead hero-sub">Search, brand, lifecycle and events, run by four senior marketers as one team. Measured on pipeline.</p>
+        <div class="vis" id="vis" data-state="idle">
+          <div class="vis-head">
+            <span class="vis-eyebrow"><i></i>AI visibility check</span>
+            <span class="vis-score" aria-live="polite">
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="track" cx="22" cy="22" r="19"/><circle class="ring" cx="22" cy="22" r="19" pathLength="100"/></svg>
+              <b data-vis-score>–</b>
+            </span>
+          </div>
+          <form class="vis-form" id="vis-form" autocomplete="off">
+            <label class="sr-only" for="vis-domain">Your website</label>
+            <span class="vis-prefix">https://</span>
+            <input id="vis-domain" type="text" inputmode="url" placeholder="yourcompany.com" spellcheck="false" autocapitalize="off">
+            <button type="submit" class="btn btn-dark btn-sm" data-vis-go>Check <svg><use href="#i-arrow"/></svg></button>
+          </form>
+          <p class="vis-intro" data-vis-intro>See what Google, ChatGPT and Perplexity can read about you right now: what your site tells machines, whether the AI crawlers may read it, and whether you exist as an entity they can cite. <span class="vis-try">Try <button type="button" data-vis-try="stripe.com">stripe.com</button> or <button type="button" data-vis-try="adpushup.com">adpushup.com</button></span></p>
+          <div class="vis-result" data-vis-result hidden>
+            <div class="vis-brand">
+              <img data-vis-logo alt="" width="28" height="28" hidden>
+              <div><b data-vis-name>–</b><span data-vis-domain-label>–</span></div>
+            </div>
+            <p class="vis-say" data-vis-say></p>
+            <ul class="vis-rows">
+              <li data-row="site"><span class="vis-k"><svg><use href="#i-grid"/></svg>What your site tells machines</span><span class="vis-v" data-v="site"><i class="vis-skel"></i></span></li>
+              <li data-row="entity"><span class="vis-k"><svg><use href="#i-users"/></svg>Known entity (Wikipedia / knowledge graph)</span><span class="vis-v" data-v="entity"><i class="vis-skel"></i></span></li>
+              <li data-row="crawl"><span class="vis-k"><svg><use href="#i-search"/></svg>Can the AI crawlers read you?</span><span class="vis-v" data-v="crawl"><i class="vis-skel"></i></span></li>
+              <li data-row="schema"><span class="vis-k"><svg><use href="#i-flag"/></svg>Structured data &amp; llms.txt</span><span class="vis-v" data-v="schema"><i class="vis-skel"></i></span></li>
+            </ul>
+            <div class="vis-engines" data-vis-engines hidden></div>
+            <div class="vis-foot">
+              <p data-vis-verdict></p>
+              <div class="vis-actions"><a class="btn btn-dark btn-sm" data-vis-cta href="#book">Get the full report <svg><use href="#i-arrow"/></svg></a><button type="button" class="btn btn-ghost btn-sm" data-vis-reset>Check another</button></div>
+            </div>
+          </div>
+          <p class="vis-note">Live checks run in your browser against the public web. The full report adds the actual answers from ChatGPT, Perplexity and Google AI Mode for twenty buyer prompts.</p>
         </div>
       </div>
     </div>
@@ -680,6 +709,6 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=8" defer></script>
+<script src="js/site.js?v=10" defer></script>
 </body>
 </html>

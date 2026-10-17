@@ -14,6 +14,11 @@
     // Paste a Cal.com / Calendly / Google appointment link here and the
     // "Request this time" button will send visitors there instead of email.
     bookingUrl: '',
+    // Optional: a small server that returns the real ChatGPT / Perplexity / Google answers for a
+    // domain (see server/ai-check-worker.js). Leave empty and the hero check runs browser-only.
+    aiCheckUrl: '',
+    // Optional: a free key from jina.ai lifts the per-domain limit on the anonymous page fetcher.
+    jinaKey: '',
     hostTz: 'Asia/Kolkata',       // working hours are defined in this zone
     hostOffsetMin: 330,           // IST = UTC+5:30, no daylight saving
     workStart: 10 * 60,           // 10:00
@@ -486,6 +491,231 @@
     // ?talk=<question> opens the sheet with that question (screenshots, QA)
     var tq = /[?&]talk=([^&]+)/.exec(location.search);
     if (tq) ask(decodeURIComponent(tq[1].replace(/\+/g, ' ')));
+  }
+
+
+
+  /* ---------- 7. AI visibility check ----------
+     Everything here runs in the visitor's browser against the public web:
+       - the site's own HTML (via r.jina.ai, which adds CORS headers): title, description, schema;
+         if that fetcher is busy, Microlink supplies title, description and logo instead
+       - robots.txt: may GPTBot, PerplexityBot, Google-Extended and ClaudeBot read the site?
+       - llms.txt
+       - the entity record AI engines lean on: Wikipedia (REST summary, search) and DuckDuckGo
+     Results are cached in the browser for 24 hours per domain.
+     FOURWARD.jinaKey (free at jina.ai) lifts the anonymous per-domain limit; FOURWARD.aiCheckUrl
+     adds the real ChatGPT / Perplexity / Google answers (see server/ai-check-worker.js). */
+  var vis = $('#vis');
+  if (vis) {
+    var vForm = $('#vis-form'), vInput = $('#vis-domain'), vIntro = $('[data-vis-intro]', vis), vResult = $('[data-vis-result]', vis);
+    var vScore = $('[data-vis-score]', vis), vRing = $('.ring', vis), vLogo = $('[data-vis-logo]', vis), vName = $('[data-vis-name]', vis);
+    var vDomain = $('[data-vis-domain-label]', vis), vSay = $('[data-vis-say]', vis), vVerdict = $('[data-vis-verdict]', vis), vCta = $('[data-vis-cta]', vis), vEngines = $('[data-vis-engines]', vis);
+    var ROWS = ['site', 'entity', 'crawl', 'schema'];
+    var cell = function (k) { return $('[data-v="' + k + '"]', vis); };
+    var chip = function (label, cls) { return '<span class="vis-chip ' + (cls || '') + '">' + esc(label) + '</span>'; };
+    var withTimeout = function (p, ms) { return Promise.race([p, new Promise(function (_, rej) { setTimeout(function () { rej(new Error('timeout')); }, ms); })]); };
+    var getText = function (url, headers, ms) { return withTimeout(fetch(url, { headers: headers || {} }).then(function (r) { return r.text().then(function (t) { return { ok: r.ok, status: r.status, text: t }; }); }), ms || 22000); };
+    var busy = function (r) { return r.status === 403 || r.status === 429 || /AbuseAlleviation|rate limit/i.test((r.text || '').slice(0, 300)); };
+    var jina = function (domain, path, html) {
+      var h = html ? { 'X-Return-Format': 'html' } : { 'X-No-Cache': 'true' };
+      if (FOURWARD.jinaKey) h['Authorization'] = 'Bearer ' + FOURWARD.jinaKey;
+      return getText('https://r.jina.ai/https://' + domain + (path || ''), h).then(function (r) { if (busy(r)) throw Object.assign(new Error('busy'), { busy: true }); return r; });
+    };
+    var cleanDomain = function (s) { s = String(s || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0]; return /^[a-z0-9.-]+\.[a-z]{2,}$/.test(s) ? s : ''; };
+    var meta = function (html, name) { var re = new RegExp('<meta[^>]+(?:name|property)=["\']' + name + '["\'][^>]*content=["\']([^"\']*)["\']', 'i'); var m = re.exec(html); if (m) return m[1]; re = new RegExp('<meta[^>]+content=["\']([^"\']*)["\'][^>]*(?:name|property)=["\']' + name + '["\']', 'i'); m = re.exec(html); return m ? m[1] : ''; };
+    var decode = function (s) { var t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
+    var labelOf = function (domain) { var l = domain.split('.')[0]; return l.charAt(0).toUpperCase() + l.slice(1); };
+    var brandFrom = function (domain, html) {
+      var site = meta(html, 'og:site_name'); if (site) return decode(site).trim();
+      var t = /<title[^>]*>([^<]*)<\/title>/i.exec(html); if (t) { var parts = decode(t[1]).split(/\s[|\-–—:·]\s/).map(function (p) { return p.trim(); }).filter(Boolean); if (parts.length) { parts.sort(function (a, b) { return a.length - b.length; }); if (parts[0].length <= 30) return parts[0]; } }
+      return labelOf(domain);
+    };
+    var firstSentences = function (t, n) { return String(t || '').split(/(?<=[.!?])\s+/).slice(0, n || 2).join(' '); };
+    var state = { domain: '', score: 0, parts: {}, partial: false };
+    var setScore = function () {
+      var s = 0; Object.keys(state.parts).forEach(function (k) { s += state.parts[k]; }); s = Math.max(0, Math.min(100, Math.round(s)));
+      state.score = s;
+      if (state.partial) { vScore.textContent = '–'; vRing.style.strokeDashoffset = '100'; vis.removeAttribute('data-grade'); return; }
+      vScore.textContent = s; vRing.style.strokeDashoffset = String(100 - s);
+      vis.setAttribute('data-grade', s >= 70 ? 'good' : s >= 40 ? 'mid' : 'low');
+    };
+    var skel = function () { ROWS.forEach(function (k) { cell(k).innerHTML = '<i class="vis-skel"></i>'; }); };
+    var reset = function () {
+      vis.setAttribute('data-state', 'idle'); vis.removeAttribute('data-grade'); state = { domain: '', score: 0, parts: {}, partial: false };
+      vScore.textContent = '–'; vRing.style.strokeDashoffset = '100'; vResult.hidden = true; vIntro.hidden = false; vEngines.hidden = true; vEngines.innerHTML = '';
+      skel(); vSay.textContent = ''; vVerdict.textContent = ''; vLogo.hidden = true; vInput.value = ''; vInput.focus();
+    };
+    $('[data-vis-reset]', vis).addEventListener('click', reset);
+    $$('[data-vis-try]', vis).forEach(function (b) { b.addEventListener('click', function () { vInput.value = b.getAttribute('data-vis-try'); vForm.requestSubmit(); }); });
+
+    // 24h cache of rendered results, per domain
+    var cacheKey = function (d) { return 'fw-vis:' + d; };
+    var readCache = function (d) { try { var j = JSON.parse(localStorage.getItem(cacheKey(d)) || 'null'); return j && Date.now() - j.ts < 864e5 ? j : null; } catch (e) { return null; } };
+    var writeCache = function () {
+      if (state.partial) return;
+      try { localStorage.setItem(cacheKey(state.domain), JSON.stringify({ ts: Date.now(), score: state.score, name: vName.textContent, say: vSay.textContent, verdict: vVerdict.textContent, logo: vLogo.hidden ? '' : vLogo.src, rows: ROWS.reduce(function (o, k) { o[k] = cell(k).innerHTML; return o; }, {}) })); } catch (e) {}
+    };
+    var begin = function (domain) {
+      state = { domain: domain, score: 0, parts: {}, partial: false };
+      vis.setAttribute('data-state', 'scanning'); vis.removeAttribute('data-grade');
+      vIntro.hidden = true; vResult.hidden = false; vEngines.hidden = true; vEngines.innerHTML = ''; skel();
+      vScore.textContent = '…'; vRing.style.strokeDashoffset = '100';
+      vName.textContent = labelOf(domain); vDomain.textContent = domain; vSay.textContent = ''; vVerdict.textContent = '';
+      vLogo.hidden = false; vLogo.src = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=64'; vLogo.onerror = function () { vLogo.hidden = true; };
+    };
+    var finish = function (brand) {
+      vis.setAttribute('data-state', 'done');
+      var s = state.score, name = brand || state.domain, domain = state.domain;
+      var v = state.partial ? 'The public fetcher is busy for ' + domain + ' right now, so part of the check could not run. Try again in a minute, or let us run the full report.' :
+              s >= 70 ? name + ' is readable to the engines. The next question is what they actually say about you when a buyer asks, and whether they cite you or a competitor.' :
+              s >= 40 ? name + ' can be read, but the engines are working from thin material. A clear entity record, Organization schema and a tight description are quick wins.' :
+              'The engines have very little to go on for ' + name + '. Before any AI answer can name you, the basics above need fixing.';
+      vVerdict.textContent = v;
+      var subject = 'AI visibility report for ' + domain;
+      var body = 'Hi Fourward team,\n\nPlease run the full AI visibility report for ' + domain + (state.partial ? '' : ' (quick check scored ' + s + '/100)') + '.\n\nName:\nRole:\n';
+      vCta.href = 'mailto:' + FOURWARD.emails.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      writeCache();
+      if (FOURWARD.aiCheckUrl) engines(domain);
+    };
+    var replay = function (domain, c) {
+      begin(domain); vName.textContent = c.name; if (c.logo) vLogo.src = c.logo;
+      var i = 0; var step = function () { if (i < ROWS.length) { cell(ROWS[i]).innerHTML = c.rows[ROWS[i]]; i++; setTimeout(step, prefersReduced ? 0 : 260); } else { vSay.textContent = c.say; state.parts.all = c.score; setScore(); vVerdict.textContent = c.verdict; finish(c.name); } };
+      setTimeout(step, prefersReduced ? 0 : 300);
+    };
+
+    var run = function (domain) {
+      var c = readCache(domain); if (c) return replay(domain, c);
+      begin(domain);
+      var brand = null;
+
+      // 1) the site's own HTML, or Microlink's reading of it when the fetcher is busy
+      var pHtml = jina(domain, '/', true).then(function (r) {
+        if (!r.ok || !r.text) throw new Error('unreachable');
+        return { html: r.text };
+      }).catch(function (e) {
+        return withTimeout(fetch('https://api.microlink.io/?url=' + encodeURIComponent('https://' + domain)).then(function (r) { return r.json(); }), 15000).then(function (j) {
+          if (!j || j.status !== 'success') throw e;
+          var d = j.data || {}; return { lite: true, title: d.title || '', description: d.description || '', brand: d.publisher || '', logo: d.logo && d.logo.url };
+        });
+      }).then(function (res) {
+        var title, description, chips = [];
+        if (res.lite) {
+          brand = res.brand || labelOf(domain); title = res.title; description = res.description;
+          if (res.logo) { vLogo.src = res.logo; vLogo.hidden = false; }
+          chips.push(title ? chip('Title', 'ok') : chip('No title', 'bad'));
+          chips.push(!description ? chip('No description', 'bad') : (description.length < 50 || description.length > 170) ? chip('Description ' + description.length + ' chars', 'warn') : chip('Description', 'ok'));
+          chips.push(chip('H1 and schema not checked right now', 'warn'));
+          cell('site').innerHTML = chips.join('');
+          cell('schema').innerHTML = chip('Not checked right now', 'warn') + '<i class="vis-skel" data-skel="llms" style="width:52px"></i>';
+          state.partial = true; state.parts.site = (title ? 5 : 0) + (description ? (description.length >= 50 && description.length <= 170 ? 15 : 9) : 0);
+        } else {
+          var html = res.html;
+          brand = brandFrom(domain, html);
+          title = decode((/<title[^>]*>([^<]*)<\/title>/i.exec(html) || [])[1] || '').trim();
+          description = decode(meta(html, 'description') || meta(html, 'og:description') || '').trim();
+          var h1 = /<h1[\s>]/i.test(html), og = !!meta(html, 'og:title');
+          var ld = html.match(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) || [];
+          var types = []; ld.forEach(function (s) { (s.match(/"@type"\s*:\s*"([^"]+)"/g) || []).forEach(function (x) { types.push(x.replace(/.*:\s*"/, '').replace(/"$/, '')); }); });
+          var orgType = types.filter(function (t) { return /Organization|Corporation|LocalBusiness|SoftwareApplication|WebSite|Brand/i.test(t); })[0];
+          chips.push(title ? chip('Title', 'ok') : chip('No title', 'bad'));
+          chips.push(!description ? chip('No description', 'bad') : (description.length < 50 || description.length > 170) ? chip('Description ' + description.length + ' chars', 'warn') : chip('Description', 'ok'));
+          chips.push(h1 ? chip('H1', 'ok') : chip('No H1', 'warn'));
+          chips.push(og ? chip('Open Graph', 'ok') : chip('No Open Graph', 'warn'));
+          cell('site').innerHTML = chips.join('');
+          state.parts.site = (title ? 5 : 0) + (description ? (description.length >= 50 && description.length <= 170 ? 15 : 9) : 0) + (h1 ? 5 : 0) + (og ? 5 : 0);
+          cell('schema').innerHTML = (ld.length ? chip('JSON-LD ×' + ld.length, 'ok') : chip('No JSON-LD', 'bad')) + (orgType ? chip(orgType, 'ok') : chip('No Organization schema', 'warn')) + '<i class="vis-skel" data-skel="llms" style="width:52px"></i>';
+          state.parts.schema = (ld.length ? 10 : 0) + (orgType ? 10 : 0);
+        }
+        vName.textContent = brand;
+        if (description) vSay.textContent = '"' + description + '"';
+        setScore();
+      }).catch(function () {
+        cell('site').innerHTML = chip('Could not reach the homepage', 'bad');
+        cell('schema').innerHTML = chip('Not checked', 'warn');
+        state.partial = true; setScore();
+      });
+
+      // 2) robots.txt: the AI crawlers
+      var pRobots = jina(domain, '/robots.txt').then(function (r) {
+        var body = (r.text.split(/Markdown Content:\s*/)[1] || r.text || '');
+        if (!r.ok || /^Warning: Target URL returned error/m.test(r.text) || !/user-agent/i.test(body)) throw new Error('no robots');
+        var groups = [], cur = null;
+        body.split(/\r?\n/).forEach(function (line) {
+          line = line.replace(/#.*$/, '').trim(); if (!line) return;
+          var m = /^user-agent\s*:\s*(.+)$/i.exec(line);
+          if (m) { if (!cur || cur.rules.length) { cur = { agents: [], rules: [] }; groups.push(cur); } cur.agents.push(m[1].trim().toLowerCase()); return; }
+          var d = /^(allow|disallow)\s*:\s*(.*)$/i.exec(line); if (d && cur) cur.rules.push({ allow: d[1].toLowerCase() === 'allow', path: d[2].trim() });
+        });
+        var blockedFor = function (agent) {
+          var g = groups.filter(function (x) { return x.agents.indexOf(agent.toLowerCase()) >= 0; })[0] || groups.filter(function (x) { return x.agents.indexOf('*') >= 0; })[0];
+          return g ? g.rules.some(function (r) { return !r.allow && (r.path === '/' || r.path === '/*'); }) : false;
+        };
+        var bots = [['ChatGPT', ['GPTBot', 'OAI-SearchBot']], ['Perplexity', ['PerplexityBot']], ['Google AI', ['Google-Extended', 'Googlebot']], ['Claude', ['ClaudeBot', 'anthropic-ai']]];
+        var sitemap = /sitemap\s*:/i.test(body), score = 0;
+        var chips = bots.map(function (b) { var blocked = b[1].some(blockedFor); if (!blocked) score += 5; return chip(b[0] + (blocked ? ' blocked' : ' allowed'), blocked ? 'bad' : 'ok'); });
+        state.parts.crawl = score + (sitemap ? 5 : 0);
+        cell('crawl').innerHTML = chips.join('') + (sitemap ? chip('Sitemap', 'ok') : chip('No sitemap in robots', 'warn'));
+        setScore();
+      }).catch(function (e) {
+        if (e && (e.busy || e.message === 'timeout')) { cell('crawl').innerHTML = chip('Not checked right now', 'warn'); state.partial = true; }
+        else { cell('crawl').innerHTML = chip('No robots.txt: crawlers allowed by default', 'warn'); state.parts.crawl = 20; }
+        setScore();
+      });
+
+      // 3) llms.txt
+      var pLlms = jina(domain, '/llms.txt').then(function (r) {
+        var ok = r.ok && !/^Warning: Target URL returned error/m.test(r.text) && !/Title:\s*(page not found|404)/i.test(r.text);
+        var body = (r.text.split(/Markdown Content:\s*/)[1] || '').trim();
+        ok = ok && body.length > 40 && !/not found|doesn'?t exist/i.test(body.slice(0, 300));
+        state.parts.llms = ok ? 5 : 0; return ok ? 'yes' : 'no';
+      }).catch(function (e) { state.parts.llms = 0; return (e && e.busy) ? 'unknown' : 'no'; });
+      Promise.all([pHtml, pLlms]).then(function (res) {
+        var st = res[1]; var c = st === 'unknown' ? '' : chip(st === 'yes' ? 'llms.txt' : 'No llms.txt', st === 'yes' ? 'ok' : 'warn');
+        var sk = $('[data-skel="llms"]', vis); if (sk) sk.outerHTML = c; else if (c) cell('schema').insertAdjacentHTML('beforeend', c);
+        setScore();
+      });
+
+      // 4) entity record: Wikipedia (company-style titles, then search), then DuckDuckGo
+      var pEntity = pHtml.then(function () {
+        var name = brand || labelOf(domain), first = name.split(/\s+/)[0];
+        var summary = function (title) { return withTimeout(fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(title.replace(/\s+/g, '_'))).then(function (r) { return r.ok ? r.json() : null; }), 8000).catch(function () { return null; }); };
+        var good = function (w) { return w && w.type === 'standard' && w.extract && new RegExp(first.replace(/[^a-z0-9]/gi, ''), 'i').test(((w.title || '') + ' ' + w.extract.slice(0, 160)).replace(/[^a-z0-9 ]/gi, '')); };
+        var tryTitles = function (titles) { if (!titles.length) return Promise.resolve(null); return summary(titles[0]).then(function (w) { return good(w) ? w : tryTitles(titles.slice(1)); }); };
+        var viaSearch = function () { return withTimeout(fetch('https://en.wikipedia.org/w/api.php?action=query&list=search&srlimit=4&format=json&origin=*&srsearch=' + encodeURIComponent(name + ' company')).then(function (r) { return r.ok ? r.json() : null; }), 8000).catch(function () { return null; }).then(function (j) { var hits = ((j && j.query && j.query.search) || []).filter(function (h) { return new RegExp(first, 'i').test(h.title) && /company|software|platform|service|brand|startup|corporation/i.test(h.snippet); }); return hits.length ? summary(hits[0].title).then(function (w) { return good(w) ? w : null; }) : null; }); };
+        var ddg = function (q) { return withTimeout(fetch('https://api.duckduckgo.com/?q=' + encodeURIComponent(q) + '&format=json&no_html=1&skip_disambig=1').then(function (r) { return r.ok ? r.json() : null; }), 8000).catch(function () { return null; }).then(function (d) { return d && d.Abstract && d.Abstract.length > 40 && new RegExp(first, 'i').test(d.Abstract.slice(0, 120)) ? d : null; }); };
+        return tryTitles([name + ' (company)', name + ', Inc.', name]).then(function (w) { return w || viaSearch(); }).then(function (w) {
+          if (w) return { text: w.extract, src: 'Wikipedia' };
+          return ddg(name).then(function (d) { return d || ddg(name + ' company'); }).then(function (d) { return d ? { text: d.Abstract, src: d.AbstractSource || 'DuckDuckGo' } : null; });
+        }).then(function (hit) {
+          if (hit) { cell('entity').innerHTML = chip('Found on ' + hit.src, 'ok'); state.parts.entity = 20; vSay.textContent = '"' + firstSentences(hit.text, 2) + '"'; }
+          else { cell('entity').innerHTML = chip('No entity record found', 'bad'); state.parts.entity = 0; }
+          setScore();
+        });
+      });
+
+      Promise.all([pHtml, pRobots, pLlms, pEntity]).then(function () { finish(brand); });
+    };
+
+    // optional: the real engine answers from a small server (see server/ai-check-worker.js)
+    var engines = function (domain) {
+      vEngines.hidden = false;
+      vEngines.innerHTML = ['ChatGPT', 'Perplexity', 'Google AI'].map(function (n) { return '<div class="vis-eng"><b>' + n + ' says</b><i class="vis-skel" style="width:60%"></i></div>'; }).join('');
+      withTimeout(fetch(FOURWARD.aiCheckUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ domain: domain }) }).then(function (r) { return r.json(); }), 45000)
+        .then(function (j) {
+          var map = [['ChatGPT', j.chatgpt], ['Perplexity', j.perplexity], ['Google AI', j.google]];
+          vEngines.innerHTML = map.map(function (m) { var a = m[1] || {}; return '<div class="vis-eng"><b>' + m[0] + ' says</b>' + (a.text ? esc(a.text) : '<span class="muted">No answer returned.</span>') + (a.mentions === false ? ' ' + chip('Does not name you', 'bad') : a.mentions === true ? ' ' + chip('Names you', 'ok') : '') + '</div>'; }).join('');
+        })
+        .catch(function () { vEngines.innerHTML = '<div class="vis-eng"><b>Engine answers</b>Not available right now. The full report covers them.</div>'; });
+    };
+
+    vForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = cleanDomain(vInput.value);
+      if (!d) { vInput.setCustomValidity('Enter a domain like yourcompany.com'); vInput.reportValidity(); setTimeout(function () { vInput.setCustomValidity(''); }, 1500); return; }
+      vInput.value = d; run(d);
+    });
+    var vq = /[?&]check=([^&]+)/.exec(location.search);
+    if (vq) { var vd = cleanDomain(decodeURIComponent(vq[1])); if (vd) { vInput.value = vd; run(vd); } }
   }
 
 })();
