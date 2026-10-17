@@ -1165,7 +1165,8 @@ html.static .rh-cursor{display:none}
 @media (max-width:900px){.panel-media{height:310px}}
 @media (min-width:901px){#what.sec-head.center{max-width:none}#what .h2{white-space:nowrap}}
 /* footer: soft blue */
-.footer{background:linear-gradient(180deg,#F2F6FE 0%,#E8EFFD 100%);border-top-color:#DCE5F7}
+.footer{background:linear-gradient(180deg,#FFFFFF 0%,#F6F8FF 30%,#ECF1FE 65%,#E3EBFD 100%);border-top-color:transparent}
+.footer::before{opacity:0}
 .footer .wash{--wash:radial-gradient(60% 90% at 12% 100%,rgba(79,124,255,.30),transparent 70%),radial-gradient(55% 85% at 50% 100%,rgba(110,69,232,.18),transparent 70%),radial-gradient(60% 90% at 90% 100%,rgba(0,163,255,.26),transparent 70%)}
 .footer .foot-bottom{border-top-color:#D6E0F5}
 .footer h4{color:#5B6B8C}
