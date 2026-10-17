@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Geniee",
+    "slug": "geniee",
+    "file": "geniee.svg",
+    "format": "svg",
+    "width": 284.877,
+    "height": 59.881,
+    "aspect": 4.757,
+    "source_url": "https://geniee.co.jp/wp/wp-content/themes/geniee/images/en/footer/GENIEE_TYPE-A_RGB_350x150_Transparent.svg",
+    "note": "Footer SVG from en.geniee.co.jp (the header logo is only a 184px PNG). Icon + GENIEE wordmark. The white inner shape of the round icon was dropped so the cut-out stays transparent instead of merging into a disc."
+  },
+  {
+    "name": "AdPushup",
+    "slug": "adpushup",
+    "file": "adpushup.png",
+    "format": "png",
+    "width": 960,
+    "height": 235,
+    "aspect": 4.085,
+    "source_url": "https://www.adpushup.com/wp-content/uploads/2020/01/logo.png",
+    "note": "No SVG on adpushup.com. The current header image is an \"adpushup by GENIEE\" webp (kept as raw/adpushup-by-geniee.webp); used the plain adpushup wordmark PNG (961px, transparent) that the page JSON-LD references, since Geniee has its own slot in the strip. Raster conversion: alpha-kept, near-white knocked out."
+  },
+  {
+    "name": "Zelto",
+    "slug": "zelto",
+    "file": null,
+    "format": null,
+    "width": null,
+    "height": null,
+    "aspect": null,
+    "source_url": "https://zelto.ai/",
+    "note": "SKIPPED. zelto.ai now belongs to an unrelated company (voice-AI QA, \"Production QA for voice AI agents\"); its wordmark is kept as raw/zelto-logo.png for reference only and must not be used. Wayback has no snapshot of the 2023 AdPushup-era Zelto site, and adpushup.com no longer references Zelto, so no distinct logo exists."
+  },
+  {
+    "name": "Embee",
+    "slug": "embee",
+    "file": "embee.svg",
+    "format": "svg",
+    "width": 170.678,
+    "height": 42.457,
+    "aspect": 4.02,
+    "source_url": "https://embee.co.in/wp-content/uploads/2023/08/Embee-Logo.svg",
+    "note": "Header SVG from embee.co.in: \"embee\" wordmark with (R) and the \"Making IT Easier\" tagline. Two-colour wordmark flattened to one colour; letterforms stay separate."
+  },
+  {
+    "name": "Microsoft",
+    "slug": "microsoft",
+    "file": "microsoft.svg",
+    "format": "svg",
+    "width": 339.288,
+    "height": 73.709,
+    "aspect": 4.603,
+    "source_url": "https://commons.wikimedia.org/wiki/File:Microsoft_logo_(2012).svg",
+    "note": "microsoft.com renders its header logo via JS (no SVG/PNG in the HTML); used the Wikimedia Commons 2012 logo SVG. Four squares + wordmark, all #111111; the squares keep their gaps."
+  },
+  {
+    "name": "TestMu AI",
+    "slug": "testmu",
+    "file": "testmu.svg",
+    "format": "svg",
+    "width": 131.549,
+    "height": 20.937,
+    "aspect": 6.283,
+    "source_url": "https://assets.testmuai.com/resources/images/logos/logo.svg",
+    "note": "Header SVG from testmuai.com. The second line \"Formerly LambdaTest\" was removed (paths below y=25) and duplicated wordmark paths deduped, leaving the mark + \"TestMu AI\"."
+  },
+  {
+    "name": "Hirect",
+    "slug": "hirect",
+    "file": "hirect.png",
+    "format": "png",
+    "width": 600,
+    "height": 158,
+    "aspect": 3.797,
+    "source_url": "https://web.archive.org/web/20240918113902/https://www.hirect.in/_nuxt/img/hirect-logo.a17f63d.png",
+    "note": "DOUBTFUL QUALITY. hirect.in (and hirect.co / hirect.ai) time out from this network and Clearbit is unreachable; the only source obtained is a Wayback Machine capture of the site header PNG whose mark is just 110px wide, upscaled to 600px, so it is soft. Larger captures (footer 2025, header 2023) were rate-limited (HTTP 429) on three paced attempts. Re-fetch from hirect.in when reachable. Picked the widest capture available, hirect-wayback-2024.png (172x48 source). Raster conversion: alpha-kept, near-white knocked out."
+  },
+  {
+    "name": "RattanIndia",
+    "slug": "rattanindia",
+    "file": "rattanindia.svg",
+    "format": "svg",
+    "width": 2652.89,
+    "height": 622.071,
+    "aspect": 4.265,
+    "source_url": "https://www.rattanindia.com/wp-content/themes/r1/images/renterprise-logo-v1.svg",
+    "note": "Header SVG from rattanindia.com: \"RattanIndia ENTERPRISES\" in white on a solid green box. The green background rect was removed and the text/rule recoloured, so the mark is now a dark wordmark on transparent."
+  },
+  {
+    "name": "Canon",
+    "slug": "canon",
+    "file": "canon.svg",
+    "format": "svg",
+    "width": 1005.04,
+    "height": 214.175,
+    "aspect": 4.693,
+    "source_url": "https://commons.wikimedia.org/wiki/File:Canon_wordmark.svg",
+    "note": "global.canon's header SVG carries a grey \"Global\" suffix (kept as raw/canon.svg); used the Wikimedia Commons Canon wordmark SVG instead."
+  },
+  {
+    "name": "CenturyPly",
+    "slug": "centuryply",
+    "file": "centuryply.png",
+    "format": "png",
+    "width": 1006,
+    "height": 453,
+    "aspect": 2.221,
+    "source_url": "https://www.centuryply.com/img/logo.svg",
+    "note": "centuryply.com's \"logo.svg\" is only a wrapper around an embedded 1006x453 PNG (no vector paths), so that raster was extracted and converted. Emblem + CENTURYPLY wordmark; near-white pixels knocked out to transparent. Raster conversion: alpha-kept, near-white knocked out."
+  },
+  {
+    "name": "Coca-Cola",
+    "slug": "cocacola",
+    "file": "cocacola.svg",
+    "format": "svg",
+    "width": 618.155,
+    "height": 196.057,
+    "aspect": 3.153,
+    "source_url": "https://commons.wikimedia.org/wiki/File:Coca-Cola_logo.svg",
+    "note": "coca-cola.com's brand SVG is the script inside a red disc (raw/cocacola-brand.svg) and the only other asset is \"The Coca-Cola Company\" lockup (raw/cocacola-company-black.svg); used the Commons Coca-Cola script wordmark (single path)."
+  },
+  {
+    "name": "REHAU",
+    "slug": "rehau",
+    "file": "rehau.svg",
+    "format": "svg",
+    "width": 284.95,
+    "height": 91.439,
+    "aspect": 3.116,
+    "source_url": "https://commons.wikimedia.org/wiki/File:REHAU_Logo_sRGB_01.svg",
+    "note": "rehau.com answers curl with an Akamai 403 unless full browser headers are sent, and the served HTML has no logo asset (icon font / JS). Used the Wikimedia Commons REHAU logo SVG: segmented ring mark + REHAU wordmark."
+  },
+  {
+    "name": "The Vedic School",
+    "slug": "vedicschool",
+    "file": "vedicschool.png",
+    "format": "png",
+    "width": 956,
+    "height": 112,
+    "aspect": 8.536,
+    "source_url": "https://www.thevedicschool.com/assets/the-vedic-school-logo-BpJOk2Dj.png",
+    "note": "Horizontal \"The Vedic School\" wordmark PNG from the site (1024px, opaque white background) converted with luminance-as-alpha. The site also ships a mascot-only PNG (raw/vedicschool-v25.png), not used. Raster conversion: luminance-as-alpha."
+  },
+  {
+    "name": "Dextr AI",
+    "slug": "dextr",
+    "file": "dextr.svg",
+    "format": "svg",
+    "width": 122.842,
+    "height": 19.881,
+    "aspect": 6.179,
+    "source_url": "https://dextr.ai/img/home-new/dextr-logo.svg",
+    "note": "Header SVG from dextr.ai: mark + \"Dextr AI\" wordmark, recoloured from #232323 to #111111."
+  }
+]
