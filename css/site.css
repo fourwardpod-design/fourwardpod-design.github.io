@@ -780,3 +780,6 @@ html.static .rh-cursor{display:none}
 .hero-grid{align-items:start}
 .hero-grid > div:first-child{padding-top:clamp(0px,4vw,56px)}
 @media (min-width:901px){.hero-grid > div:first-child{position:sticky;top:110px}}
+
+.vis-fixes li{color:var(--ink);font-weight:500}
+.vis-fixes li span{display:block;font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-top:2px}

@@ -603,10 +603,10 @@
       vis.setAttribute('data-grade', S.score >= 80 ? 'good' : S.score >= 55 ? 'mid' : 'low');
     };
     var renderFixes = function () {
-      var probs = S.checks.filter(function (x) { return x.status !== 'pass' && x.fix; }).sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); }).slice(0, 3);
+      var probs = S.checks.filter(function (x) { return x.status !== 'pass'; }).sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); }).slice(0, 3);
       if (!probs.length) { V.fixes.hidden = true; return; }
       V.fixes.hidden = false;
-      $('ol', V.fixes).innerHTML = probs.map(function (x) { return '<li><b>' + escH(x.problem) + '.</b> ' + escH(x.fix) + '</li>'; }).join('');
+      $('ol', V.fixes).innerHTML = probs.map(function (x) { return '<li>' + escH(x.problem) + '<span>' + escH(CATS.filter(function (c) { return c.id === x.cat; })[0].label) + ' · −' + (Math.round((x.max - x.pts) * 10) / 10) + ' pts</span></li>'; }).join('');
     };
     var progress = function (t) { V.progress.textContent = t || ''; };
 
@@ -799,8 +799,8 @@
       var name = S.brand || S.domain;
       S.verdict = S.score == null ? 'The public page reader is busy for ' + S.domain + ' right now, so part of the check could not run. Try again in a minute, or ask for the full report and we will run it by hand.' :
         S.score >= 80 ? name + ' is well set up for AI engines. What is left is earning citations; the full report shows where competitors are cited instead.' :
-        S.score >= 55 ? name + ' is readable, but AI engines are working from thin material. ' + probs + ' checks need work; the three above move the score most.' :
-        'AI engines have little to go on for ' + name + '. ' + probs + ' of ' + S.checks.length + ' checks failed or need work. Start with the three above.';
+        S.score >= 55 ? name + ' is readable, but AI engines are working from thin material. ' + probs + ' checks need work; the three above cost you the most.' :
+        'AI engines have little to go on for ' + name + '. ' + probs + ' of ' + S.checks.length + ' checks failed or need work; the three above cost you the most.';
       V.name.textContent = S.brand; V.say.textContent = S.quote ? '"' + S.quote + '"' : (S.description ? '"' + S.description + '"' : '');
       renderCats(); setRing(); renderFixes();
       V.verdict.textContent = S.verdict; V.actions.hidden = false;
@@ -852,7 +852,7 @@
       return {
         domain: S.domain, brand: S.brand, score: S.score, grade: S.grade, partial: anyPartial(), quote: S.quote, verdict: S.verdict,
         categories: CATS.map(function (c) { return { id: c.id, label: c.label, score: S.partial[c.id] ? null : Math.round(catTotals(c.id)), max: c.max }; }),
-        checks: S.checks.map(function (x) { return { cat: x.cat, key: x.key, status: x.status, label: x.status === 'pass' ? x.label : x.problem, pts: x.pts, max: x.max, fix: x.status === 'pass' ? '' : x.fix }; }),
+        checks: S.checks.map(function (x) { return { cat: x.cat, key: x.key, status: x.status, label: x.status === 'pass' ? x.label : x.problem, pts: x.pts, max: x.max, fix: '' }; }),
         topIssues: S.checks.filter(function (x) { return x.status !== 'pass'; }).sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); }).slice(0, 5).map(function (x) { return x.problem; })
       };
     };
@@ -870,11 +870,12 @@
       CATS.forEach(function (c) {
         var cs = s.categories.filter(function (x) { return x.id === c.id; })[0];
         L.push(c.label.toUpperCase() + (cs && cs.score != null ? '  ' + cs.score + '/' + c.max : '  not checked'));
-        s.checks.filter(function (x) { return x.cat === c.id; }).forEach(function (x) { L.push('  ' + (x.status === 'pass' ? '[ok]  ' : x.status === 'warn' ? '[fix] ' : '[x]   ') + x.label + (x.fix ? '\n        ' + x.fix : '')); });
+        s.checks.filter(function (x) { return x.cat === c.id; }).forEach(function (x) { L.push('  ' + (x.status === 'pass' ? '[ok]  ' : x.status === 'warn' ? '[weak]' : '[x]   ') + x.label); });
         L.push('');
       });
+      if (s.topIssues && s.topIssues.length) { L.push('BIGGEST GAPS'); s.topIssues.slice(0, 3).forEach(function (t, i) { L.push('  ' + (i + 1) + '. ' + t); }); L.push(''); }
       L.push(s.verdict); L.push('');
-      L.push('Book your free session: ' + location.origin + location.pathname + '#book');
+      L.push('What to fix first, and in what order, is what we cover in your free session: ' + location.origin + location.pathname + '#book');
       L.push(''); L.push('Fourward · four lanes, one direction');
       return L.join('\n');
     };

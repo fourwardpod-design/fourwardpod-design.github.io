@@ -112,7 +112,7 @@ function reportHtml(d, name) {
     const rows = (d.checks || []).filter(function (x) { return x.cat === c.id; }).map(function (x) {
       return '<tr><td style="padding:7px 0;vertical-align:top;width:22px;font-size:14px">' + (icon[x.status] || '') + '</td>' +
         '<td style="padding:7px 0;' + font + 'font-size:14px;color:#0B0B0C">' + h(x.label) +
-        (x.fix ? '<div style="font-size:13px;color:#55555C;margin-top:3px;line-height:1.45">' + h(x.fix) + '</div>' : '') + '</td>' +
+        '</td>' +
         '<td style="padding:7px 0;' + mono + 'font-size:11px;color:#A3A3AA;text-align:right;white-space:nowrap;vertical-align:top">' + x.pts + '/' + x.max + '</td></tr>';
     }).join('');
     const pct = c.score == null ? 0 : Math.round(c.score / c.max * 100);
@@ -121,9 +121,8 @@ function reportHtml(d, name) {
       '<div style="height:4px;background:#EEEEEB;border-radius:2px;margin-top:8px"><div style="height:4px;width:' + pct + '%;background:' + tone + ';border-radius:2px"></div></div>' +
       '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:6px">' + rows + '</table></td></tr>';
   }).join('');
-  const fixes = (d.checks || []).filter(function (x) { return x.status !== 'pass' && x.fix; })
-    .sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); }).slice(0, 3)
-    .map(function (x, i) { return '<li style="margin:0 0 8px">' + '<b>' + h(x.label) + '.</b> ' + h(x.fix) + '</li>'; }).join('');
+  const fixes = (d.topIssues || []).slice(0, 3)
+    .map(function (t) { return '<li style="margin:0 0 6px;font-weight:600;color:#0B0B0C">' + h(t) + '</li>'; }).join('');
 
   return '<div style="background:#F6F6F4;padding:28px 12px">' +
     '<table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;background:#FFFFFF;border:1px solid #E6E6E2;border-radius:18px">' +
@@ -131,18 +130,18 @@ function reportHtml(d, name) {
       '<div style="' + font + 'font-size:18px;font-weight:600;letter-spacing:-0.5px;color:#0B0B0C"><span style="letter-spacing:1px">///</span><span style="color:#FBAF20">/</span>&nbsp;Fourward</div>' +
       '<div style="' + mono + 'font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#6D6D74;margin-top:22px">AI visibility report</div>' +
       '<div style="' + font + 'font-size:26px;font-weight:600;letter-spacing:-0.8px;color:#0B0B0C;margin-top:6px">' + h(d.domain) + '</div>' +
-      '<p style="' + font + 'font-size:15px;color:#2E2E33;line-height:1.55;margin:14px 0 0">Hi ' + h(name.split(' ')[0]) + ', here is everything our check found. Each line says what we tested, what we saw and how to fix it.</p>' +
+      '<p style="' + font + 'font-size:15px;color:#2E2E33;line-height:1.55;margin:14px 0 0">Hi ' + h(name.split(' ')[0]) + ', here is everything our check found: what we tested and what we saw on your site. What to fix first, and in what order, is what we walk you through on your free session.</p>' +
     '</td></tr>' +
     '<tr><td style="padding:18px 30px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F6F6F4;border-radius:14px"><tr>' +
       '<td style="padding:18px 20px;width:110px"><div style="' + font + 'font-size:40px;font-weight:600;letter-spacing:-1.5px;color:' + tone + '">' + (score == null ? '–' : score) + '</div><div style="' + mono + 'font-size:11px;color:#6D6D74">OUT OF 100</div></td>' +
       '<td style="padding:18px 20px 18px 0;' + font + 'font-size:14px;line-height:1.55;color:#2E2E33">' + h(d.verdict || '') + '</td>' +
     '</tr></table></td></tr>' +
-    (fixes ? '<tr><td style="padding:22px 30px 0"><div style="' + mono + 'font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#6D6D74">Fix these first</div><ol style="' + font + 'font-size:14px;line-height:1.5;color:#2E2E33;padding-left:18px;margin:10px 0 0">' + fixes + '</ol></td></tr>' : '') +
+    (fixes ? '<tr><td style="padding:22px 30px 0"><div style="' + mono + 'font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#6D6D74">Biggest gaps</div><ol style="' + font + 'font-size:14px;line-height:1.5;color:#2E2E33;padding-left:18px;margin:10px 0 0">' + fixes + '</ol></td></tr>' : '') +
     '<tr><td style="padding:4px 30px 0"><table role="presentation" width="100%" cellspacing="0" cellpadding="0">' + cats + '</table></td></tr>' +
     '<tr><td style="padding:26px 30px 30px">' +
       '<div style="background:#0B0B0C;border-radius:14px;padding:22px 22px">' +
         '<div style="' + font + 'font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.4px">Your free session is waiting</div>' +
-        '<div style="' + font + 'font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;margin-top:6px">Thirty minutes with the owner of each lane. We walk you through this report and what a 30-day plan would move.</div>' +
+        '<div style="' + font + 'font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;margin-top:6px">Thirty minutes with the owner of each lane. We walk you through this report, what to fix first and what a 30-day plan would move.</div>' +
         '<a href="' + BOOK + '" style="display:inline-block;margin-top:14px;background:#FFFFFF;color:#0B0B0C;' + font + 'font-size:14px;font-weight:600;text-decoration:none;padding:11px 18px;border-radius:999px">Book your free session &rarr;</a>' +
       '</div>' +
       '<p style="' + font + 'font-size:12px;color:#A3A3AA;line-height:1.5;margin:18px 0 0">Fourward · four lanes, one direction. You received this because you asked for this report on ' + h(SITE.replace(/^https?:\/\//, '').replace(/\/$/, '')) + '. Reply to this email to reach the team.</p>' +
