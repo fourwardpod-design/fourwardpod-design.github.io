@@ -1,5 +1,7 @@
 # Fourward website
 
+Live at **https://fourwardpod-design.github.io/** (GitHub Pages, served from the `main` branch of `fourwardpod-design/fourwardpod-design.github.io`). To publish a change, commit and push to `main`; Pages rebuilds in about a minute.
+
 Static site, no build step. Open `index.html` or serve the folder:
 
 ```bash
