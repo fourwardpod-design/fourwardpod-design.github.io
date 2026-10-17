@@ -1325,4 +1325,22 @@
     });
   })();
 
+  /* ---------- 10. service lanes flip ----------
+     Hover flips on desktop (CSS). Touch and keyboard toggle with a tap or Enter. */
+  (function () {
+    var lanes = $$('.lane.flip');
+    lanes.forEach(function (l) {
+      l.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        var on = !l.classList.contains('is-flipped');
+        lanes.forEach(function (o) { o.classList.remove('is-flipped'); });
+        l.classList.toggle('is-flipped', on);
+      });
+      l.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target === l) { e.preventDefault(); l.classList.toggle('is-flipped'); } });
+    });
+    var fq = /[?&]laneflip=([dgsr,]+)/.exec(location.search);   // ?laneflip=d,g for screenshots
+    if (fq) fq[1].split(',').forEach(function (k) { var l = $('.lane.flip[data-lane="' + k + '"]'); if (l) l.classList.add('is-flipped'); });
+  })();
+
 })();

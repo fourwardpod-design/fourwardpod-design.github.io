@@ -1076,6 +1076,37 @@ html.static .rh-cursor{display:none}
 .lane ul.tags li::before{display:none}
 .lane:hover ul.tags li{background:#fff}
 @media (max-width:1060px){.lane h3{margin-top:22px}}
+/* ---------- lanes: flip ---------- */
+.lane.flip{display:grid;padding:0;background:none;border:0;box-shadow:none;perspective:1600px;min-height:452px}
+.lane.flip:hover{background:none;box-shadow:none;transform:none}
+.lane-inner{position:relative;height:100%;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.2,.75,.2,1)}
+.lane-face{position:relative;height:100%;display:flex;flex-direction:column;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 22px 20px;overflow:hidden;isolation:isolate;-webkit-backface-visibility:hidden;backface-visibility:hidden;transition:box-shadow .5s var(--ease)}
+.lane-face > :not(.wash){position:relative;z-index:2}
+.lane-back{position:absolute;inset:0;transform:rotateY(180deg);background:#fff;gap:11px;padding:20px 20px 18px}
+.lane-back .wash{transform:none;--mask:linear-gradient(to bottom,#000 0%,transparent 45%);opacity:.55}
+.lane-back .num svg{transform:rotate(-45deg)}
+@media (hover:hover) and (pointer:fine){.lane.flip:hover .lane-inner,.lane.flip:focus-visible .lane-inner{transform:rotateY(180deg)}}
+.lane.flip.is-flipped .lane-inner{transform:rotateY(180deg)}
+.lane.flip:hover .lane-face,.lane.flip.is-flipped .lane-face{box-shadow:var(--shadow-md)}
+.lane.flip:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:var(--r-lg)}
+.lane-lead{font-family:var(--display);font-size:19px;line-height:1.15;letter-spacing:-.025em;color:var(--ink);margin:10px 0 0}
+.lane-block b{display:block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:7px}
+.lane-block ol{display:grid;gap:6px;counter-reset:lb}
+.lane-block li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:6px;font-size:13px;line-height:1.35;color:var(--ink-2);counter-increment:lb}
+.lane .lane-block li{padding:0;border:0;align-items:start}
+.lane .lane-block li::before{content:counter(lb,decimal-leading-zero);width:auto;height:auto;border-radius:0;background:none;margin:0;font-family:var(--mono);font-size:10px;color:var(--faint);padding-top:2px}
+.lane-kpi{display:flex;flex-wrap:wrap;gap:4px 0;font-size:12.5px;color:var(--ink-2)}
+.lane-kpi span:not(:last-child)::after{content:"·";margin:0 7px;color:var(--faint)}
+.lane-proof{margin-top:auto;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--bg-2)}
+.lane-proof strong{grid-row:span 2;font-family:var(--display);font-weight:500;font-size:26px;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.lane-proof span{font-size:12.5px;line-height:1.35;color:var(--ink-2)}
+.lane-proof em{font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.lane-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:8px;height:38px;padding:0 16px;border-radius:12px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:500}
+.lane-cta svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lane-cta:hover{background:#26262B}
+@media (max-width:1300px) and (min-width:1061px){.lane.flip{min-height:480px}}
+@media (max-width:1060px){.lane.flip{min-height:440px}}
+@media (prefers-reduced-motion:reduce){.lane-inner{transition-duration:.01ms}}
 /* ---------- voice mode ---------- */
 .talk-voice{flex:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(110,69,232,.2);background:linear-gradient(135deg,#F1ECFF,#FFE9F3 55%,#FFEFE6);color:var(--ink);font:inherit;font-size:13px;font-weight:600;letter-spacing:-.01em;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
 .talk-voice:hover{transform:translateY(-1px);box-shadow:0 8px 18px -10px rgba(110,69,232,.55)}
