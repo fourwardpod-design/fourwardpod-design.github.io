@@ -85,6 +85,38 @@ function doPost(e) {
     return out({ ok: true });
   }
 
+  if (type === 'subscribe') {
+    const email = String(d.email || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return out({ ok: false, error: 'email required' });
+    log(ss, 'Subscribers',
+      ['Time', 'Email', 'Source', 'Page', 'Referrer', 'Timezone'],
+      [when, email, d.source, d.page, d.referrer, d.tz]);
+    return out({ ok: true });
+  }
+
+  if (type === 'contact') {
+    const email = String(d.email || '').trim();
+    const name = String(d.name || '').trim().slice(0, 80);
+    const message = String(d.message || '').trim().slice(0, 4000);
+    if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return out({ ok: false, error: 'name, email and message required' });
+    const cache = CacheService.getScriptCache();
+    const key = 'c:' + email.toLowerCase();
+    const n = Number(cache.get(key) || 0);
+    if (n >= 5) return out({ ok: false, error: 'too many requests' });
+    cache.put(key, String(n + 1), 3600);
+    MailApp.sendEmail({
+      to: TEAM,
+      subject: 'Website message · ' + name + (d.company ? ' · ' + d.company : ''),
+      htmlBody: '<p><b>' + h(name) + '</b> (' + h(email) + (d.company ? ', ' + h(d.company) : '') + ') wrote:</p><p style="white-space:pre-wrap">' + h(message) + '</p><p style="color:#888">Sent from ' + h(d.page) + '. Reply to this email to answer them.</p>',
+      name: 'Fourward website',
+      replyTo: email
+    });
+    log(ss, 'Messages',
+      ['Time', 'Name', 'Email', 'Company', 'Message', 'Page', 'Referrer', 'Timezone'],
+      [when, name, email, d.company, message, d.page, d.referrer, d.tz]);
+    return out({ ok: true });
+  }
+
   return out({ ok: false, error: 'unknown type' });
 }
 
