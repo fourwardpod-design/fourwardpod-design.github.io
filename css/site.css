@@ -631,7 +631,7 @@ html.static .panel.is-active{animation:none}
 
 /* ---------- logo: four leaning strokes + Inter Tight wordmark ---------- */
 .brand{display:inline-flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none}
-.brand-mark{width:31px;height:18px;fill:currentColor;flex:none;display:block}
+.brand-mark{width:50px;height:22px;flex:none;display:block}
 .brand-word{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:-.045em;line-height:1}
 .foot-brand .brand-word{font-size:21px}
 
