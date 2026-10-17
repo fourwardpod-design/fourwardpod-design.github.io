@@ -22,7 +22,7 @@
     // Lead capture. leadUrl: the Google Apps Script web app (server/leads.gs) that logs checks, report
     // requests and bookings to a Google Sheet and emails each report from the Fourward Gmail.
     // Until it is set, everything goes through FormSubmit to formTo (needs a one-time activation click).
-    leadUrl: '',
+    leadUrl: 'https://script.google.com/macros/s/AKfycbyt5YKfhDZ2GhCCBkq8foHfgOr3VVgMCKlh5nlGZB7yP1J4uqV7rF3G6FAw7dKKt7O2JQ/exec',
     formTo: 'fourwardpod@gmail.com',
     hostTz: 'Asia/Kolkata',       // working hours are defined in this zone
     hostOffsetMin: 330,           // IST = UTC+5:30, no daylight saving
