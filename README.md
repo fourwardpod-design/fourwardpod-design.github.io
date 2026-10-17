@@ -25,6 +25,14 @@ node ../tools/serve.js . 4174
 3. **Working hours.** `workStart`, `workEnd`, `slotMin`, `daysAhead` and `leadHours` are at the top of `js/site.js`. Times are defined in India time and shown in the visitor's zone.
 4. **Logos.** The wall shows 12. `dextr.svg` is in the folder but not placed. Hirect's file came from a small source and is slightly soft; replace it when a sharper file is available. Zelto has no usable logo (the domain now belongs to another company).
 
+## Lead capture and report emails
+
+Every finished check, every report request and every calendar booking is sent through `fwSend()` in `js/site.js`:
+
+- **Recommended: `server/leads.gs`**, a Google Apps Script web app on the Fourward Gmail. It logs checks, reports and bookings to a Google Sheet (one tab each) and emails the visitor a formatted HTML report from fourwardpod@gmail.com, with a copy to the team. Deploy steps are at the top of the file (about five minutes); paste the `/exec` URL into `leadUrl` in `js/site.js`.
+- **Until then: FormSubmit.** With `leadUrl` empty, payloads go to formsubmit.co for `formTo` (fourwardpod@gmail.com). Each check and booking arrives as an email to that inbox, and a report request also emails the visitor a plain-text copy of their report. FormSubmit needs a one-time activation: the first submission sends an "Activate form" email to fourwardpod@gmail.com; click it once.
+- `?dryrun=1` on any page URL records payloads in `window.__fwSent` instead of sending them, for testing.
+
 ## The AI visibility check (hero)
 
 The card in the hero runs live checks in the visitor's browser, no server involved: the site's own HTML (title, description, H1, Open Graph, JSON-LD and Organization schema) via r.jina.ai, robots.txt rules for GPTBot, PerplexityBot, Google-Extended and ClaudeBot, llms.txt, and the entity record the engines lean on (Wikipedia, then DuckDuckGo). It scores the domain out of 100 and quotes the most machine-readable sentence it found. `?check=domain.com` runs it on load.

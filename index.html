@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="css/site.css?v=12">
+<link rel="stylesheet" href="css/site.css?v=14">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Fourward","description":"A four-lane marketing pod for B2B SaaS companies: search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.","areaServed":"Worldwide","knowsAbout":["SEO","Generative engine optimisation","Content marketing","Public relations","Marketing automation","Demand generation","Field marketing","Events"],"employee":[{"@type":"Person","name":"Sharang Misri","jobTitle":"Lifecycle & demand generation","sameAs":"https://linkedin.com/in/sharang-misri"},{"@type":"Person","name":"Deepak Sharma","jobTitle":"Search, content & AI visibility","sameAs":"https://linkedin.com/in/deepak-sharma-4403bb227"},{"@type":"Person","name":"Geetanjali Sharma","jobTitle":"Brand, PR & partnerships","sameAs":"https://linkedin.com/in/geetanjali007"},{"@type":"Person","name":"Rishabh Gautam","jobTitle":"Field marketing & events","sameAs":"https://linkedin.com/in/rishabh-gautam-397361169"}]}
 </script>
@@ -46,8 +46,9 @@
 <!-- top strip -->
 <div class="strip">
   <div class="wrap">
-    <span><b>Ask Google about header bidding.</b> <span class="hide-sm">Its AI Overview answers with our film.</span></span>
-    <a href="#work"><span class="hide-sm">See the receipt</span><span class="only-sm">See it</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow"/></svg></a>
+    <span class="strip-badge">Limited time</span>
+    <span><b>Free SEO, AEO and GEO audits</b><span class="hide-sm"> for B2B SaaS teams, plus one free strategy session.</span><span class="only-sm"> + 1 free session</span></span>
+    <a href="#book"><span class="hide-sm">Claim your audit</span><span class="only-sm">Claim</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow"/></svg></a>
   </div>
 </div>
 
@@ -86,7 +87,7 @@
         <p class="lead hero-sub">Search, brand, lifecycle and events, run by four senior marketers as one team. Measured on pipeline.</p>
         <div class="vis" id="vis" data-state="idle">
           <div class="vis-head">
-            <span class="vis-eyebrow"><i></i>AI visibility check</span>
+            <span class="vis-eyebrow"><i></i>AI visibility check · 30 tests</span>
             <span class="vis-score" aria-live="polite">
               <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="track" cx="22" cy="22" r="19"/><circle class="ring" cx="22" cy="22" r="19" pathLength="100"/></svg>
               <b data-vis-score>–</b>
@@ -98,26 +99,36 @@
             <input id="vis-domain" type="text" inputmode="url" placeholder="yourcompany.com" spellcheck="false" autocapitalize="off">
             <button type="submit" class="btn btn-dark btn-sm" data-vis-go>Check <svg><use href="#i-arrow"/></svg></button>
           </form>
-          <p class="vis-intro" data-vis-intro>See what Google, ChatGPT and Perplexity can read about you right now: what your site tells machines, whether the AI crawlers may read it, and whether you exist as an entity they can cite. <span class="vis-try">Try <button type="button" data-vis-try="stripe.com">stripe.com</button> or <button type="button" data-vis-try="adpushup.com">adpushup.com</button></span></p>
+          <p class="vis-intro" data-vis-intro>Thirty tests on what Google, ChatGPT and Perplexity can read about you: crawler access, homepage signals, structured data, your entity record and AI-ready content. Scored strictly, out of 100. <span class="vis-try">Try <button type="button" data-vis-try="stripe.com">stripe.com</button> or <button type="button" data-vis-try="hubspot.com">hubspot.com</button></span></p>
           <div class="vis-result" data-vis-result hidden>
             <div class="vis-brand">
               <img data-vis-logo alt="" width="28" height="28" hidden>
               <div><b data-vis-name>–</b><span data-vis-domain-label>–</span></div>
             </div>
+            <p class="vis-progress" data-vis-progress aria-live="polite"></p>
             <p class="vis-say" data-vis-say></p>
-            <ul class="vis-rows">
-              <li data-row="site"><span class="vis-k"><svg><use href="#i-grid"/></svg>What your site tells machines</span><span class="vis-v" data-v="site"><i class="vis-skel"></i></span></li>
-              <li data-row="entity"><span class="vis-k"><svg><use href="#i-users"/></svg>Known entity (Wikipedia / knowledge graph)</span><span class="vis-v" data-v="entity"><i class="vis-skel"></i></span></li>
-              <li data-row="crawl"><span class="vis-k"><svg><use href="#i-search"/></svg>Can the AI crawlers read you?</span><span class="vis-v" data-v="crawl"><i class="vis-skel"></i></span></li>
-              <li data-row="schema"><span class="vis-k"><svg><use href="#i-flag"/></svg>Structured data &amp; llms.txt</span><span class="vis-v" data-v="schema"><i class="vis-skel"></i></span></li>
-            </ul>
+            <ul class="vis-cats" data-vis-cats></ul>
+            <div class="vis-fixes" data-vis-fixes hidden><b>Fix these first</b><ol></ol></div>
             <div class="vis-engines" data-vis-engines hidden></div>
             <div class="vis-foot">
               <p data-vis-verdict></p>
-              <div class="vis-actions"><a class="btn btn-dark btn-sm" data-vis-cta href="#book">Get the full report <svg><use href="#i-arrow"/></svg></a><button type="button" class="btn btn-ghost btn-sm" data-vis-reset>Check another</button></div>
+              <div class="vis-actions" data-vis-actions hidden><button type="button" class="btn btn-dark btn-sm" data-vis-report>Email me the full report <svg><use href="#i-arrow"/></svg></button><button type="button" class="btn btn-ghost btn-sm" data-vis-reset>Check another</button></div>
+              <form class="vis-lead" data-vis-lead hidden novalidate>
+                <b class="vis-lead-title">Get the full report for <span data-vis-lead-domain></span></b>
+                <p class="vis-lead-sub">All thirty checks, what each one means and how to fix it, sent to your inbox.</p>
+                <div class="vis-fields">
+                  <label class="sr-only" for="vis-name">Your name</label><input id="vis-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+                  <label class="sr-only" for="vis-email">Work email</label><input id="vis-email" name="email" type="email" placeholder="Work email" autocomplete="email" required>
+                  <label class="sr-only" for="vis-company">Company</label><input id="vis-company" name="company" type="text" placeholder="Company (optional)" autocomplete="organization">
+                </div>
+                <input class="vis-hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <div class="vis-lead-actions"><button type="submit" class="btn btn-dark btn-sm">Send my report <svg><use href="#i-arrow"/></svg></button><button type="button" class="btn btn-ghost btn-sm" data-vis-lead-cancel>Back</button></div>
+                <p class="vis-legal">We send this report once and may follow up about your free audit. No newsletters.</p>
+                <p class="vis-status" data-vis-status aria-live="polite"></p>
+              </form>
             </div>
           </div>
-          <p class="vis-note">Live checks run in your browser against the public web. The full report adds the actual answers from ChatGPT, Perplexity and Google AI Mode for twenty buyer prompts.</p>
+          <p class="vis-note">Runs live in your browser against the public web. Checked domains are logged so we can follow up on report requests.</p>
         </div>
       </div>
     </div>
@@ -645,7 +656,7 @@
   <div class="wrap">
     <div class="book-grid">
       <div class="book-copy reveal">
-        <span class="eyebrow">Book a call</span>
+        <span class="eyebrow">Free audit + session</span>
         <h2 class="h2">Pick a time. We'll bring the baseline.</h2>
         <p class="lead">Thirty minutes with the owner of the lane your problem belongs to. Tell us the number your SaaS needs to move, and within three working days you get a written 30-day plan and what it would cost.</p>
         <ul class="book-list">
@@ -677,7 +688,7 @@
           <div class="slots-empty" data-slot-empty>Choose a weekday on the calendar to see available times.</div>
           <div class="confirm">
             <div class="sum"><svg><use href="#i-clock"/></svg><span data-sum>No time selected yet</span></div>
-            <a class="btn btn-dark" data-request href="#" aria-disabled="true">Request this time <svg><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-dark" data-request href="#" aria-disabled="true" target="_blank" rel="noopener">Book in Google Calendar <svg><use href="#i-arrow-ne"/></svg></a>
             <p class="alt"><a data-gcal href="#" target="_blank" rel="noopener" hidden>Add it to Google Calendar</a><span data-gcal-sep hidden> · </span><a href="mailto:misrisharang7@gmail.com,Deepakce9911@gmail.com,geetanjalis823@gmail.com,rishisbzy.rg@gmail.com?subject=Fourward%20%E2%80%94%20let%27s%20talk">Email us instead</a></p>
           </div>
         </div>
@@ -769,6 +780,6 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=12" defer></script>
+<script src="js/site.js?v=14" defer></script>
 </body>
 </html>

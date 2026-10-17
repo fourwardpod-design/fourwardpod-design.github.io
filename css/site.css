@@ -736,3 +736,47 @@ html.static .rh-cursor{display:none}
 @media (prefers-reduced-motion:reduce){.rh-cursor{display:none}}
 
 .hero-side,.vis{min-width:0;max-width:100%}
+
+/* ---------- AI visibility check v3: categories, fixes, report form ---------- */
+.vis-progress{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.vis-progress:empty{display:none}
+.vis-cats{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.vis-cat{padding:10px 0;border-bottom:1px solid var(--line);display:grid;gap:7px}
+.vis-cat-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px}
+.vis-cat-score{font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
+.vis-cat-score small{font-size:11px;color:var(--faint);margin-left:1px}
+.vis-meter{height:4px;border-radius:2px;background:var(--bg-3);overflow:hidden}
+.vis-meter i{display:block;height:100%;width:0;border-radius:2px;background:var(--faint);transition:width .9s var(--ease)}
+.vis-meter.good i{background:#1FA873}.vis-meter.mid i{background:#E39A1F}.vis-meter.low i{background:#E0523E}
+.vis-fixes{padding:12px 14px;border-radius:14px;background:var(--bg-2)}
+.vis-fixes[hidden]{display:none}
+.vis-fixes > b{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.vis-fixes ol{margin:0;padding-left:18px;display:grid;gap:7px;list-style:decimal}
+.vis-fixes li{font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.vis-fixes li b{color:var(--ink);font-weight:600}
+.vis-actions[hidden],.vis-lead[hidden],.vis-actions [hidden]{display:none}
+.vis-lead{display:grid;gap:10px;padding:14px;border-radius:16px;border:1px solid var(--line);background:#fff}
+.vis-lead-title{font-family:var(--display);font-weight:500;font-size:16px;letter-spacing:-.02em;line-height:1.25}
+.vis-lead-sub{font-size:12.5px;color:var(--mute);line-height:1.45}
+.vis-legal{font-size:11px;color:var(--faint);line-height:1.45}
+.vis-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vis-fields input{height:42px;border-radius:12px;border:1px solid var(--line-2);padding:0 12px;font:inherit;font-size:14px;color:var(--ink);background:#fff;outline:0;min-width:0;transition:border-color .2s,box-shadow .2s}
+.vis-fields input:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(11,11,12,.06)}
+.vis-fields input[name="company"]{grid-column:1/-1}
+.vis-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.vis-lead-actions{display:flex;gap:8px;flex-wrap:wrap}
+.vis-status{font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.vis-status:empty{display:none}
+.vis-status.ok{color:#13724E}.vis-status.err{color:#9B3627}
+.vis-status a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.vis-lead.is-sent .vis-fields,.vis-lead.is-sent .vis-lead-actions,.vis-lead.is-sent .vis-legal,.vis-lead.is-sent .vis-lead-sub{display:none}
+@media (max-width:520px){.vis-fields{grid-template-columns:1fr}}
+
+/* ---------- top strip: the offer ---------- */
+.strip-badge{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;background:var(--ink);color:#fff;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;flex:none}
+@media (max-width:640px){.strip-badge{display:none}}
+
+/* hero: keep the headline at the top while the check card grows */
+.hero-grid{align-items:start}
+.hero-grid > div:first-child{padding-top:clamp(0px,4vw,56px)}
+@media (min-width:901px){.hero-grid > div:first-child{position:sticky;top:110px}}
