@@ -24,6 +24,8 @@
     // Until it is set, everything goes through FormSubmit to formTo (needs a one-time activation click).
     leadUrl: 'https://script.google.com/macros/s/AKfycbyt5YKfhDZ2GhCCBkq8foHfgOr3VVgMCKlh5nlGZB7yP1J4uqV7rF3G6FAw7dKKt7O2JQ/exec',
     formTo: 'fourwardpod@gmail.com',
+    // The dedicated tool page; the hero card links its detailed results there.
+    toolUrl: location.pathname.indexOf('/tools/ai-visibility-check/') >= 0 ? location.pathname.replace(/[^/]*$/, '') : location.pathname.replace(/[^/]*$/, '') + 'tools/ai-visibility-check/',
     hostTz: 'Asia/Kolkata',       // working hours are defined in this zone
     hostOffsetMin: 330,           // IST = UTC+5:30, no daylight saving
     workStart: 10 * 60,           // 10:00
@@ -77,7 +79,7 @@
     }
     // highlight the section in view
     var links = $$('.nav-links a', nav);
-    var targets = links.map(function (a) { return $(a.getAttribute('href')); }).filter(Boolean);
+    var targets = links.map(function (a) { var h = a.getAttribute('href') || ''; return h.charAt(0) === '#' && h.length > 1 ? $(h) : null; }).filter(Boolean);
     if ('IntersectionObserver' in window && targets.length) {
       var current = null;
       var io = new IntersectionObserver(function (entries) {
@@ -803,6 +805,8 @@
         'AI engines have little to go on for ' + name + '. ' + probs + ' of ' + S.checks.length + ' checks failed or need work; the three above cost you the most.';
       V.name.textContent = S.brand; V.say.textContent = S.quote ? '"' + S.quote + '"' : (S.description ? '"' + S.description + '"' : '');
       renderCats(); setRing(); renderFixes();
+      var dl = $('[data-vis-detail]', vis); if (dl) dl.href = FOURWARD.toolUrl + '?check=' + encodeURIComponent(S.domain);
+      setTimeout(function () { try { vis.dispatchEvent(new CustomEvent('vis:done', { detail: summaryOf() })); } catch (e) {} }, 0);
       V.verdict.textContent = S.verdict; V.actions.hidden = false;
       writeCache();
       capture(fromCache);
