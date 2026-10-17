@@ -1163,6 +1163,7 @@ html.static .rh-cursor{display:none}
 .ca-item p{font-size:14px;color:var(--ink-2);line-height:1.5}
 @media (max-width:860px){.contact-grid{grid-template-columns:1fr}.contact-form .row{grid-template-columns:1fr}}
 @media (max-width:900px){.panel-media{height:310px}}
+@media (min-width:901px){#what.sec-head.center{max-width:none}#what .h2{white-space:nowrap}}
 
 /* ---------- voice mode ---------- */
 .talk-voice{flex:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(110,69,232,.2);background:linear-gradient(135deg,#F1ECFF,#FFE9F3 55%,#FFEFE6);color:var(--ink);font:inherit;font-size:13px;font-weight:600;letter-spacing:-.01em;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
