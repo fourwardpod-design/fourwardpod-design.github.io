@@ -530,7 +530,7 @@
       var vBase = (function () { var s = $('script[src*="js/site.js"]'); return s ? s.src.replace(/js\/site\.js.*$/, 'assets/voice/') : 'assets/voice/'; })();
       var vStatus = $('[data-tv-status]', vc), vYou = $('[data-tv-you]', vc), vSay = $('[data-tv-say]', vc), vActs = $('[data-tv-actions]', vc), vSug = $('[data-tv-suggest]', vc);
       var vMute = $('[data-tv-mute]', vc), canvas = $('.tv-orb', vc), ctx = canvas.getContext('2d');
-      var STATUS = { connecting: 'Connecting…', listening: 'Listening', thinking: 'Thinking', speaking: 'Speaking · tap the orb to interrupt', paused: 'Tap the orb to talk', muted: 'Mic off · tap a question', blocked: 'Microphone blocked · tap a question', unsupported: 'Tap a question to hear the answer' };
+      var STATUS = { connecting: 'Connecting…', listening: 'Listening…', thinking: 'Thinking…', speaking: 'Speaking. Tap the orb to interrupt', paused: 'Tap the orb to talk', muted: 'Mic off. Tap a question', blocked: 'Microphone blocked. Tap a question', unsupported: 'Tap a question to hear the answer' };
       var vOpen = false, actx = null, micAn = null, outAn = null, micStream = null, audioEl = null, rec = null, muted = false, misses = 0, words = [], wordEnds = [], level = 0, frame = 0, demo = false, synthTimer = null;
       var setState = function (s) { vc.setAttribute('data-state', s); vStatus.textContent = STATUS[s] || ''; };
 
