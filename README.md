@@ -29,7 +29,8 @@ node ../tools/serve.js . 4174
 
 Every finished check, every report request and every calendar booking is sent through `fwSend()` in `js/site.js`:
 
-- **Recommended: `server/leads.gs`**, a Google Apps Script web app on the Fourward Gmail. It logs checks, reports and bookings to a Google Sheet (one tab each) and emails the visitor a formatted HTML report from fourwardpod@gmail.com, with a copy to the team. Deploy steps are at the top of the file (about five minutes); paste the `/exec` URL into `leadUrl` in `js/site.js`.
+- **Live since 17 Oct 2026.** Sheet: "Fourward leads" (https://docs.google.com/spreadsheets/d/1L_crfYf97khTdndtTgyO1m-_OBM8pmkzT2pbizAibY0) on fourwardpod@gmail.com, with Checks, Reports and Bookings tabs. Script project: "Fourward leads" at https://script.google.com/home/projects/17MbSz3JJgfI-C2tfzXtQRRHHQ6IhGPGOHiUzXaOOvxQR3hw5fwkfilSZ/edit (standalone, writes to the sheet by `SHEET_ID`). To change the script: edit there, then Deploy → Manage deployments → Edit → Version: New version, so the `/exec` URL stays the same.
+- **`server/leads.gs`** is the source of that web app on the Fourward Gmail. It logs checks, reports and bookings to a Google Sheet (one tab each) and emails the visitor a formatted HTML report from fourwardpod@gmail.com, with a copy to the team. Deploy steps are at the top of the file (about five minutes); paste the `/exec` URL into `leadUrl` in `js/site.js`.
 - **Until then: FormSubmit.** With `leadUrl` empty, payloads go to formsubmit.co for `formTo` (fourwardpod@gmail.com). Each check and booking arrives as an email to that inbox, and a report request also emails the visitor a plain-text copy of their report. FormSubmit needs a one-time activation: the first submission sends an "Activate form" email to fourwardpod@gmail.com; click it once.
 - `?dryrun=1` on any page URL records payloads in `window.__fwSent` instead of sending them, for testing.
 
