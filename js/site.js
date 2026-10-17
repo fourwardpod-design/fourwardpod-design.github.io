@@ -460,39 +460,40 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSheet(); });
 
     var esc = function (s) { return String(s).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); };
-    var chip = function (label, href, dark, external) {
+    var tChip = function (label, href, dark, external) {
       return '<a class="talk-chip' + (dark ? ' dark' : '') + '" href="' + href + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' + esc(label) + ' <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>';
     };
     var answers = [
-      { re: /\b(hi|hello|hey|yo|namaste)\b/i, text: 'Hi. Ask about the services, the proof, how we report, or pick a time below.', actions: [['See services', '#services'], ['Book a call', '#book', true]] },
-      { re: /\b(what do you do|services?|offer|offerings|capabilit\w*|do you do|help (me|us) with|lanes?|everything you do|what can you)\b/i, text: 'Everything a B2B SaaS marketing department does, in four lanes: search, content & AI visibility; brand, PR & partnerships; lifecycle & demand generation; field marketing & events. Twenty-eight disciplines, each with a senior owner, one plan, measured on pipeline.', actions: [['See services', '#services'], ['Book a call', '#book', true]] },
-      { re: /\b(free|audit|offer|trial)\b/i, text: 'For a limited time we run a free SEO, AEO and GEO audit and a free 30-minute session to walk you through it. Run the AI visibility check at the top for a first look.', actions: [['Book your free session', '#book', true], ['Run the check', '#vis']] },
-      { re: /\b(price|pricing|cost|budget|fee|retainer|sprint|how much|rates?)\b/i, text: 'Three ways in: a 30-day sprint on one lane, a monthly pod retainer for all four, or a fixed-scope project. The price comes with the written 30-day plan, within three working days of a call.', actions: [['Ways to work with us', '#process'], ['Book a call', '#book', true]] },
-      { re: /\b(report|reporting|process|cadence|how do you work|dashboard|weekly|monthly|update)\b/i, text: 'A baseline report first, then a written progress update every week, a review call every two weeks and a full report every month. Traffic, rankings, AI citations, coverage and pipeline on one dashboard.', actions: [['How we work', '#process']] },
-      { re: /\b(team|who|people|founders?|sharang|deepak|geetanjali|rishabh)\b/i, text: 'Four senior marketers from one B2B SaaS growth team, one per lane: Sharang Misri (lifecycle & demand), Deepak Sharma (search, content & AI visibility), Geetanjali Sharma (brand, PR & partnerships) and Rishabh Gautam (field marketing & events).', actions: [['Meet the team', '#team']] },
-      { re: /\b(proof|results?|work|case|cases|numbers?|evidence|portfolio|clients?)\b/i, text: '3× organic traffic per page after consolidating an archive, $12.3M of ARR SQL pipeline influenced, 30+ events measured to SQL, 11 press pieces, and 20 leads in week one for a new school. Every number names its source.', actions: [['See the work', '#work'], ['By the numbers', '#numbers']] },
-      { re: /\b(ai|geo|aeo|chatgpt|perplexity|gemini|overview|overviews|llm|cited|citation)\b/i, text: 'Yes, this is lane one. Google\'s AI Overview cites our comparison page first for "Masai School vs AccioJob" and for "scaler vs masai". We build the pages and films AI engines quote, then consolidate what you already have.', actions: [['See the receipt', '#work'], ['Search & AI visibility', '#services']] },
-      { re: /\b(seo|search|content|blog|ranking|rank|traffic|website|cro|landing)\b/i, text: 'Search, content and AI visibility is lane one: SEO and technical SEO, GEO and AEO, editorial programmes, learning hubs and comparison pages, CRO, migrations and attribution.', actions: [['See services', '#services'], ['See the work', '#work']] },
-      { re: /\b(pr|press|brand|media|review|reviews|g2|trustpilot|partnership|linkedin|positioning)\b/i, text: 'Brand, PR and partnerships is lane two: positioning, media relations, executive thought leadership, review-site reputation, partnerships and LinkedIn programmes. Eleven press pieces and a review score rebuilt from 2.9 to 3.9 so far.', actions: [['See services', '#services'], ['See the work', '#work']] },
-      { re: /\b(email|hubspot|automation|lifecycle|nurture|webinar|webinars|newsletter|demand|abm|pipeline|sql|mql)\b/i, text: 'Lifecycle and demand generation is lane three: HubSpot automation, email workflows, newsletters and gated content, webinars and podcasts, ABM, and funnel reporting from first touch to closed-won.', actions: [['See services', '#services']] },
-      { re: /\b(event|events|dinner|summit|conference|roundtable|field|booth)\b/i, text: 'Field marketing and events is lane four: owned event series, executive dinners and summits, partner events (for example with Microsoft), paid media to fill the room, and follow-up within seven days, measured to SQL.', actions: [['See services', '#services'], ['NEXERA with Microsoft', '#work']] },
-      { re: /\b(start|begin|first|onboard|kick ?off|engage|hire|work with|how do we)\b/i, text: 'Start with one lane or all four. Pick a 30-minute slot below, tell us the number you need to move, and within three working days you get a written 30-day plan and what it would cost.', actions: [['Book a call', '#book', true], ['Ways to work with us', '#process']] },
-      { re: /\b(book|call|meeting|demo|calendar|schedule|talk to|speak|contact|reach)\b/i, text: 'Pick a time below; it opens Google Calendar with the four of us invited. The audit and the session are free for a limited time.', actions: [['Book a call', '#book', true]] },
-      { re: /\b(where|location|based|india|remote|timezone)\b/i, text: 'We are based in India and work with teams anywhere; call times are shown in your timezone in the booking calendar.', actions: [['Book a call', '#book', true]] }
+      { id: 'thanks', re: /\b(thanks|thank you|bye|goodbye|cheers)\b/i, text: 'Thanks for stopping by. If you would like to talk it through, pick a time below.', actions: [['Book a call', '#book', true]] },
+      { id: 'hi', re: /\b(hi|hello|hey|yo|namaste)\b/i, text: 'Hi. Ask about the services, the proof, how we report, or pick a time below.', actions: [['See services', '#services'], ['Book a call', '#book', true]] },
+      { id: 'services', re: /\b(what do you do|services?|offer|offerings|capabilit\w*|do you do|help (me|us) with|lanes?|everything you do|what can you)\b/i, text: 'Everything a B2B SaaS marketing department does, in four lanes: search, content & AI visibility; brand, PR & partnerships; lifecycle & demand generation; field marketing & events. Twenty-eight disciplines, each with a senior owner, one plan, measured on pipeline.', actions: [['See services', '#services'], ['Book a call', '#book', true]] },
+      { id: 'free', re: /\b(free|audit|offer|trial)\b/i, text: 'For a limited time we run a free SEO, AEO and GEO audit and a free 30-minute session to walk you through it. Run the AI visibility check at the top for a first look.', actions: [['Book your free session', '#book', true], ['Run the check', '#vis']] },
+      { id: 'pricing', re: /\b(price|pricing|cost|budget|fee|retainer|sprint|how much|rates?)\b/i, text: 'Three ways in: a 30-day sprint on one lane, a monthly pod retainer for all four, or a fixed-scope project. The price comes with the written 30-day plan, within three working days of a call.', actions: [['Ways to work with us', '#process'], ['Book a call', '#book', true]] },
+      { id: 'report', re: /\b(report|reporting|process|cadence|how do you work|dashboard|weekly|monthly|update)\b/i, text: 'A baseline report first, then a written progress update every week, a review call every two weeks and a full report every month. Traffic, rankings, AI citations, coverage and pipeline on one dashboard.', actions: [['How we work', '#process']] },
+      { id: 'team', re: /\b(team|who|people|founders?|sharang|deepak|geetanjali|rishabh)\b/i, text: 'Four senior marketers from one B2B SaaS growth team, one per lane: Sharang Misri (lifecycle & demand), Deepak Sharma (search, content & AI visibility), Geetanjali Sharma (brand, PR & partnerships) and Rishabh Gautam (field marketing & events).', actions: [['Meet the team', '#team']] },
+      { id: 'proof', re: /\b(proof|results?|work|case|cases|numbers?|evidence|portfolio|clients?)\b/i, text: '3× organic traffic per page after consolidating an archive, $12.3M of ARR SQL pipeline influenced, 30+ events measured to SQL, 11 press pieces, and 20 leads in week one for a new school. Every number names its source.', actions: [['See the work', '#work'], ['By the numbers', '#numbers']] },
+      { id: 'ai', re: /\b(ai|geo|aeo|chatgpt|perplexity|gemini|overview|overviews|llm|cited|citation)\b/i, text: 'Yes, this is lane one. Google\'s AI Overview cites our comparison page first for "Masai School vs AccioJob" and for "scaler vs masai". We build the pages and films AI engines quote, then consolidate what you already have.', actions: [['See the receipt', '#work'], ['Search & AI visibility', '#services']] },
+      { id: 'seo', re: /\b(seo|search|content|blog|ranking|rank|traffic|website|cro|landing)\b/i, text: 'Search, content and AI visibility is lane one: SEO and technical SEO, GEO and AEO, editorial programmes, learning hubs and comparison pages, CRO, migrations and attribution.', actions: [['See services', '#services'], ['See the work', '#work']] },
+      { id: 'pr', re: /\b(pr|press|brand|media|review|reviews|g2|trustpilot|partnership|linkedin|positioning)\b/i, text: 'Brand, PR and partnerships is lane two: positioning, media relations, executive thought leadership, review-site reputation, partnerships and LinkedIn programmes. Eleven press pieces and a review score rebuilt from 2.9 to 3.9 so far.', actions: [['See services', '#services'], ['See the work', '#work']] },
+      { id: 'lifecycle', re: /\b(email|hubspot|automation|lifecycle|nurture|webinar|webinars|newsletter|demand|abm|pipeline|sql|mql)\b/i, text: 'Lifecycle and demand generation is lane three: HubSpot automation, email workflows, newsletters and gated content, webinars and podcasts, ABM, and funnel reporting from first touch to closed-won.', actions: [['See services', '#services']] },
+      { id: 'events', re: /\b(event|events|dinner|summit|conference|roundtable|field|booth)\b/i, text: 'Field marketing and events is lane four: owned event series, executive dinners and summits, partner events (for example with Microsoft), paid media to fill the room, and follow-up within seven days, measured to SQL.', actions: [['See services', '#services'], ['NEXERA with Microsoft', '#work']] },
+      { id: 'start', re: /\b(start|begin|first|onboard|kick ?off|engage|hire|work with|how do we)\b/i, text: 'Start with one lane or all four. Pick a 30-minute slot below, tell us the number you need to move, and within three working days you get a written 30-day plan and what it would cost.', actions: [['Book a call', '#book', true], ['Ways to work with us', '#process']] },
+      { id: 'book', re: /\b(book|call|meeting|demo|calendar|schedule|talk to|speak|contact|reach)\b/i, text: 'Pick a time below; it opens Google Calendar with the four of us invited. The audit and the session are free for a limited time.', actions: [['Book a call', '#book', true]] },
+      { id: 'where', re: /\b(where|location|based|india|remote|timezone)\b/i, text: 'We are based in India and work with teams anywhere; call times are shown in your timezone in the booking calendar.', actions: [['Book a call', '#book', true]] }
     ];
     var reply = function (q) {
       for (var i = 0; i < answers.length; i++) if (answers[i].re.test(q)) return answers[i];
-      return { text: 'Noted. The quickest way to get a real answer is to send this to the team, or pick a time below and we will come prepared.', actions: [['Email this to the team', mailAll + '?subject=' + encodeURIComponent('From the Fourward website') + '&body=' + encodeURIComponent(q + '\n\n'), true, true], ['Book a call', '#book']] };
+      return { id: 'unknown', text: 'Noted. The quickest way to get a real answer is to send this to the team, or pick a time below and we will come prepared.', actions: [['Email this to the team', mailAll + '?subject=' + encodeURIComponent('From the Fourward website') + '&body=' + encodeURIComponent(q + '\n\n'), true, true], ['Book a call', '#book']] };
     };
-    var add = function (cls, html) { var d = document.createElement('div'); d.className = 'talk-msg ' + cls; d.innerHTML = html; tLog.appendChild(d); tSheet.scrollTop = tSheet.scrollHeight; return d; };
+    var tAdd = function (cls, html) { var d = document.createElement('div'); d.className = 'talk-msg ' + cls; d.innerHTML = html; tLog.appendChild(d); tSheet.scrollTop = tSheet.scrollHeight; return d; };
     var ask = function (q) {
       q = q.trim(); if (!q) return;
       openSheet(); tSuggest.hidden = true;
-      add('user', esc(q));
-      var typing = add('bot', '<span class="talk-typing"><i></i><i></i><i></i></span>');
+      tAdd('user', esc(q));
+      var typing = tAdd('bot', '<span class="talk-typing"><i></i><i></i><i></i></span>');
       var a = reply(q);
       setTimeout(function () {
-        typing.innerHTML = esc(a.text) + '<div class="talk-actions">' + a.actions.map(function (x) { return chip(x[0], x[1], x[2], x[3]); }).join('') + '</div>';
+        typing.innerHTML = esc(a.text) + '<div class="talk-actions">' + a.actions.map(function (x) { return tChip(x[0], x[1], x[2], x[3]); }).join('') + '</div>';
         tSheet.scrollTop = tSheet.scrollHeight;
       }, prefersReduced ? 0 : 650);
       tInput.value = ''; autosize(); tSend.disabled = true; tInput.focus();
@@ -518,6 +519,179 @@
       });
     }
 
+    /* ---- voice mode: a hands-free conversation ----
+       Listens with the browser's speech recognition, answers from the same replies as the text chat,
+       and speaks them with pre-rendered neural voice clips (assets/voice/<id>.mp3, Kokoro, Apache-2.0).
+       The orb follows the microphone while you talk and the voice while it answers. */
+    (function () {
+    var VOICE = {"greet":"Hi, I'm Fourward's voice assistant. Ask me what we do, what we've delivered, how we report, or how to get started.","hi":"Hi there. You can ask about our services, the proof behind them, how we report, or book a time with the team.","services":"We work as your whole marketing department, in four lanes. Search, content and AI visibility. Brand, PR and partnerships. Lifecycle and demand generation. And field marketing and events. Each lane has a senior owner, all on one plan, measured on pipeline.","free":"Right now, for a limited time, we're running a free SEO, AEO and GEO audit, plus a free thirty-minute session to walk you through it. For a quick first look, try the AI visibility check at the top of the page.","pricing":"There are three ways in. A thirty-day sprint on one lane, a monthly retainer for all four, or a fixed-scope project. You get the price along with a written thirty-day plan, within three working days of a call.","report":"You get a baseline report first. Then a written update every week, a review call every two weeks, and a full report every month. Traffic, rankings, AI citations, coverage and pipeline, all on one dashboard.","team":"We're four senior marketers from one B2B SaaS growth team, one per lane. Sharang Misri runs lifecycle and demand. Deepak Sharma runs search, content and AI visibility. Geetanjali Sharma leads brand, PR and partnerships. And Rishabh Gautam runs field marketing and events.","proof":"A few highlights. Three times the organic traffic per page after consolidating an archive. Twelve point three million dollars of ARR in SQL pipeline influenced. Over thirty events measured to SQL. Eleven press pieces. And twenty leads in the first week for a new school. Every number on the site names its source.","ai":"Yes, that's our first lane. Ask Google, Masai School versus AccioJob, and its AI Overview cites our comparison page first. We build the pages AI engines quote, and make what you already have easier for them to use.","seo":"Search, content and AI visibility is our first lane. That covers SEO and technical SEO, GEO and AEO, editorial programmes, comparison pages, conversion work, migrations and attribution.","pr":"Brand, PR and partnerships is our second lane. Positioning, media relations, executive thought leadership, review-site reputation, partnerships and LinkedIn. So far, that's eleven press pieces, and a review score rebuilt from two point nine to three point nine.","lifecycle":"Lifecycle and demand generation is lane three. HubSpot automation, email workflows, newsletters and gated content, webinars and podcasts, account-based marketing, and funnel reporting from first touch to closed-won.","events":"Field marketing and events is lane four. Owned event series, executive dinners and summits, partner events, for example with Microsoft, paid media to fill the room, and follow-up within seven days. All of it measured to SQL.","start":"You can start with one lane, or all four. Pick a thirty-minute slot on this page, and tell us the number you need to move. Within three working days, you'll get a written thirty-day plan, and what it would cost.","book":"Just pick a time in the calendar on this page. It opens Google Calendar with all four of us invited. The audit and the session are free, for a limited time.","where":"We're based in India, and we work with teams anywhere. The booking calendar shows call times in your own timezone.","thanks":"Thanks for stopping by. If you'd like to talk it through, pick a time on this page. Bye for now.","unknown":"Good question. That one's best answered by the team directly. I've put an email button on screen, or you can pick a time to talk.","noheard":"Sorry, I didn't catch that. Try asking what we do, or tap one of the questions below."};
+    var vc = $('#talk-vc'), vBtn = $('#talk-voice');
+    if (vc && vBtn) {
+      var vBase = (function () { var s = $('script[src*="js/site.js"]'); return s ? s.src.replace(/js\/site\.js.*$/, 'assets/voice/') : 'assets/voice/'; })();
+      var vStatus = $('[data-tv-status]', vc), vYou = $('[data-tv-you]', vc), vSay = $('[data-tv-say]', vc), vActs = $('[data-tv-actions]', vc), vSug = $('[data-tv-suggest]', vc);
+      var vMute = $('[data-tv-mute]', vc), canvas = $('.tv-orb', vc), ctx = canvas.getContext('2d');
+      var STATUS = { connecting: 'Connecting…', listening: 'Listening', thinking: 'Thinking', speaking: 'Speaking · tap the orb to interrupt', paused: 'Tap the orb to talk', muted: 'Mic off · tap a question', blocked: 'Microphone blocked · tap a question', unsupported: 'Tap a question to hear the answer' };
+      var vOpen = false, actx = null, micAn = null, outAn = null, micStream = null, audioEl = null, rec = null, muted = false, misses = 0, words = [], wordEnds = [], level = 0, frame = 0, demo = false, synthTimer = null;
+      var setState = function (s) { vc.setAttribute('data-state', s); vStatus.textContent = STATUS[s] || ''; };
+
+      // ---- orb ----
+      var S = 220, dpr = Math.min(2, window.devicePixelRatio || 1);
+      var sizeOrb = function () { S = canvas.clientWidth || 220; canvas.width = S * dpr; canvas.height = S * dpr; };
+      var buf = null;
+      var rms = function (an) { if (!an) return 0; if (!buf || buf.length !== an.fftSize) buf = new Uint8Array(an.fftSize); an.getByteTimeDomainData(buf); var s = 0; for (var i = 0; i < buf.length; i++) { var v = (buf[i] - 128) / 128; s += v * v; } return Math.min(1, Math.sqrt(s / buf.length) * 4.2); };
+      var BLOBS = [['140,123,255', 0, .55], ['255,90,43', 2.1, .5], ['232,23,124', 4.2, .46], ['0,179,154', 1.1, .42]];
+      var path = function (c, R, t, amp) { ctx.beginPath(); for (var k = 0; k <= 96; k++) { var a = k / 96 * Math.PI * 2; var r = R * (1 + 0.035 * Math.sin(a * 3 + t * 1.1) + amp * 0.09 * Math.sin(a * 5 - t * 2.6) + amp * 0.05 * Math.sin(a * 8 + t * 3.4)); var x = c + Math.cos(a) * r, y = c + Math.sin(a) * r; if (k) ctx.lineTo(x, y); else ctx.moveTo(x, y); } ctx.closePath(); };
+      var draw = function (ms) {
+        if (!vOpen) return;
+        var t = ms / 1000, st = vc.getAttribute('data-state');
+        var target = st === 'listening' ? rms(micAn) : st === 'speaking' ? (outAn ? rms(outAn) : 0.35 + 0.25 * Math.sin(t * 9) * Math.sin(t * 3.3)) : st === 'thinking' ? 0.22 + 0.08 * Math.sin(t * 6) : 0.04;
+        if (demo) target = 0.3 + 0.25 * Math.abs(Math.sin(t * 4.1) * Math.sin(t * 1.7));
+        level += (target - level) * (target > level ? 0.35 : 0.12);
+        var spin = st === 'thinking' ? 2.4 : st === 'speaking' ? 1.4 : 0.6;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, S, S);
+        var c = S / 2, R = S * 0.3 * (1 + level * 0.16);
+        var halo = ctx.createRadialGradient(c, c, R * 0.7, c, c, R * 1.65);
+        halo.addColorStop(0, 'rgba(140,123,255,' + (0.16 + level * 0.3).toFixed(3) + ')'); halo.addColorStop(0.55, 'rgba(232,23,124,' + (0.05 + level * 0.1).toFixed(3) + ')'); halo.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = halo; ctx.fillRect(0, 0, S, S);
+        if (st === 'listening') { for (var q = 0; q < 2; q++) { var p = ((t * 0.7 + q * 0.5) % 1); ctx.beginPath(); ctx.arc(c, c, R * (1.05 + p * 0.55), 0, Math.PI * 2); ctx.strokeStyle = 'rgba(140,123,255,' + ((1 - p) * 0.35).toFixed(3) + ')'; ctx.lineWidth = 1.5; ctx.stroke(); } }
+        ctx.save(); path(c, R, t, level); ctx.clip();
+        var base = ctx.createLinearGradient(0, c - R, 0, c + R); base.addColorStop(0, '#FFFFFF'); base.addColorStop(1, '#F1ECFF'); ctx.fillStyle = base; ctx.fillRect(0, 0, S, S);
+        ctx.filter = 'blur(' + Math.round(S * 0.07) + 'px)';
+        BLOBS.forEach(function (b, i) {
+          var a = t * spin * (0.5 + i * 0.13) + b[1];
+          var x = c + Math.cos(a) * R * 0.48, y = c + Math.sin(a * 1.3) * R * 0.44, r = R * (b[2] + 0.1 * Math.sin(t * 1.3 + i) + level * 0.28);
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(' + b[0] + ',.82)'; ctx.fill();
+        });
+        ctx.filter = 'none';
+        var gl = ctx.createRadialGradient(c - R * 0.35, c - R * 0.42, 0, c - R * 0.35, c - R * 0.42, R * 0.9); gl.addColorStop(0, 'rgba(255,255,255,.85)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = gl; ctx.fillRect(0, 0, S, S);
+        ctx.restore();
+        path(c, R, t, level); ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.lineWidth = 1.5; ctx.stroke();
+        // captions follow the voice
+        if (st === 'speaking' && audioEl && !audioEl.paused && audioEl.duration) markWords(audioEl.currentTime / audioEl.duration);
+        frame = requestAnimationFrame(draw);
+      };
+
+      // ---- captions ----
+      var setCaption = function (text) {
+        var parts = text.split(/\s+/), total = 0;
+        wordEnds = parts.map(function (w) { total += w.length + 2 + (/[.,;:?!]$/.test(w) ? 5 : 0); return total; }).map(function (x) { return x / total; });
+        vSay.innerHTML = parts.map(function (w) { return '<span class="w">' + esc(w) + '</span>'; }).join(' ');
+        words = $$('.w', vSay);
+      };
+      var markWords = function (p) { for (var i = 0; i < words.length; i++) words[i].classList.toggle('on', (i ? wordEnds[i - 1] : 0) <= p + 0.015); };
+
+      // ---- voice out ----
+      var bestVoice = function () {
+        var vs = (window.speechSynthesis ? speechSynthesis.getVoices() : []).filter(function (v) { return /^en/i.test(v.lang); });
+        var sc = function (v) { return (/natural|neural|online/i.test(v.name) ? 20 : 0) + (/premium|enhanced/i.test(v.name) ? 14 : 0) + (/google/i.test(v.name) ? 8 : 0) + (/ava|aria|jenny|emma|libby|sonia|samantha/i.test(v.name) ? 4 : 0) + (/en-(us|gb)/i.test(v.lang) ? 1 : 0); };
+        return vs.sort(function (a, b) { return sc(b) - sc(a); })[0] || null;
+      };
+      var stopVoice = function () { if (audioEl) { audioEl.onended = audioEl.onerror = null; audioEl.pause(); } if (window.speechSynthesis) speechSynthesis.cancel(); clearInterval(synthTimer); };
+      var speak = function (id, text, done) {
+        stopVoice(); setCaption(text); setState('speaking');
+        var finished = false, end = function () { if (finished) return; finished = true; markWords(1); if (done) done(); };
+        var fallback = function () {
+          if (!window.speechSynthesis) { setTimeout(end, 400 + text.length * 55); return; }
+          var u = new SpeechSynthesisUtterance(text), v = bestVoice(); if (v) u.voice = v; u.rate = 1.02; u.pitch = 1;
+          var t0 = Date.now(), est = text.length * 62; clearInterval(synthTimer);
+          synthTimer = setInterval(function () { markWords(Math.min(1, (Date.now() - t0) / est)); }, 80);
+          u.onend = function () { clearInterval(synthTimer); end(); }; u.onerror = function () { clearInterval(synthTimer); end(); };
+          speechSynthesis.speak(u);
+        };
+        audioEl.onended = end; audioEl.onerror = function () { audioEl.onerror = null; fallback(); };
+        audioEl.src = vBase + id + '.mp3?v=1';
+        var pr = audioEl.play(); if (pr && pr.catch) pr.catch(function () { audioEl.onerror = null; fallback(); });
+      };
+
+      // ---- voice in ----
+      var listen = function () {
+        if (!vOpen || demo) return;
+        if (!SR) { setState('unsupported'); return; }
+        if (muted) { setState('muted'); return; }
+        try { if (rec) rec.abort(); } catch (e) {}
+        rec = new SR(); rec.lang = /^en/i.test(navigator.language || '') ? navigator.language : 'en-US'; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
+        var got = false;
+        rec.onstart = function () { setState('listening'); };
+        rec.onresult = function (ev) {
+          var s = '', fin = false; for (var i = 0; i < ev.results.length; i++) { s += ev.results[i][0].transcript; if (ev.results[i].isFinal) fin = true; }
+          vYou.textContent = '“' + s.trim() + '”';
+          if (fin && !got) { got = true; try { rec.stop(); } catch (e) {} handle(s); }
+        };
+        rec.onerror = function (ev) { if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') { got = true; setState('blocked'); } };
+        rec.onend = function () {
+          if (got || !vOpen) return;
+          misses++;
+          if (misses < 3) setTimeout(listen, 150);
+          else { misses = 0; speakLine('noheard', function () { setState('paused'); }); }
+        };
+        try { rec.start(); } catch (e) { setState('paused'); }
+      };
+      var speakLine = function (id, done) { speak(id, VOICE[id], done); };
+      var handle = function (q) {
+        q = String(q || '').trim(); if (!q) return;
+        misses = 0; vYou.textContent = '“' + q + '”'; vActs.innerHTML = ''; vSug.hidden = true; setState('thinking');
+        var a = reply(q), id = a.id || 'unknown';
+        // the text chat keeps the same transcript
+        tSuggest.hidden = true; tAdd('user', esc(q));
+        tAdd('bot', esc(a.text) + '<div class="talk-actions">' + a.actions.map(function (x) { return tChip(x[0], x[1], x[2], x[3]); }).join('') + '</div>');
+        setTimeout(function () {
+          if (!vOpen) return;
+          vActs.innerHTML = a.actions.map(function (x) { return tChip(x[0], x[1], x[2], x[3]); }).join('');
+          speak(id, VOICE[id] || a.text, function () { if (vOpen) setTimeout(listen, 250); });
+        }, prefersReduced ? 0 : 420);
+      };
+
+      // ---- open / close ----
+      var openVoice = function () {
+        if (vOpen) return;
+        vOpen = true; demo = /[?&]voice=demo/.test(location.search); closeSheet();
+        talk.classList.add('is-voice'); vc.hidden = false; sizeOrb();
+        vYou.textContent = ''; vActs.innerHTML = ''; vSug.hidden = false; setState('connecting');
+        if (!audioEl) { audioEl = new Audio(); audioEl.preload = 'auto'; audioEl.crossOrigin = 'anonymous'; }
+        try {
+          var AC = window.AudioContext || window.webkitAudioContext;
+          if (AC && !actx) { actx = new AC(); outAn = actx.createAnalyser(); outAn.fftSize = 1024; actx.createMediaElementSource(audioEl).connect(outAn); outAn.connect(actx.destination); }
+          if (actx && actx.state === 'suspended') actx.resume();
+        } catch (e) { outAn = null; }
+        cancelAnimationFrame(frame); frame = requestAnimationFrame(draw);
+        if (demo) { setCaption(VOICE.services); markWords(0.55); vYou.textContent = '“What do you do?”'; vSug.hidden = true; vActs.innerHTML = tChip('See services', '#services') + tChip('Book a call', '#book', true); setState('speaking'); return; }
+        speakLine('greet', function () { if (vOpen) listen(); });   // starts inside the click, so mobile browsers allow the audio
+        if (SR && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && actx) {
+          navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }).then(function (s) {
+            if (!vOpen) { s.getTracks().forEach(function (k) { k.stop(); }); return; }
+            micStream = s; micAn = actx.createAnalyser(); micAn.fftSize = 1024; actx.createMediaStreamSource(s).connect(micAn);
+          }).catch(function () { micAn = null; });
+        }
+      };
+      var closeVoice = function () {
+        if (!vOpen) return;
+        vOpen = false; stopVoice();
+        try { if (rec) { rec.onend = null; rec.abort(); } } catch (e) {}
+        if (micStream) { micStream.getTracks().forEach(function (k) { k.stop(); }); micStream = null; micAn = null; }
+        cancelAnimationFrame(frame); vc.hidden = true; talk.classList.remove('is-voice');
+      };
+      vBtn.addEventListener('click', openVoice);
+      $$('[data-tv-end]', vc).forEach(function (b) { b.addEventListener('click', closeVoice); });
+      $('[data-tv-text]', vc).addEventListener('click', function () { closeVoice(); openSheet(); tInput.focus(); });
+      $('[data-tv-orb]', vc).addEventListener('click', function () {
+        var st = vc.getAttribute('data-state');
+        if (st === 'speaking' || st === 'connecting') { stopVoice(); listen(); }
+        else if (st === 'listening') { try { rec.stop(); } catch (e) {} }
+        else listen();
+      });
+      vMute.addEventListener('click', function () {
+        muted = !muted; vMute.setAttribute('aria-pressed', String(muted)); vMute.classList.toggle('is-on', muted);
+        if (muted) { try { if (rec) { rec.onend = null; rec.abort(); } } catch (e) {} if (vc.getAttribute('data-state') === 'listening') setState('muted'); }
+        else if (vc.getAttribute('data-state') !== 'speaking') listen();
+      });
+      $$('[data-tv-ask]', vc).forEach(function (b) { b.addEventListener('click', function () { try { if (rec) { rec.onend = null; rec.abort(); } } catch (e) {} stopVoice(); handle(b.getAttribute('data-tv-ask')); }); });
+      vActs.addEventListener('click', function (e) { var a = e.target.closest('a'); if (a && a.getAttribute('href').charAt(0) === '#') closeVoice(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && vOpen) closeVoice(); });
+      window.addEventListener('resize', function () { if (vOpen) sizeOrb(); });
+      if (/[?&]voice=(1|demo)/.test(location.search)) setTimeout(openVoice, 300);
+    }
+    })();
+
     // ?talk=<question> opens the sheet with that question (screenshots, QA)
     var tq = /[?&]talk=([^&]+)/.exec(location.search);
     if (tq) ask(decodeURIComponent(tq[1].replace(/\+/g, ' ')));
@@ -538,6 +712,7 @@
      Pages are read through r.jina.ai (adds CORS); Microlink covers title and description when it is busy.
      Every finished check is logged through fwSend(); "Email me the full report" sends the whole result
      to the visitor. Results are cached in the browser for 24 hours per domain. */
+  (function () {
   var vis = $('#vis');
   if (vis) {
     var V = {
@@ -1024,6 +1199,7 @@
     var vq = /[?&]check=([^&]+)/.exec(location.search);
     if (vq) { var vd = cleanDomain(decodeURIComponent(vq[1])); if (vd) { V.input.value = vd; run(vd); } }
   }
+  })();
 
   /* ---------- 8. process: the monthly rhythm ----------
      When the section scrolls into view a cursor sweeps across thirty days; each dot lights as it
