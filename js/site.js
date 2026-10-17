@@ -546,7 +546,9 @@
       domain: $('[data-vis-domain-label]', vis), say: $('[data-vis-say]', vis), cats: $('[data-vis-cats]', vis),
       fixes: $('[data-vis-fixes]', vis), verdict: $('[data-vis-verdict]', vis), progress: $('[data-vis-progress]', vis),
       engines: $('[data-vis-engines]', vis), lead: $('[data-vis-lead]', vis), leadBtn: $('[data-vis-report]', vis),
-      status: $('[data-vis-status]', vis), actions: $('[data-vis-actions]', vis)
+      status: $('[data-vis-status]', vis), actions: $('[data-vis-actions]', vis),
+      scan: $('[data-vis-scan]', vis), bar: $('[data-vis-bar]', vis), pct: $('[data-vis-pct]', vis), steps: $('[data-vis-steps]', vis),
+      log: $('[data-vis-log]', vis), scanDomain: $('[data-vis-scan-domain]', vis), grade: $('[data-vis-grade]', vis), counts: $('[data-vis-counts]', vis)
     };
     var CATS = [
       { id: 'crawl', label: 'AI crawler access', icon: 'i-search', max: 15 },
@@ -584,33 +586,84 @@
     var anyPartial = function () { return Object.keys(S.partial).some(function (k) { return S.partial[k]; }); };
 
     /* ---- rendering ---- */
+    var GLY = { fail: '\u2715', warn: '!', pass: '\u2713' };
     var renderCats = function () {
-      V.cats.innerHTML = CATS.map(function (c) {
-        var head = '<div class="vis-cat-head"><span class="vis-k"><svg><use href="#' + c.icon + '"/></svg>' + escH(c.label) + '</span>';
-        if (S.partial[c.id]) return '<li class="vis-cat">' + head + '<span class="vis-cat-score">–</span></div><div class="vis-v">' + chip('Not checked right now', 'warn') + '</div></li>';
+      V.cats.innerHTML = CATS.map(function (c, i) {
+        var head = '<div class="vis-cat-head"><span class="vis-cat-ico"><svg><use href="#' + c.icon + '"/></svg></span><span class="vis-cat-l">' + escH(c.label) + '</span>';
+        if (S.partial[c.id] || !S.started[c.id]) return '<li class="vis-cat is-na">' + head + '<span class="vis-cat-score">n/a</span></div><p class="vis-cat-more">Not checked this time: the public reader was busy.</p></li>';
         var mine = S.checks.filter(function (x) { return x.cat === c.id; });
-        if (!S.started[c.id]) return '<li class="vis-cat">' + head + '<span class="vis-cat-score"><i class="vis-skel" style="width:34px"></i></span></div><div class="vis-meter"><i></i></div></li>';
         var got = catTotals(c.id), ratio = got / c.max, cls = ratio >= .8 ? 'good' : ratio >= .5 ? 'mid' : 'low';
-        var probs = mine.filter(function (x) { return x.status !== 'pass'; }).sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); });
+        var probs = mine.filter(function (x) { return x.status !== 'pass'; }).sort(function (p, q) { return (q.max - q.pts) - (p.max - p.pts); });
         var passed = mine.length - probs.length;
-        var chips = probs.slice(0, 4).map(function (x) { return chip(x.problem, x.status === 'fail' ? 'bad' : 'warn'); });
-        if (probs.length > 4) chips.push(chip('+' + (probs.length - 4) + ' more', ''));
-        if (passed) chips.push(chip(passed + ' passed', 'ok'));
-        return '<li class="vis-cat">' + head + '<span class="vis-cat-score">' + (Math.round(got)) + '<small>/' + c.max + '</small></span></div><div class="vis-meter ' + cls + '"><i style="width:' + Math.round(ratio * 100) + '%"></i></div><div class="vis-v">' + chips.join('') + '</div></li>';
+        var lines = probs.slice(0, 3).map(function (x) { return '<li class="' + x.status + '"><i>' + GLY[x.status] + '</i>' + escH(x.problem) + '</li>'; });
+        var more = (probs.length > 3 ? '+' + (probs.length - 3) + ' more issues · ' : '') + passed + ' of ' + mine.length + ' passed';
+        return '<li class="vis-cat ' + cls + '" style="--d:' + (i * 90) + 'ms">' + head + '<span class="vis-cat-score">' + Math.round(got) + '<small>/' + c.max + '</small></span></div>' +
+          '<div class="vis-meter ' + cls + '"><i data-w="' + Math.round(ratio * 100) + '"></i></div>' +
+          (lines.length ? '<ul class="vis-probs">' + lines.join('') + '</ul>' : '<p class="vis-cat-ok"><i>' + GLY.pass + '</i>Every check passed</p>') +
+          '<p class="vis-cat-more">' + more + '</p></li>';
       }).join('');
+      requestAnimationFrame(function () { requestAnimationFrame(function () { $$('.vis-meter i[data-w]', V.cats).forEach(function (el) { el.style.width = el.getAttribute('data-w') + '%'; }); }); });
+      setTimeout(function () { $$('.vis-meter i[data-w]', V.cats).forEach(function (el) { el.style.width = el.getAttribute('data-w') + '%'; }); }, 400);
+    };
+    var countUp = function (el, to, ms) {
+      if (prefersReduced) { el.textContent = to; return; }
+      var t0 = performance.now();
+      var tick = function (t) { var k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(to * e); if (k < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
     };
     var setRing = function () {
-      if (S.score == null) { V.score.textContent = '–'; V.ring.style.strokeDashoffset = '100'; vis.removeAttribute('data-grade'); return; }
-      V.score.textContent = S.score; V.ring.style.strokeDashoffset = String(100 - S.score);
-      vis.setAttribute('data-grade', S.score >= 80 ? 'good' : S.score >= 55 ? 'mid' : 'low');
+      if (S.score == null) { V.score.textContent = '–'; V.ring.style.strokeDashoffset = '100'; vis.removeAttribute('data-grade'); V.grade.textContent = 'Partial result'; return; }
+      var g = S.score >= 80 ? 'good' : S.score >= 55 ? 'mid' : 'low';
+      vis.setAttribute('data-grade', g);
+      V.grade.textContent = { good: 'Strong · AI engines can name you', mid: 'Fair · AI sees part of the picture', low: 'Weak · mostly invisible to AI' }[g];
+      V.score.textContent = '0'; V.ring.style.strokeDashoffset = '100';
+      requestAnimationFrame(function () { requestAnimationFrame(function () { V.ring.style.strokeDashoffset = String(100 - S.score); countUp(V.score, S.score, 1300); }); });
+      var fin = S.score; setTimeout(function () { if (S && S.score === fin) { V.score.textContent = fin; V.ring.style.strokeDashoffset = String(100 - fin); } }, 1700);
+    };
+    var renderCounts = function (fromCache) {
+      var n = { pass: 0, warn: 0, fail: 0 }; S.checks.forEach(function (c) { n[c.status]++; });
+      var proof = fromCache ? 'Scanned ' + Math.max(1, Math.round((Date.now() - S.ts) / 6e4)) + ' min ago · 9 live sources' : '9 live sources read' + (S.secs ? ' in ' + S.secs.toFixed(1) + 's' : '');
+      V.counts.innerHTML = '<span class="pass"><b>' + n.pass + '</b>passed</span><span class="warn"><b>' + n.warn + '</b>weak</span><span class="fail"><b>' + n.fail + '</b>failed</span><em><svg><use href="#i-scan"/></svg>' + escH(proof) + '</em>';
     };
     var renderFixes = function () {
       var probs = S.checks.filter(function (x) { return x.status !== 'pass'; }).sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); }).slice(0, 3);
       if (!probs.length) { V.fixes.hidden = true; return; }
       V.fixes.hidden = false;
-      $('ol', V.fixes).innerHTML = probs.map(function (x) { return '<li>' + escH(x.problem) + '<span>' + escH(CATS.filter(function (c) { return c.id === x.cat; })[0].label) + ' · −' + (Math.round((x.max - x.pts) * 10) / 10) + ' pts</span></li>'; }).join('');
+      $('ol', V.fixes).innerHTML = probs.map(function (x, i) { return '<li><span class="vis-gap-n">0' + (i + 1) + '</span><span class="vis-gap-t">' + escH(x.problem) + '<small>' + escH(CATS.filter(function (c) { return c.id === x.cat; })[0].label) + '</small></span><span class="vis-gap-p">−' + (Math.round((x.max - x.pts) * 10) / 10) + ' pts</span></li>'; }).join('');
     };
-    var progress = function (t) { V.progress.textContent = t || ''; };
+
+    /* ---- live scan panel: each step is a real request ---- */
+    var STEPS = [
+      ['home', 'Fetching your homepage'],
+      ['schema', 'Parsing structured data'],
+      ['robots', 'Reading robots.txt for 7 AI crawlers'],
+      ['sitemap', 'Reading your XML sitemap'],
+      ['llms', 'Looking for llms.txt'],
+      ['wikidata', 'Matching your entity on Wikidata'],
+      ['wiki', 'Checking Wikipedia and knowledge summaries'],
+      ['content', 'Finding pricing, proof, docs and comparisons'],
+      ['score', 'Scoring your site']
+    ];
+    var ST = {}, shown = 0, creep = null;
+    var renderSteps = function () {
+      V.steps.innerHTML = STEPS.map(function (x) { return '<li class="vis-step" data-step="' + x[0] + '"><span class="vis-step-i" aria-hidden="true"></span><span class="vis-step-l">' + x[1] + '</span><span class="vis-step-d"></span></li>'; }).join('');
+    };
+    var target = function () { var d = 0, r = 0; STEPS.forEach(function (x) { var st = ST[x[0]]; if (st === 'done') d++; else if (st === 'run') r++; }); return Math.min(99, ((d + r * 0.35) / STEPS.length) * 100); };
+    var paint = function (p) { shown = p; V.bar.style.width = p.toFixed(1) + '%'; V.pct.textContent = Math.floor(p) + '%'; };
+    var step = function (id, state, detail, tone, url) {
+      if (!S || !V.steps) return;
+      if (ST[id] === 'done' && state === 'run') return;
+      ST[id] = state; var li = $('[data-step="' + id + '"]', V.steps); if (!li) return;
+      li.className = 'vis-step is-' + state + (tone ? ' is-' + tone : '');
+      if (detail != null) $('.vis-step-d', li).textContent = detail;
+      if (url) V.log.innerHTML = '<span>GET</span>' + escH(url);
+    };
+    var progress = function (t) { if (t && V.log) V.log.innerHTML = '<span>&rsaquo;</span>' + escH(t); };
+    var stopCreep = function () { clearInterval(creep); creep = null; };
+    var startCreep = function () {
+      stopCreep();
+      creep = setInterval(function () { var t = target(); if (shown < t) paint(Math.min(t, shown + Math.max(0.6, (t - shown) * 0.18))); else if (shown < 98) paint(shown + 0.04); }, 90);
+    };
 
     /* ---- the checks ---- */
     var robotsChecks = function (body) {
@@ -641,6 +694,8 @@
       bots.forEach(function (b) { var no = body ? blocked(b[1]) : false; add('crawl', b[0], b[3], b[4], no ? 0 : b[2], b[2], b[5]); });
       var sitemap = body && /^\s*sitemap\s*:\s*\S+/im.test(body);
       S.sitemapUrl = sitemap ? (/^\s*sitemap\s*:\s*(\S+)/im.exec(body) || [])[1] : '';
+      var okBots = bots.filter(function (b) { return !(body && blocked(b[1])); }).length;
+      step('robots', 'done', body ? okBots + ' of 7 AI crawlers allowed' : 'No robots.txt found', body && okBots === 7 ? 'good' : 'bad');
       add('crawl', 'sitemap', 'Sitemap declared', body ? 'No sitemap in robots.txt' : 'No robots.txt', sitemap ? 1 : 0, 1, body ? 'Add a "Sitemap:" line to robots.txt pointing at your XML sitemap.' : 'Publish a robots.txt with a "Sitemap:" line so every crawler finds your pages.');
     };
 
@@ -706,12 +761,15 @@
       // what content needs later
       var hrefs = [].slice.call(doc.querySelectorAll('a[href]')).map(function (a) { try { return new URL(a.getAttribute('href'), 'https://' + S.domain + '/'); } catch (e) { return null; } }).filter(Boolean);
       S.links = { internal: hrefs.filter(function (u) { return sameSite(u.hostname.replace(/^www\./, ''), S.domain); }).map(function (u) { return u.pathname.toLowerCase() + ' ' + u.hostname.toLowerCase(); }), external: hrefs.map(function (u) { return u.href.toLowerCase(); }) };
+      step('home', 'done', words.toLocaleString() + ' words · ' + h2s.length + ' sections', words >= 600 ? 'good' : 'bad');
+      step('schema', 'done', blocks.length ? blocks.length + ' JSON-LD block' + (blocks.length > 1 ? 's' : '') + (org ? ' · Organization' : ' · no Organization') : 'No JSON-LD found', org ? 'good' : 'bad');
       S.questions = [].slice.call(doc.querySelectorAll('h2,h3,summary,dt')).filter(function (h) { return /\?\s*$/.test(h.textContent.trim()); }).length;
       S.faq = faq;
     };
 
     var liteChecks = function (m) {
       S.partial.page = true; S.partial.schema = true; S.partial.content = true;
+      step('home', 'done', 'Reader busy · partial read', 'bad'); step('schema', 'done', 'Skipped: page not readable', 'bad'); step('content', 'done', 'Skipped: page not readable', 'bad');
       if (m.brand) S.brand = m.brand;
       S.description = m.description || '';
       S.links = { internal: [], external: [] }; S.sameAs = [];
@@ -737,8 +795,9 @@
       var looksRight = function (w) { return w && w.type === 'standard' && w.extract && new RegExp(alnum(first), 'i').test(alnum((w.title || '') + ' ' + w.extract.slice(0, 160))) && /company|software|platform|service|startup|corporation|application|app\b|product|brand|firm|agency|school/i.test(w.extract.slice(0, 260)); };
       var ddg = function (term) { return withTimeout(fetch('https://api.duckduckgo.com/?q=' + encodeURIComponent(term) + '&format=json&no_html=1&skip_disambig=1').then(function (r) { return r.ok ? r.json() : null; }), 8000).catch(function () { return null; }).then(function (d) { return d && d.Abstract && d.Abstract.length > 40 && new RegExp(alnum(first), 'i').test(alnum(d.Abstract.slice(0, 120))) ? d : null; }); };
 
-      progress('Looking you up on Wikidata and Wikipedia…');
+      step('wikidata', 'run', 'Searching "' + brand + '"', null, 'https://www.wikidata.org/w/api.php?search=' + encodeURIComponent(brand));
       var pWd = matchWikidata(brand).then(function (e) { return e || (alnum(label) !== alnum(brand) ? matchWikidata(label) : null); });
+      pWd.then(function (e) { step('wikidata', 'done', e ? e.id + ' matches ' + S.domain : 'No item tied to ' + S.domain, e ? 'good' : 'bad'); step('wiki', 'run', '', null, 'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(brand.replace(/\s+/g, '_'))); });
       var pWiki = pWd.then(function (e) {
         var t = e && e.sitelinks && e.sitelinks.enwiki && e.sitelinks.enwiki.title;
         if (t) return summary(t).then(function (w) { return { w: w, linked: true }; });
@@ -754,6 +813,7 @@
         var pool = (S.sameAs || []).concat((S.links && S.links.external) || []).join(' ').toLowerCase();
         var kinds = [/linkedin\.com\/(company|showcase|school)/, /(twitter|x)\.com\/(?!share|intent|home)/, /crunchbase\.com\/organization/, /g2\.com\/products/, /capterra\.(com|co)/, /github\.com\//, /youtube\.com\/(@|c\/|channel)/, /trustpilot\.com\/review/].filter(function (re) { return re.test(pool); }).length;
         add('entity', 'profiles', kinds + ' linked profiles', kinds ? 'Only ' + kinds + ' linked profile' + (kinds > 1 ? 's' : '') : 'No linked profiles', kinds >= 4 ? 5 : kinds >= 2 ? 3 : kinds ? 1 : 0, 5, 'Link your LinkedIn, X, Crunchbase and G2 profiles from the site and from your schema.');
+        step('wiki', 'done', wiki ? 'Article: ' + (wk.w.title || brand) : d ? 'No article · summary found' : 'No article or summary', wiki ? 'good' : 'bad');
         if (wiki && wk.w.extract) S.quote = firstSentences(wk.w.extract, 2);
         else if (d && d.Abstract) S.quote = firstSentences(d.Abstract, 2);
         else if (e && e.descriptions && e.descriptions.en) S.quote = e.descriptions.en.value;
@@ -772,6 +832,8 @@
       add('content', 'proof', 'Customer stories linked', 'No customer stories linked', linked(/\/(customers?|case-stud|success-stor|testimonials|clients)/) ? 2 : 0, 2, 'Link customer stories or case studies; engines cite proof pages.');
       add('content', 'docs', 'Docs or help linked', 'No docs or help linked', linked(/\/(docs|documentation|help|support|developers?|api)(\/|\s|$)|^\/?\S*\s(docs|help|support|developers?)\./m) ? 1 : 0, 1, 'Link docs or a help centre; AI answers lean on them for "how does X work".');
       add('content', 'blog', 'Blog or resources linked', 'No blog or resources linked', linked(/\/(blog|resources|guides|learn|insights|articles|news)(\/|\s|$)|\s(blog)\./m) ? 1 : 0, 1, 'Link a blog or resources hub from the homepage.');
+      var foundPages = ['pricing', 'proof', 'docs', 'blog'].filter(function (k) { return S.checks.some(function (c) { return c.key === k && c.status === 'pass'; }); }).length + (linked(/(\/vs[\/-]|-vs-|\/compare|\/comparison|alternative)/) ? 1 : 0);
+      step('content', 'done', foundPages + ' of 5 buyer pages linked', foundPages >= 4 ? 'good' : 'bad');
       add('content', 'compare', 'Comparison pages linked', 'No comparison pages linked', linked(/(\/vs[\/-]|-vs-|\/compare|\/comparison|alternative)/) ? 2 : 0, 2, 'Publish comparison pages (X vs Y, alternatives). They are cited heavily for buying prompts.');
     };
 
@@ -783,17 +845,21 @@
     var begin = function (domain) {
       S = newState(domain);
       vis.setAttribute('data-state', 'scanning'); vis.removeAttribute('data-grade');
-      V.intro.hidden = true; V.result.hidden = false; V.engines.hidden = true; V.engines.innerHTML = ''; V.fixes.hidden = true;
+      V.intro.hidden = true; V.result.hidden = true; V.scan.hidden = false; V.engines.hidden = true; V.engines.innerHTML = ''; V.fixes.hidden = true;
       V.lead.hidden = true; V.lead.classList.remove('is-sent'); V.leadBtn.hidden = false; V.actions.hidden = true; V.status.textContent = '';
       $('button[type="submit"]', V.lead).disabled = false;
       V.score.textContent = '…'; V.ring.style.strokeDashoffset = '100';
       V.name.textContent = labelOf(domain); V.domain.textContent = domain; V.say.textContent = ''; V.verdict.textContent = '';
       V.logo.hidden = false; V.logo.src = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=64'; V.logo.onerror = function () { V.logo.hidden = true; };
-      renderCats(); progress('Reading your homepage…');
+      ST = {}; renderSteps(); paint(0); V.scanDomain.textContent = domain; S.t0 = Date.now();
+      step('home', 'run', '', null, 'https://' + domain + '/'); step('schema', 'run');
+      startCreep();
     };
 
     var finish = function (fromCache) {
-      vis.setAttribute('data-state', 'done'); progress('');
+      stopCreep(); vis.setAttribute('data-state', 'done');
+      V.scan.hidden = true; V.result.hidden = false;
+      if (!fromCache && S.t0) S.secs = (Date.now() - S.t0) / 1000;
       var total = 0; S.checks.forEach(function (c) { total += c.pts; });
       S.score = anyPartial() ? null : Math.round(S.noindex ? Math.min(total, 15) : total);
       S.grade = S.score == null ? '' : S.score >= 80 ? 'Strong' : S.score >= 55 ? 'Fair' : 'Weak';
@@ -804,7 +870,7 @@
         S.score >= 55 ? name + ' is readable, but AI engines are working from thin material. ' + probs + ' checks need work; the three above cost you the most.' :
         'AI engines have little to go on for ' + name + '. ' + probs + ' of ' + S.checks.length + ' checks failed or need work; the three above cost you the most.';
       V.name.textContent = S.brand; V.say.textContent = S.quote ? '"' + S.quote + '"' : (S.description ? '"' + S.description + '"' : '');
-      renderCats(); setRing(); renderFixes();
+      renderCats(); setRing(); renderFixes(); renderCounts(fromCache);
       var dl = $('[data-vis-detail]', vis); if (dl) dl.href = FOURWARD.toolUrl + '?check=' + encodeURIComponent(S.domain);
       setTimeout(function () { try { vis.dispatchEvent(new CustomEvent('vis:done', { detail: summaryOf() })); } catch (e) {} }, 0);
       V.verdict.textContent = S.verdict; V.actions.hidden = false;
@@ -815,7 +881,7 @@
 
     var run = function (domain) {
       var c = readCache(domain);
-      if (c) { begin(domain); S = c; S.started = c.started || {}; setTimeout(function () { finish(true); }, prefersReduced ? 0 : 500); return; }
+      if (c) { begin(domain); STEPS.forEach(function (x, i) { setTimeout(function () { step(x[0], 'done', 'From your earlier scan', 'good'); }, prefersReduced ? 0 : i * 70); }); setTimeout(function () { S = c; S.started = c.started || {}; finish(true); }, prefersReduced ? 0 : 900); return; }
       begin(domain);
       var pPage = jina(domain, '/', true).then(function (r) {
         if (!r.ok || !r.text) throw new Error('unreachable');
@@ -825,30 +891,41 @@
           if (!j || j.status !== 'success') throw e;
           var d = j.data || {}; liteChecks({ brand: d.publisher, description: d.description, logo: d.logo && d.logo.url });
         }).catch(function () { liteChecks({}); });
-      }).then(function () { renderCats(); progress('Reading robots.txt and llms.txt…'); });
+      });
 
+      step('robots', 'run', '', null, 'https://' + domain + '/robots.txt');
       var pRobots = jina(domain, '/robots.txt').then(function (r) {
         var body = (r.text.split(/Markdown Content:\s*/)[1] || r.text || '');
         if (notFound(r) || !/user-agent/i.test(body)) robotsChecks(null); else robotsChecks(body);
         var smUrl = S.sitemapUrl || 'https://' + domain + '/sitemap.xml';
+        step('sitemap', 'run', '', null, smUrl);
         return getText('https://r.jina.ai/' + smUrl, FOURWARD.jinaKey ? { 'Authorization': 'Bearer ' + FOURWARD.jinaKey } : {}, 15000).then(function (sr) {
           if (busy(sr)) throw Object.assign(new Error('busy'), { busy: true });
           var list = notFound(sr) ? [] : (sr.text.match(/https?:\/\/[^\s<>"')\]]+/g) || []).filter(function (u) { return u.indexOf('r.jina.ai') < 0 && u !== smUrl; });
           var subs = list.filter(function (u) { return /\.xml(\.gz)?$|sitemap/i.test(u); }).length;
           var isIndex = /sitemapindex/i.test(sr.text) || (list.length > 0 && subs / list.length > 0.6);
+          step('sitemap', 'done', isIndex ? 'Index of ' + subs + ' sitemaps' : list.length ? list.length.toLocaleString() + ' URLs listed' : 'Missing or empty', isIndex || list.length >= 20 ? 'good' : 'bad');
           if (isIndex) add('crawl', 'sitemapurls', 'Sitemap index (' + subs + ' sitemaps)', 'Sitemap index is empty', subs ? 2 : 0, 2, 'Publish an XML sitemap that lists every page you want cited, and keep it current.');
           else add('crawl', 'sitemapurls', list.length + ' URLs in sitemap', list.length ? 'Sitemap lists only ' + list.length + ' URLs' : 'Sitemap missing or empty', list.length >= 20 ? 2 : list.length ? 1 : 0, 2, 'Publish an XML sitemap that lists every page you want cited, and keep it current.');
-        }).catch(function (e) { if (e && e.busy) { S.partial.crawl = true; return; } add('crawl', 'sitemapurls', 'Sitemap reachable', 'Sitemap not reachable', 0, 2, 'Publish an XML sitemap at /sitemap.xml that lists every page you want cited.'); });
-      }).catch(function (e) { if (e && (e.busy || e.message === 'timeout')) S.partial.crawl = true; else robotsChecks(null); }).then(renderCats);
+        }).catch(function (e) { if (e && e.busy) { S.partial.crawl = true; step('sitemap', 'done', 'Reader busy · skipped', 'bad'); return; } step('sitemap', 'done', 'Not reachable', 'bad'); add('crawl', 'sitemapurls', 'Sitemap reachable', 'Sitemap not reachable', 0, 2, 'Publish an XML sitemap at /sitemap.xml that lists every page you want cited.'); });
+      }).catch(function (e) { if (e && (e.busy || e.message === 'timeout')) { S.partial.crawl = true; step('robots', 'done', 'Reader busy · skipped', 'bad'); } else robotsChecks(null); if (ST.sitemap !== 'done') step('sitemap', 'done', 'Skipped', 'bad'); });
 
+      step('llms', 'run', '', null, 'https://' + domain + '/llms.txt');
       var pLlms = jina(domain, '/llms.txt').then(function (r) {
         var body = (r.text.split(/Markdown Content:\s*/)[1] || '').trim();
         var ok = !notFound(r) && body.length > 40 && !/not found|doesn'?t exist|page not found/i.test(body.slice(0, 300)) && !/<html/i.test(body.slice(0, 200));
         S.llms = { ok: ok, links: ok ? (body.match(/\]\(https?:\/\//g) || []).length : 0 };
-      }).catch(function (e) { if (e && e.busy) S.partial.content = true; S.llms = { ok: false, links: 0 }; });
+        step('llms', 'done', ok ? 'Found · ' + S.llms.links + ' links' : 'Not found', ok ? 'good' : 'bad');
+      }).catch(function (e) { if (e && e.busy) S.partial.content = true; S.llms = { ok: false, links: 0 }; step('llms', 'done', e && e.busy ? 'Reader busy · skipped' : 'Not found', 'bad'); });
 
-      var pEntity = pPage.then(entityChecks).then(renderCats).catch(function () { S.partial.entity = true; });
-      Promise.all([pPage, pRobots, pLlms, pEntity]).then(function () { contentChecks(); finish(false); });
+      var pEntity = pPage.then(entityChecks).catch(function () { S.partial.entity = true; step('wikidata', 'done', 'Lookup failed', 'bad'); step('wiki', 'done', 'Lookup failed', 'bad'); });
+      Promise.all([pPage, pRobots, pLlms, pEntity]).then(function () {
+        step('content', 'run', '', null, 'https://' + domain + '/ · internal links');
+        contentChecks(); if (ST.content !== 'done') step('content', 'done', 'Skipped', 'bad');
+        step('score', 'run', '');
+        progress('Weighting every result into one score…');
+        setTimeout(function () { step('score', 'done', 'Scored out of 100', 'good'); paint(100); setTimeout(function () { finish(false); }, prefersReduced ? 0 : 450); }, prefersReduced ? 0 : 650);
+      });
     };
 
     /* ---- capture: every finished check is logged once per domain per 12 hours ---- */
@@ -930,6 +1007,7 @@
 
     var reset = function () {
       vis.setAttribute('data-state', 'idle'); vis.removeAttribute('data-grade');
+      stopCreep(); V.scan.hidden = true;
       V.score.textContent = '–'; V.ring.style.strokeDashoffset = '100'; V.result.hidden = true; V.intro.hidden = false;
       V.lead.hidden = true; V.lead.classList.remove('is-sent'); V.leadBtn.hidden = false; V.status.textContent = ''; $('button[type="submit"]', V.lead).disabled = false;
       V.input.value = ''; V.input.focus();
@@ -979,5 +1057,81 @@
       [rhCards[k], rhRows[k]].forEach(function (el) { if (el) { el.addEventListener('pointerenter', on); el.addEventListener('pointerleave', off); } });
     });
   }
+
+  /* ---------- 9. live work mocks ----------
+     Each work card plays a short loop of what we shipped, only while it is on screen.
+     Reduced motion and ?static=1 show the finished frame. */
+  (function () {
+    var mocks = $$('[data-live]');
+    if (!mocks.length) return;
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var count = function (el, ms) {
+      var to = parseFloat(el.getAttribute('data-count')), dec = +(el.getAttribute('data-dec') || 0), t0 = performance.now();
+      return new Promise(function (done) {
+        var tick = function (t) { var k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3); el.textContent = (to * e).toFixed(dec); if (k < 1) requestAnimationFrame(tick); else done(); };
+        requestAnimationFrame(tick);
+      });
+    };
+    var finalFrame = function (m) {
+      for (var i = 1; i <= 7; i++) m.classList.add('s' + i);
+      $$('[data-count]', m).forEach(function (el) { el.textContent = (+el.getAttribute('data-count')).toFixed(+(el.getAttribute('data-dec') || 0)); });
+      $$('[data-type]', m).forEach(function (el) { el.textContent = el.getAttribute('data-type'); });
+      var c = $('.lm-caret', m); if (c) c.style.display = 'none';
+    };
+    var reset = function (m) {
+      for (var i = 1; i <= 7; i++) m.classList.remove('s' + i);
+      $$('[data-count]', m).forEach(function (el) { el.textContent = (0).toFixed(+(el.getAttribute('data-dec') || 0)); });
+      $$('[data-type]', m).forEach(function (el) { el.textContent = ''; });
+    };
+    var PLAY = {
+      g: function (m, on) {
+        var q = $('[data-type]', m), text = q.getAttribute('data-type'), i = 0;
+        return wait(500).then(function type() {
+          if (!on()) return;
+          q.textContent = text.slice(0, ++i);
+          return i < text.length ? wait(45 + Math.random() * 45).then(type) : null;
+        }).then(function () { return wait(350); })
+          .then(function () { m.classList.add('s1', 's2'); return wait(1100); })
+          .then(function () { m.classList.add('s3'); return wait(1500); })
+          .then(function () { m.classList.add('s4'); return wait(1100); })
+          .then(function () { m.classList.add('s5'); return wait(3800); });
+      },
+      r: function (m) {
+        return wait(400)
+          .then(function () { m.classList.add('s1'); return Promise.all($$('[data-count]', m).map(function (el) { return count(el, 1400); })); })
+          .then(function () { return wait(600); })
+          .then(function () { m.classList.add('s2'); return wait(4200); });
+      },
+      v: function (m) {
+        var cta = $('.lm-v-cta', m);
+        return wait(300)
+          .then(function () { m.classList.add('s1'); return wait(1100); })
+          .then(function () { m.classList.add('s2'); return wait(600); })
+          .then(function () { m.classList.add('s3'); return wait(900); })
+          .then(function () {
+            var a = m.getBoundingClientRect(), b = cta.getBoundingClientRect();
+            m.style.setProperty('--cx', (b.left - a.left + b.width * 0.62) + 'px'); m.style.setProperty('--cy', (b.top - a.top + b.height * 0.45) + 'px');
+            m.classList.add('s4'); return wait(150);
+          })
+          .then(function () { m.classList.add('s5'); return wait(1150); })
+          .then(function () { m.classList.add('s6'); return wait(900); })
+          .then(function () { m.classList.add('s7'); return Promise.all($$('[data-count]', m).map(function (el) { return count(el, 1300); })); })
+          .then(function () { return wait(3600); });
+      }
+    };
+    if (prefersReduced || staticMode || !('IntersectionObserver' in window)) { mocks.forEach(finalFrame); return; }
+    mocks.forEach(function (m) {
+      var visible = false, running = false;
+      var loop = function () {
+        if (running || !visible) return;
+        running = true; reset(m);
+        PLAY[m.getAttribute('data-live')](m, function () { return visible; }).then(function () {
+          running = false;
+          if (visible) { m.classList.add('is-out'); setTimeout(function () { m.classList.remove('is-out'); loop(); }, 450); }
+        });
+      };
+      new IntersectionObserver(function (es) { es.forEach(function (e) { visible = e.isIntersecting; if (visible) loop(); }); }, { threshold: 0.35 }).observe(m);
+    });
+  })();
 
 })();
