@@ -1189,6 +1189,7 @@ html.static .rh-cursor{display:none}
 #contact{padding-bottom:16px}
 .hero{padding-top:clamp(20px,2.6vw,40px)}.hero-grid > div:first-child{padding-top:clamp(0px,2.4vw,36px)}
 #contact{padding-bottom:clamp(28px,3vw,44px)}#subscribe{margin-top:0}
+#contact + #subscribe{margin-top:0}#contact{padding-bottom:clamp(32px,3.5vw,48px)}
 
 /* ---------- voice mode ---------- */
 .talk-voice{flex:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(110,69,232,.2);background:linear-gradient(135deg,#F1ECFF,#FFE9F3 55%,#FFEFE6);color:var(--ink);font:inherit;font-size:13px;font-weight:600;letter-spacing:-.01em;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
