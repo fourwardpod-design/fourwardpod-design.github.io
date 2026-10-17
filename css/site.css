@@ -545,3 +545,16 @@ html.static .panel.is-active{animation:none}
 .talk-head span svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .confirm .sum svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;opacity:.8}
 .day.is-today::after{background:rgba(11,11,12,.35)}
+
+/* ---------- footer: four-lane colour wash rising from the bottom edge ---------- */
+.footer{position:relative;overflow:hidden;isolation:isolate;background:#F7F7F5;border-top:0}
+.footer::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;z-index:3;background:linear-gradient(90deg,var(--d) 0%,var(--g) 34%,var(--s) 67%,var(--r) 100%)}
+.footer .wash{--mask:linear-gradient(to top,#000 18%,transparent 72%);--wash:
+  radial-gradient(42% 70% at 6% 100%,#FFC9A0 0%,rgba(255,201,160,0) 62%),
+  radial-gradient(40% 62% at 36% 100%,#FFADD0 0%,rgba(255,173,208,0) 62%),
+  radial-gradient(40% 62% at 64% 100%,#9FE7D3 0%,rgba(159,231,211,0) 62%),
+  radial-gradient(42% 70% at 94% 100%,#C8B4FF 0%,rgba(200,180,255,0) 62%)}
+.footer .wash::before{opacity:.5}
+.footer .wash::after{opacity:.8}
+.footer > .wrap{position:relative;z-index:2}
+.foot-bottom{border-top-color:rgba(11,11,12,.1)}
