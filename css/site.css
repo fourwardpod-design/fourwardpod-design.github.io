@@ -1187,6 +1187,7 @@ html.static .rh-cursor{display:none}
 @media (max-width:820px){.sub-band{grid-template-columns:1fr;padding:18px}}
 @media (max-width:460px){.sub-band .sub-form{grid-template-columns:minmax(0,1fr) auto}}
 #contact{padding-bottom:16px}
+.hero{padding-top:clamp(20px,2.6vw,40px)}.hero-grid > div:first-child{padding-top:clamp(0px,2.4vw,36px)}
 
 /* ---------- voice mode ---------- */
 .talk-voice{flex:none;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(110,69,232,.2);background:linear-gradient(135deg,#F1ECFF,#FFE9F3 55%,#FFEFE6);color:var(--ink);font:inherit;font-size:13px;font-weight:600;letter-spacing:-.01em;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
