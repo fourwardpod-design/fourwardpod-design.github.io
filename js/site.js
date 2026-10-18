@@ -1354,6 +1354,69 @@
     });
   })();
 
+  /* ---------- 9b. search mock: two Google searches in one browser window ----------
+     One cursor leads the eye: it clicks the other tab, the active-tab pill springs across, the query
+     re-types, the AI Overview generates and the cited source and top result land. Loops while visible;
+     ?static=1 and reduced motion show the first search finished. */
+  (function () {
+    var mock = $('[data-g2]');
+    if (!mock) return;
+    var scenes = $$('.g2-scene', mock), tabs = $$('.g2-tab', mock), pill = $('.g2-pill', mock), q = $('.g2-q', mock),
+      box = $('.lm-g-q', mock), load = $('.g2-load', mock), cur = $('.g2-cursor', mock);
+    var STEPS = ['s-ov', 's-text', 's-hl', 's-src', 's-org'], STOP = {}, run = 0, visible = false, active = 0;
+    var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var place = function (i) {
+      var t = tabs[i]; active = i;
+      pill.style.setProperty('--x', t.offsetLeft + 'px'); pill.style.setProperty('--w', t.offsetWidth + 'px');
+      tabs.forEach(function (x, k) { x.classList.toggle('is-on', k === i); });
+    };
+    var clear = function (s) { STEPS.concat('is-on', 'is-leaving').forEach(function (c) { s.classList.remove(c); }); };
+    var hover = function (el) { $$('.hover', mock).forEach(function (x) { x.classList.remove('hover'); }); if (el) el.classList.add('hover'); };
+    var at = function (el, fx, fy) {
+      var a = mock.getBoundingClientRect(), b = el.getBoundingClientRect();
+      cur.style.setProperty('--cx', (b.left - a.left + b.width * fx) + 'px'); cur.style.setProperty('--cy', (b.top - a.top + b.height * fy) + 'px');
+    };
+    var reset = function () { scenes.forEach(clear); q.textContent = ''; hover(null); cur.classList.remove('on', 'press'); load.classList.remove('go'); place(0); };
+    var final = function () { reset(); scenes[0].classList.add.apply(scenes[0].classList, ['is-on'].concat(STEPS)); q.textContent = scenes[0].getAttribute('data-q'); mock.classList.add('is-static'); };
+    window.addEventListener('resize', function () { place(active); });
+    if (prefersReduced || staticMode || !('IntersectionObserver' in window)) { final(); return; }
+
+    var play = async function (id) {
+      var w = function (ms) { return sleep(ms).then(function () { if (!visible || id !== run) throw STOP; }); };
+      reset(); at(box, .92, .5);
+      for (var n = 0; ; n++) {
+        var i = n % scenes.length, s = scenes[i], prev = scenes[(i + scenes.length - 1) % scenes.length];
+        if (n > 0) {                                   // the cursor clicks the other tab
+          hover(null); at(tabs[i], .55, .55); await w(950);
+          cur.classList.add('press'); await w(140); cur.classList.remove('press');
+        }
+        place(i);
+        if (n > 0) { prev.classList.remove('is-on'); prev.classList.add('is-leaving'); }
+        if (q.textContent) { q.classList.add('sel'); await w(300); q.classList.remove('sel'); q.textContent = ''; await w(120); }
+        var text = s.getAttribute('data-q');
+        for (var k = 1; k <= text.length; k++) { q.textContent = text.slice(0, k); await w((n ? 30 : 42) + Math.random() * (n ? 28 : 40) + (text.charAt(k - 1) === ' ' ? 55 : 0)); }
+        await w(200);
+        box.classList.add('press'); load.classList.remove('go'); void load.offsetWidth; load.classList.add('go');
+        await w(150); box.classList.remove('press');
+        clear(prev); s.classList.add('is-on');
+        await w(260); s.classList.add('s-ov');
+        await w(1000); s.classList.add('s-text');
+        await w(950); s.classList.add('s-hl');
+        await w(800); s.classList.add('s-src');
+        await w(500); cur.classList.add('on'); at($('.lm-g-src', s), .34, .58);
+        await w(950); hover($('.lm-g-src', s));
+        await w(650); s.classList.add('s-org');
+        await w(600); at($('.lm-g-org b', s), .3, .62);
+        await w(950); hover($('.lm-g-org', s));
+        await w(2600);
+      }
+    };
+    var start = function () { var id = ++run; play(id).catch(function (e) { if (e !== STOP) throw e; }); };
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { var was = visible; visible = e.isIntersecting; if (visible && !was) start(); });
+    }, { threshold: 0.35 }).observe(mock);
+  })();
+
   /* ---------- 10. services: tap to open on touch screens ----------
      Hover (or keyboard focus) makes a card bigger and shows the detail; touch toggles it. */
   (function () {
