@@ -77,6 +77,16 @@
         a.addEventListener('click', function () { nav.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); });
       });
     }
+    /* resources menu */
+    $$('.nav-drop', nav).forEach(function (d) {
+      var btn = $('.nav-drop-btn', d);
+      var set = function (on) { d.classList.toggle('is-open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); };
+      btn.addEventListener('click', function (e) { e.stopPropagation(); set(!d.classList.contains('is-open')); });
+      document.addEventListener('click', function (e) { if (!d.contains(e.target)) set(false); });
+      d.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });
+      d.addEventListener('focusout', function (e) { if (!d.contains(e.relatedTarget)) set(false); });
+      if (/[?&]menu=1/.test(location.search)) set(true);   // ?menu=1 opens it (screenshots)
+    });
     // highlight the section in view
     var links = $$('.nav-links a', nav);
     var targets = links.map(function (a) { var h = a.getAttribute('href') || ''; return h.charAt(0) === '#' && h.length > 1 ? $(h) : null; }).filter(Boolean);

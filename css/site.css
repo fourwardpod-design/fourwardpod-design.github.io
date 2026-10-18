@@ -1076,6 +1076,41 @@ html.static .rh-cursor{display:none}
 .lane ul.tags li::before{display:none}
 .lane:hover ul.tags li{background:#fff}
 @media (max-width:1060px){.lane h3{margin-top:22px}}
+/* ---------- nav: resources menu ---------- */
+.nav-drop{position:relative}
+.nav-drop-btn{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 11px 0 13px;border:0;border-radius:var(--pill);background:transparent;font:inherit;font-size:14.5px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:background .2s,color .2s}
+.nav-drop-btn:hover,.nav-drop.is-open .nav-drop-btn{background:var(--bg-2);color:var(--ink)}
+.nav-chev{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
+.nav-drop.is-open .nav-chev{transform:rotate(180deg)}
+.nav-menu{position:absolute;top:calc(100% + 12px);left:50%;width:340px;padding:8px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -28px rgba(11,11,12,.3),0 8px 20px -12px rgba(11,11,12,.12);opacity:0;visibility:hidden;transform:translate(-50%,6px);transition:opacity .2s,transform .25s var(--ease),visibility 0s .25s;z-index:80}
+.nav-menu::before{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
+.nav-drop.is-open .nav-menu{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .2s,transform .25s var(--ease)}
+@media (hover:hover) and (pointer:fine) and (min-width:961px){.nav-drop:hover .nav-menu{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .2s,transform .25s var(--ease)}.nav-drop:hover .nav-chev{transform:rotate(180deg)}.nav-drop:hover .nav-drop-btn{background:var(--bg-2);color:var(--ink)}}
+.nm-label{display:block;padding:10px 12px 4px;font-size:11.5px;font-weight:600;color:var(--faint)}
+.nav-links .nm-item{display:flex;align-items:center;gap:12px;height:auto;padding:10px 12px;border-radius:14px;color:var(--ink);white-space:normal}
+.nav-links .nm-item:hover{background:var(--bg-2)}
+.nm-ico{width:38px;height:38px;flex:none;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;background:var(--bg-2);border:1px solid var(--line)}
+.nm-ico svg{width:17px;height:17px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nm-ico[data-tone="r"]{background:#F1ECFF;border-color:#E2D9FF}.nm-ico[data-tone="r"] svg{stroke:#5A36C9}
+.nm-ico[data-tone="s"]{background:#E6F8F4;border-color:#CDEFE7}.nm-ico[data-tone="s"] svg{stroke:#00766C}
+.nm-ico[data-tone="d"]{background:#FFF0E8;border-color:#FFDCCB}.nm-ico[data-tone="d"] svg{stroke:#C2410C}
+.nm-txt{display:grid;gap:1px;line-height:1.3}
+.nm-txt b{font-size:14.5px;font-weight:600;color:var(--ink)}
+.nm-txt small{font-size:12.5px;color:var(--mute)}
+.nav-links .nm-all{display:flex;align-items:center;justify-content:space-between;height:44px;margin-top:6px;padding:0 14px;border-radius:12px;background:var(--bg-2);font-size:13.5px;font-weight:600;color:var(--ink)}
+.nav-links .nm-all:hover{background:#ECECE8}
+.nm-all svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:960px){
+  .nav.is-open .nav-drop{display:block}
+  .nav.is-open .nav-drop-btn{width:100%;justify-content:space-between;height:48px;padding:0 13px;border-radius:var(--r-sm);font-size:16px}
+  .nav.is-open .nav-menu{position:static;width:auto;transform:none;box-shadow:none;border:0;padding:0 0 6px 6px;opacity:1;visibility:visible;display:none}
+  .nav.is-open .nav-drop.is-open .nav-menu{display:block}
+  .nav.is-open .nav-menu::before{display:none}
+}
+.foot-grid{grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr))}
+@media (max-width:1100px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.foot-brand{grid-column:1/-1}}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
 /* ---------- doc v2: one team, centred titles ---------- */
 .sec-head.center{max-width:780px;margin-left:auto;margin-right:auto;text-align:center;justify-items:center;gap:16px}
 .sec-head.center .lead{max-width:60ch}
