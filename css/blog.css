@@ -364,3 +364,31 @@
   .post-hero-in.has-cover{grid-template-columns:1fr;gap:26px}
   .ph-cover{transform:none;max-width:640px}
 }
+
+/* v6: airier header, byline card */
+.post-hero{padding:clamp(40px,5vw,72px) 0 clamp(44px,5vw,72px);box-shadow:inset 0 -1px 0 var(--line)}
+.post-hero::before{background:radial-gradient(50% 80% at 85% 0%,rgba(140,123,255,.16),transparent 70%),radial-gradient(40% 70% at 5% 100%,rgba(255,138,61,.11),transparent 70%)}
+.post-hero .crumbs{margin-bottom:22px}
+.post-hero-in.has-cover h1{margin:0}
+.post-dek{margin-top:20px;color:#3A3A40}
+.post-meta{display:inline-flex;flex-wrap:wrap;align-items:center;gap:0;margin-top:clamp(28px,3vw,36px);padding:10px 6px 10px 10px;border-radius:18px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 0 0 1px rgba(11,11,12,.07),0 14px 30px -22px rgba(11,11,12,.35);font-size:14px;color:var(--ink-2)}
+.post-meta .pm-by{gap:12px;padding-right:20px}
+.post-meta .pm-by > span{display:grid;gap:2px;line-height:1.25}
+.post-meta .pm-by b{font-size:15px;font-weight:600;color:var(--ink)}
+.post-meta .pm-by small{font-size:12.5px;color:#55555C}
+.post-meta a.pm-by:hover b{text-decoration:underline;text-underline-offset:3px}
+.pm-photo{width:44px;height:44px;box-shadow:0 0 0 2px #fff,0 0 0 3px rgba(11,11,12,.08)}
+.post-meta .pm-av{width:44px;height:44px}
+.post-meta .pm-av svg{width:26px;height:12px}
+.pm-item{display:grid;gap:2px;padding:2px 20px;border-left:1px solid rgba(11,11,12,.09);line-height:1.25}
+.pm-item small{font-size:12px;color:#6A6A72}
+.pm-item b{font-size:14.5px;font-weight:600;color:var(--ink)}
+.post-meta .pm-dot{display:none}
+.post-grid{margin-top:clamp(40px,4.6vw,64px)}
+.post-rail{top:104px}
+@media (max-width:640px){
+  .post-meta{display:grid;grid-template-columns:1fr 1fr;width:100%;padding:12px}
+  .post-meta .pm-by{grid-column:1 / -1;padding:0 0 12px;margin-bottom:10px;border-bottom:1px solid rgba(11,11,12,.08)}
+  .pm-item{padding:0 12px}
+  .pm-item:nth-of-type(1){border-left:0;padding-left:2px}
+}
