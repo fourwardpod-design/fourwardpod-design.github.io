@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fourwardpod-design.github.io/sitemap.xml
+Sitemap: https://fourward.pages.dev/sitemap.xml

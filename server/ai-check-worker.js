@@ -16,7 +16,7 @@
  * Answers are cached for 24 hours per domain, so repeat checks cost nothing.
  */
 
-const ALLOWED_ORIGINS = ['https://fourwardpod-design.github.io', 'http://localhost:4174'];
+const ALLOWED_ORIGINS = ['https://fourward.pages.dev', 'https://fourwardpod-design.github.io', 'http://localhost:4174'];
 const PROMPT = (domain) => `In two sentences, what is ${domain} and who is it for? If you do not know the company, say so plainly.`;
 
 export default {
