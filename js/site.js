@@ -43,7 +43,10 @@
      fwSend(payload) posts a check, a report request or a booking to FOURWARD.leadUrl (server/leads.gs).
      Without it, FormSubmit forwards the payload to FOURWARD.formTo and, for report requests, emails the
      visitor a plain-text copy of the report. ?dryrun=1 logs payloads instead of sending (for QA). */
+  function fwTrack(name, params) { try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch (e) {} }
+  window.fwTrack = fwTrack;
   function fwSend(payload, keepalive) {
+    if (payload && payload.type && payload.type !== 'check') fwTrack('generate_lead', { lead_type: payload.type });
     var p = Object.assign({}, payload, { page: location.href.split('#')[0], referrer: document.referrer || '', tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || ''), lang: navigator.language || '', ua: navigator.userAgent, ts: new Date().toISOString() });
     if (/[?&]dryrun=1/.test(location.search)) { window.__fwSent = (window.__fwSent || []).concat([p]); return Promise.resolve({ ok: true, dry: true }); }
     var timeout = function (pr, ms) { return Promise.race([pr, new Promise(function (_, rej) { setTimeout(function () { rej(new Error('timeout')); }, ms); })]); };
@@ -1415,6 +1418,22 @@
     new IntersectionObserver(function (es) {
       es.forEach(function (e) { var was = visible; visible = e.isIntersecting; if (visible && !was) start(); });
     }, { threshold: 0.35 }).observe(mock);
+  })();
+
+  /* ---------- 11b. analytics: key clicks and the AI check (GA4 via fwTrack) ---------- */
+  (function () {
+    var where = function (el) { var s = el.closest('section[id],header,footer,aside,.strip,.talk'); return s ? (s.id || s.className.split(' ')[0] || s.tagName.toLowerCase()) : 'page'; };
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a,button');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (/#book$/.test(href)) fwTrack('book_call_click', { cta_location: where(a), cta_text: (a.textContent || '').trim().slice(0, 40) });
+      else if (/^mailto:/.test(href)) fwTrack('email_click', { cta_location: where(a) });
+      else if (a.hasAttribute('data-ai')) fwTrack('ai_summary_click', { assistant: a.getAttribute('data-label') || '' });
+      else if (/google\.com\/preferences\/source/.test(href)) fwTrack('preferred_source_click', {});
+    }, true);
+    var vis = document.getElementById('vis');
+    if (vis) vis.addEventListener('vis:done', function (e) { var d = e.detail || {}; fwTrack('ai_check_complete', { score: d.score == null ? -1 : d.score, grade: d.grade || '' }); });
   })();
 
   /* ---------- 10. services: tap to open on touch screens ----------
