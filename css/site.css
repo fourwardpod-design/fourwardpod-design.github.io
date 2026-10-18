@@ -1534,3 +1534,45 @@ html.static .rh-cursor{display:none}
 .lm-g2 .lm-g-l span{border-radius:0}
 #panel-search .panel-media figcaption{max-width:calc(100% - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:22px}
 @media (max-width:520px){#panel-search .panel-media{height:372px}}
+
+/* v1.7 phone fixes */
+@media (max-width:900px){
+  .showcase .tabs{grid-template-columns:1fr 1fr;width:100%;margin:0;box-sizing:border-box}
+  .showcase .tab{min-width:0;justify-content:center;padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+@media (max-width:520px){
+  .showcase .tab{font-size:12px;gap:6px;height:38px}
+  .showcase .tab svg{width:13px;height:13px}
+  .tabs-k{font-size:12px;margin-top:8px}
+  #panel-search .panel-media{height:336px}
+}
+/* services: compact boxes, details open on tap */
+@media (max-width:640px){
+  .svc .lane{padding:18px 18px 16px;min-height:0}
+  .svc .svc-front ul.tags{display:none}
+  .svc .lane h3,.svc-card h3{margin:12px 0 6px;font-size:20px}
+  .svc .svc-front .what{margin:0;font-size:14px;line-height:1.45}
+  .svc-ico{width:30px;height:30px}
+  .svcs{gap:12px}
+}
+/* team: all four cards at once, 2 x 2, no side scroll */
+@media (max-width:760px){
+  .tm-scroll-outer{margin-left:0;margin-right:0}
+  .tm-scroll{overflow:visible;scroll-snap-type:none}
+  .tm-track{display:grid!important;grid-template-columns:repeat(2,max-content);justify-content:center;gap:14px 12px;width:auto!important;padding:0 0 8px}
+  .tm-cord,.tm-anchor,.tm-wire,.tm-eyelet{display:none!important}
+  .tm-enter{margin-top:0!important}
+  .tm-item{height:auto!important;flex:none;zoom:var(--tz,.62)}
+  .tm-pendulum{transform:none!important;height:auto}
+  .tm-hit{position:relative!important;top:auto!important}
+}
+@media (max-width:760px) and (min-width:561px){.tm-item{--tz:.95}}
+@media (max-width:560px) and (min-width:461px){.tm-item{--tz:.78}}
+@media (max-width:460px) and (min-width:401px){.tm-item{--tz:.64}}
+@media (max-width:400px) and (min-width:371px){.tm-item{--tz:.6}}
+@media (max-width:370px){.tm-item{--tz:.56}}
+@media (max-width:520px){
+  #panel-search .panel-media{height:368px}
+  .lm-g2 .lm-g-tabs{padding-left:40px;white-space:nowrap}
+  .lm-g2 .lm-g-tabs span:nth-child(n+4){display:none}
+}
