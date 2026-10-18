@@ -352,3 +352,15 @@
 .side-cta .sc-btn svg{transition:transform .25s var(--ease)}
 .side-cta:hover .sc-btn{background:#1C1C1F}
 .side-cta:hover .sc-btn svg{transform:translateX(3px)}
+
+/* v5: cover beside the title */
+.post-hero-in.has-cover{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,500px);gap:clamp(28px,4vw,64px);align-items:center}
+.post-hero-in.has-cover > *{max-width:none}
+.post-hero-in.has-cover .ph-text > *{max-width:760px}
+.post-hero-in.has-cover h1{font-size:clamp(32px,3.7vw,52px)}
+.ph-cover{margin:0;border-radius:20px;transform:rotate(.6deg);box-shadow:0 0 0 1px var(--line),0 34px 60px -32px rgba(59,42,122,.38);transition:transform .5s var(--ease)}
+.ph-cover:hover{transform:rotate(0) translateY(-2px)}
+@media (max-width:980px){
+  .post-hero-in.has-cover{grid-template-columns:1fr;gap:26px}
+  .ph-cover{transform:none;max-width:640px}
+}
