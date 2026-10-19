@@ -1,0 +1,28 @@
+# Fourward
+
+> Fourward is one senior marketing team for B2B SaaS companies. It leads search, content and AI visibility (SEO, GEO and AEO), brand, PR and partnerships, lifecycle and demand generation, and field marketing and events, on one plan.
+
+Fourward works with B2B SaaS teams as a monthly marketing partnership or a fixed-scope project. Every engagement starts with a call and a free SEO, AEO and GEO audit, followed by a written plan with the price within three working days.
+
+## Free tools
+
+- [AI visibility check](https://fourward.pages.dev/tools/ai-visibility-check/): 30 checks on what Google, ChatGPT and Perplexity can read about a website, with one score out of 100.
+- [AI crawler checker](https://fourward.pages.dev/tools/ai-crawler-checker/): shows which of 20 AI crawlers can read a website, from robots.txt rules to firewall access, plus llms.txt and sitemap checks.
+
+## Services
+
+- [What we do](https://fourward.pages.dev/#services): search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.
+- [Process](https://fourward.pages.dev/#process): discovery call, free audit, written plan, kickoff.
+- [Ways to work](https://fourward.pages.dev/#ways): free audit and session, monthly marketing partnership, fixed-scope project.
+
+## Blog
+
+- [Best B2B SaaS marketing agencies in 2026](https://fourward.pages.dev/blog/best-b2b-saas-marketing-agencies/): fourteen agencies compared on services, published pricing, client results and fit.
+- [Best GEO agencies in 2026](https://fourward.pages.dev/blog/best-geo-agencies/): twelve agencies compared on their AI search work, pricing and proof, plus a crawler check of each agency's own site.
+- [Best Profound alternatives in 2026](https://fourward.pages.dev/blog/profound-alternatives/): nine AI visibility tools compared on price, engines and what they act on.
+- [In-house marketing team vs agency for B2B SaaS](https://fourward.pages.dev/blog/in-house-marketing-vs-agency/): what each staffing option costs in year one and which fits your stage.
+
+## Contact
+
+- [Contact](https://fourward.pages.dev/contact/)
+- [Book a call](https://fourward.pages.dev/#book)
