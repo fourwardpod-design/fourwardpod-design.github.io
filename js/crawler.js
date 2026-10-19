@@ -50,11 +50,11 @@
   }
 
   /* ---- rendering ---- */
-  var LABEL = { allowed: 'Allowed', partial: 'Partly blocked', blocked: 'Blocked' };
+  var LABEL = { allowed: 'Allowed', partial: 'Allowed', blocked: 'Blocked' };
   var pill = function (st) { return '<span class="cc-pill is-' + st + '">' + LABEL[st] + '</span>'; };
   function row(b, res) {
-    var note = res.via === 'named' ? 'Named in your robots.txt' : res.via === 'all' ? 'Follows your rule for all bots' : 'No rule, so allowed';
-    return '<li class="cc-row"><div class="cc-bot"><b>' + esc(b.ua) + '</b><span>' + esc(b.company) + ' · ' + esc(b.use) + '</span><em>' + note + '</em></div>' + pill(res.state) + '</li>';
+    var note = (res.via === 'named' ? 'Named in your robots.txt' : res.via === 'all' ? 'Follows your rule for all bots' : 'No rule, so allowed') + (res.state === 'partial' ? ' · some folders off-limits' : '');
+    return '<li class="cc-row"><div class="cc-bot"><b>' + esc(b.ua) + '</b><span>' + esc(b.company) + ' · ' + esc(b.use) + '</span><em>' + note + '</em></div>' + pill(res.state === 'partial' ? 'allowed' : res.state) + '</li>';
   }
   function fixSnippet(blocked) {
     if (!blocked.length) return '';
