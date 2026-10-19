@@ -75,3 +75,6 @@
   #cc-go{padding:0 14px}
   .cc-card{padding:12px;border-radius:20px}
 }
+.cc-doc h3{font-size:19px;letter-spacing:-.02em;margin:32px 0 10px}
+.cc-doc .cc-tablewrap + p{margin-top:14px}
+.cc-doc .cc-tablewrap{margin-bottom:6px}
