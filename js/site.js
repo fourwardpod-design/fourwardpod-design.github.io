@@ -825,7 +825,7 @@
     };
     var renderCounts = function (fromCache) {
       var n = { pass: 0, warn: 0, fail: 0 }; S.checks.forEach(function (c) { n[c.status]++; });
-      var proof = fromCache ? 'Scanned ' + Math.max(1, Math.round((Date.now() - S.ts) / 6e4)) + ' min ago · 9 live sources' : '9 live sources read' + (S.secs ? ' in ' + S.secs.toFixed(1) + 's' : '');
+      var proof = fromCache ? ago(S.ts).replace('Checked', 'Scanned') + ' · 9 live sources' : '9 live sources read' + (S.secs ? ' in ' + S.secs.toFixed(1) + 's' : '');
       V.counts.innerHTML = '<span class="pass"><b>' + n.pass + '</b>passed</span><span class="warn"><b>' + n.warn + '</b>weak</span><span class="fail"><b>' + n.fail + '</b>failed</span><em><svg><use href="#i-scan"/></svg>' + escH(proof) + '</em>';
     };
     var renderFixes = function () {
@@ -833,6 +833,49 @@
       if (!probs.length) { V.fixes.hidden = true; return; }
       V.fixes.hidden = false;
       $('ol', V.fixes).innerHTML = probs.map(function (x, i) { return '<li><span class="vis-gap-n">0' + (i + 1) + '</span><span class="vis-gap-t">' + escH(x.problem) + '<small>' + escH(CATS.filter(function (c) { return c.id === x.cat; })[0].label) + '</small></span><span class="vis-gap-p">−' + (Math.round((x.max - x.pts) * 10) / 10) + ' pts</span></li>'; }).join('');
+    };
+
+    /* ---- statement layout (homepage card): one number, one sentence, one spectrum bar ---- */
+    var ago = function (ts) {
+      var m = Math.round((Date.now() - ts) / 6e4);
+      if (m < 1) return 'Checked just now';
+      if (m < 60) return 'Checked ' + m + ' min ago';
+      var hr = Math.round(m / 60); return hr < 24 ? 'Checked ' + hr + (hr === 1 ? ' hour ago' : ' hours ago') : 'Checked yesterday';
+    };
+    var CANT = { wikidata: 'who runs it', wikipedia: 'who runs it', summary: 'who runs it', profiles: 'who runs it', org: 'who runs it', sameas: 'who runs it', logo: 'who runs it',
+      compare: 'how you compare', pricing: 'what you charge', proof: 'who already uses you', questions: 'what buyers usually ask', faq: 'what buyers usually ask',
+      docs: 'how your product works', product: 'what you sell', desc: 'what you sell', title: 'what you sell', h1: 'what you sell', h1text: 'what you sell', brand: 'what you sell', jsonld: 'what your site is' };
+    var SHORT = { crawl: 'Crawlers', page: 'Homepage', schema: 'Schema', entity: 'Entity', content: 'Content' };
+    var renderStatement = function (fromCache) {
+      var st = $('[data-vis-st]', vis); if (!st) return;
+      var q = function (k) { return $('[data-vis-st-' + k + ']', vis); };
+      var lg = q('logo'); lg.hidden = V.logo.hidden; if (!V.logo.hidden) { lg.src = V.logo.src; lg.onerror = function () { lg.hidden = true; }; }
+      q('dom').textContent = S.domain; q('when').textContent = fromCache && S.ts ? ago(S.ts) : 'Checked just now';
+      var dl = q('detail'); if (dl) dl.href = FOURWARD.toolUrl + '?check=' + encodeURIComponent(S.domain);
+      var n = q('n');
+      if (S.score == null) { n.textContent = '–'; q('grade').textContent = 'Partial result'; q('say').textContent = S.verdict; }
+      else {
+        n.textContent = '0'; countUp(n, S.score, 1300); setTimeout(function () { if (S && S.score != null) n.textContent = S.score; }, 1700);
+        q('grade').textContent = S.grade;
+        var r = function (id) { var c = CATS.filter(function (x) { return x.id === id; })[0]; return catTotals(id) / c.max; };
+        var lead = r('crawl') >= .8 ? (r('page') >= .8 ? 'AI can reach and read your site.' : 'AI can reach your site.') : 'Some AI crawlers can\'t reach your site.';
+        var seen = {}, gaps = [];
+        S.checks.filter(function (x) { return x.status !== 'pass' && CANT[x.key]; }).sort(function (a, b) { return (b.max - b.pts) - (a.max - a.pts); })
+          .forEach(function (x) { var p = CANT[x.key]; if (!seen[p] && gaps.length < 3) { seen[p] = 1; gaps.push('<b>' + p + '</b>'); } });
+        var list = gaps.length > 1 ? gaps.slice(0, -1).join(', ') + ' or ' + gaps[gaps.length - 1] : gaps[0];
+        var both = gaps.length > 1 ? gaps.slice(0, -1).join(', ') + ' and ' + gaps[gaps.length - 1] : gaps[0];
+        q('say').innerHTML = escH(lead) + ' ' + (!gaps.length ? 'It can tell <b>who you are</b> and <b>what you sell</b>.' : S.score >= 80 ? 'Still missing: ' + both + '.' : 'It can\'t tell ' + list + '.');
+      }
+      var spec = q('spec');
+      spec.innerHTML = '<div class="vis-st-segs">' + CATS.map(function (c) {
+        var na = S.partial[c.id] || !S.started[c.id], w = na ? 0 : Math.max(0, Math.min(100, Math.round(catTotals(c.id) / c.max * 100)));
+        return '<div style="flex:' + c.max + '"><i data-w="' + w + '"></i></div>';
+      }).join('') + '</div><div class="vis-st-labs">' + CATS.map(function (c) {
+        var na = S.partial[c.id] || !S.started[c.id];
+        return '<div style="flex:' + c.max + '"><b>' + (na ? 'n/a' : Math.round(catTotals(c.id)) + '<em>/' + c.max + '</em>') + '</b><span>' + SHORT[c.id] + '</span></div>';
+      }).join('') + '</div>';
+      var grow = function () { $$('.vis-st-segs i', spec).forEach(function (el) { el.style.width = el.getAttribute('data-w') + '%'; }); };
+      requestAnimationFrame(function () { requestAnimationFrame(grow); }); setTimeout(grow, 400);
     };
 
     /* ---- live scan panel: each step is a real request ---- */
@@ -1073,7 +1116,7 @@
         S.score >= 55 ? name + ' is readable, but AI engines are working from thin material. ' + probs + ' checks need work; the three above cost you the most.' :
         'AI engines have little to go on for ' + name + '. ' + probs + ' of ' + S.checks.length + ' checks failed or need work; the three above cost you the most.';
       V.name.textContent = S.brand; V.say.textContent = S.quote ? '"' + S.quote + '"' : (S.description ? '"' + S.description + '"' : '');
-      renderCats(); setRing(); renderFixes(); renderCounts(fromCache);
+      renderCats(); setRing(); renderFixes(); renderCounts(fromCache); renderStatement(fromCache);
       var dl = $('[data-vis-detail]', vis); if (dl) dl.href = FOURWARD.toolUrl + '?check=' + encodeURIComponent(S.domain);
       setTimeout(function () { try { vis.dispatchEvent(new CustomEvent('vis:done', { detail: summaryOf() })); } catch (e) {} }, 0);
       V.verdict.textContent = S.verdict; V.actions.hidden = false;
@@ -1160,7 +1203,7 @@
       if (s.topIssues && s.topIssues.length) { L.push('BIGGEST GAPS'); s.topIssues.slice(0, 3).forEach(function (t, i) { L.push('  ' + (i + 1) + '. ' + t); }); L.push(''); }
       L.push(s.verdict); L.push('');
       L.push('What to fix first, and in what order, is what we cover in your free session: ' + location.origin + location.pathname + '#book');
-      L.push(''); L.push('Fourward · four lanes, one direction');
+      L.push(''); L.push('Fourward · one marketing team for B2B SaaS');
       return L.join('\n');
     };
 
@@ -1216,6 +1259,7 @@
       V.input.value = ''; V.input.focus();
     };
     $('[data-vis-reset]', vis).addEventListener('click', reset);
+    var again = $('[data-vis-again]', vis); if (again) again.addEventListener('click', reset);
     $$('[data-vis-try]', vis).forEach(function (b) { b.addEventListener('click', function () { V.input.value = b.getAttribute('data-vis-try'); V.form.requestSubmit(); }); });
     V.form.addEventListener('submit', function (e) {
       e.preventDefault();
