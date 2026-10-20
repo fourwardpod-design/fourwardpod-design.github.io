@@ -1593,3 +1593,10 @@ html.static .rh-cursor{display:none}
 .hero .vis-try{margin:0;white-space:nowrap}
 .hero .vis[data-state="idle"] .vis-note{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;line-height:1.5}
 @media (max-width:640px){.hero .vis{padding:20px 18px 16px;border-radius:22px}.hero .vis-meta{flex-wrap:wrap;gap:6px 12px}.hero .vis-form{height:56px;padding-left:14px}.hero .vis-go{height:44px;padding:0 14px}}
+/* v1.10.2: compact contact banner */
+.cta-band{padding:clamp(28px,3.4vw,44px) clamp(24px,4vw,56px);gap:28px;border-radius:24px}
+.cta-band .h2{font-size:clamp(28px,2.8vw,40px);line-height:1.08}
+.cta-band .lead{margin-top:10px!important;font-size:16px;line-height:1.5;max-width:52ch}
+/* v1.10.2: hero check title on one line */
+.hero .vis-title{max-width:none;white-space:nowrap;font-size:clamp(19px,1.72vw,26px);line-height:1.15}
+@media (max-width:640px){.hero .vis-title{white-space:normal;font-size:24px}}
