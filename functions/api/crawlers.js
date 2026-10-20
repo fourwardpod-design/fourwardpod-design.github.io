@@ -10,7 +10,7 @@ const BOTS = {
   'ClaudeBot': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)',
   'PerplexityBot': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)'
 };
-const CHECKER = 'Mozilla/5.0 (compatible; FourwardCrawlerCheck/1.0; +https://fourward.pages.dev/tools/ai-crawler-checker/)';
+const CHECKER = 'Mozilla/5.0 (compatible; FourwardCrawlerCheck/1.0; +https://www.fourwardhq.com/tools/ai-crawler-checker/)';
 
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
 const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...cors } });

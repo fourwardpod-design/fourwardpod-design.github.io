@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fourward.pages.dev/sitemap.xml
+Sitemap: https://www.fourwardhq.com/sitemap.xml

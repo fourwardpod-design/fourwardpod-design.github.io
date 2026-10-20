@@ -6,24 +6,24 @@ Fourward works with B2B SaaS teams as a monthly marketing partnership or a fixed
 
 ## Free tools
 
-- [AI visibility check](https://fourward.pages.dev/tools/ai-visibility-check/): 30 checks on what Google, ChatGPT and Perplexity can read about a website, with one score out of 100.
-- [AI crawler checker](https://fourward.pages.dev/tools/ai-crawler-checker/): shows which of 20 AI crawlers can read a website, from robots.txt rules to firewall access, plus llms.txt and sitemap checks.
+- [AI visibility check](https://www.fourwardhq.com/tools/ai-visibility-check/): 30 checks on what Google, ChatGPT and Perplexity can read about a website, with one score out of 100.
+- [AI crawler checker](https://www.fourwardhq.com/tools/ai-crawler-checker/): shows which of 20 AI crawlers can read a website, from robots.txt rules to firewall access, plus llms.txt and sitemap checks.
 
 ## Services
 
-- [What we do](https://fourward.pages.dev/#services): search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.
-- [Process](https://fourward.pages.dev/#process): discovery call, free audit, written plan, kickoff.
-- [Ways to work](https://fourward.pages.dev/#ways): free audit and session, monthly marketing partnership, fixed-scope project.
+- [What we do](https://www.fourwardhq.com/#services): search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.
+- [Process](https://www.fourwardhq.com/#process): discovery call, free audit, written plan, kickoff.
+- [Ways to work](https://www.fourwardhq.com/#ways): free audit and session, monthly marketing partnership, fixed-scope project.
 
 ## Blog
 
-- [Best Peec AI alternatives in 2026](https://fourward.pages.dev/blog/peec-ai-alternatives/): ten AI visibility tools compared on engines, prompts per plan and price.
-- [Best B2B SaaS marketing agencies in 2026](https://fourward.pages.dev/blog/best-b2b-saas-marketing-agencies/): fourteen agencies compared on services, published pricing, client results and fit.
-- [Best GEO agencies in 2026](https://fourward.pages.dev/blog/best-geo-agencies/): twelve agencies compared on their AI search work, pricing and proof, plus a crawler check of each agency's own site.
-- [Best Profound alternatives in 2026](https://fourward.pages.dev/blog/profound-alternatives/): nine AI visibility tools compared on price, engines and what they act on.
-- [In-house marketing team vs agency for B2B SaaS](https://fourward.pages.dev/blog/in-house-marketing-vs-agency/): what each staffing option costs in year one and which fits your stage.
+- [Best Peec AI alternatives in 2026](https://www.fourwardhq.com/blog/peec-ai-alternatives/): ten AI visibility tools compared on engines, prompts per plan and price.
+- [Best B2B SaaS marketing agencies in 2026](https://www.fourwardhq.com/blog/best-b2b-saas-marketing-agencies/): fourteen agencies compared on services, published pricing, client results and fit.
+- [Best GEO agencies in 2026](https://www.fourwardhq.com/blog/best-geo-agencies/): twelve agencies compared on their AI search work, pricing and proof, plus a crawler check of each agency's own site.
+- [Best Profound alternatives in 2026](https://www.fourwardhq.com/blog/profound-alternatives/): nine AI visibility tools compared on price, engines and what they act on.
+- [In-house marketing team vs agency for B2B SaaS](https://www.fourwardhq.com/blog/in-house-marketing-vs-agency/): what each staffing option costs in year one and which fits your stage.
 
 ## Contact
 
-- [Contact](https://fourward.pages.dev/contact/)
-- [Book a call](https://fourward.pages.dev/#book)
+- [Contact](https://www.fourwardhq.com/contact/)
+- [Book a call](https://www.fourwardhq.com/#book)

@@ -8,7 +8,7 @@
   var root = document.getElementById('cc');
   if (!root) return;
   var BOTS = window.FW_BOTS || [];
-  var API = /^(localhost|127\.)/.test(location.hostname) || /\.github\.io$/.test(location.hostname) ? 'https://fourward.pages.dev/api/crawlers' : '/api/crawlers';
+  var API = /^(localhost|127\.)/.test(location.hostname) || /\.github\.io$/.test(location.hostname) ? 'https://www.fourwardhq.com/api/crawlers' : '/api/crawlers';
   var $ = function (s, el) { return (el || root).querySelector(s); };
   var form = $('#cc-form'), input = $('#cc-domain'), out = $('#cc-out'), btn = $('#cc-go');
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
