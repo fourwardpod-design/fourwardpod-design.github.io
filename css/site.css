@@ -1662,3 +1662,8 @@ html.static .rh-cursor{display:none}
 .hero .vis-lead-actions .vis-go{height:48px;border-radius:14px;flex:1;justify-content:center}
 .hero .vis-lead-actions .vis-ghost{height:48px;border-radius:14px}
 .hero .vis-legal{font-size:11.5px;color:var(--faint)}
+
+/* v1.12: real search recordings in the Google window */
+.g2-rec{padding:0;background:#fff}
+.g2-rec .g2-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;background:#fff;opacity:0;transition:opacity .45s var(--ease)}
+.g2-rec .g2-vid.is-on{opacity:1}
