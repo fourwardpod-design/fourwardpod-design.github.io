@@ -17,6 +17,7 @@ Fourward works with B2B SaaS teams as a monthly marketing partnership or a fixed
 
 ## Blog
 
+- [Best Peec AI alternatives in 2026](https://fourward.pages.dev/blog/peec-ai-alternatives/): ten AI visibility tools compared on engines, prompts per plan and price.
 - [Best B2B SaaS marketing agencies in 2026](https://fourward.pages.dev/blog/best-b2b-saas-marketing-agencies/): fourteen agencies compared on services, published pricing, client results and fit.
 - [Best GEO agencies in 2026](https://fourward.pages.dev/blog/best-geo-agencies/): twelve agencies compared on their AI search work, pricing and proof, plus a crawler check of each agency's own site.
 - [Best Profound alternatives in 2026](https://fourward.pages.dev/blog/profound-alternatives/): nine AI visibility tools compared on price, engines and what they act on.
