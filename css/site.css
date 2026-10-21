@@ -1667,3 +1667,17 @@ html.static .rh-cursor{display:none}
 .g2-rec{padding:0;background:#fff}
 .g2-rec .g2-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;background:#fff;opacity:0;transition:opacity .45s var(--ease)}
 .g2-rec .g2-vid.is-on{opacity:1}
+/* v1.20: trusted-by logos as a moving strip */
+.logo-marquee{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.lm-track{display:flex;align-items:center;width:max-content;animation:lmScroll 46s linear infinite}
+.logo-marquee:hover .lm-track{animation-play-state:paused}
+.lm-item{display:flex;align-items:center;justify-content:center;height:110px;padding:0 46px}
+.lm-item img{max-height:32px;max-width:150px;width:auto;height:auto;filter:grayscale(1) brightness(.25);opacity:.46;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.lm-item:hover img{opacity:.95;transform:scale(1.04)}
+.lm-item.tall img{max-height:42px}
+.lm-item.wide img{max-width:170px}
+.lm-item.small img{max-height:25px}
+@keyframes lmScroll{to{transform:translateX(-50%)}}
+html.static .lm-track{animation:none}
+@media (prefers-reduced-motion:reduce){.lm-track{animation:none}}
+@media (max-width:640px){.lm-item{height:84px;padding:0 28px}.lm-item img{max-height:26px;max-width:118px}.lm-item.tall img{max-height:34px}}

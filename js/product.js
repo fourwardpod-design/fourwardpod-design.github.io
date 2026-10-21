@@ -64,7 +64,7 @@
       'Invite, reminder and follow-up workflows, so every attendee reaches sales.',
       'Owned dinners and partner rooms around each conference, for the right thirty people.'] }
   };
-  const AREAS = [['Search and AI visibility', 'var(--d)'], ['Brand and PR', 'var(--g)'], ['Lifecycle and demand', 'var(--s)'], ['Events', 'var(--r)']];
+  const AREAS = [['Search and AI visibility', "<svg class=\"ic\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" ><circle cx=\"11\" cy=\"11\" r=\"8\" /><path d=\"m21 21-4.3-4.3\" /></svg>"], ['Brand and PR', "<svg class=\"ic\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" ><path d=\"m3 11 18-5v12L3 14v-3z\" /><path d=\"M11.6 16.8a3 3 0 1 1-5.8-1.6\" /></svg>"], ['Lifecycle and demand', "<svg class=\"ic\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" ><rect width=\"8\" height=\"8\" x=\"3\" y=\"3\" rx=\"2\" /><path d=\"M7 11v4a2 2 0 0 0 2 2h4\" /><rect width=\"8\" height=\"8\" x=\"13\" y=\"13\" rx=\"2\" /></svg>"], ['Events', "<svg class=\"ic\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" ><path d=\"M8 2v4\" /><path d=\"M16 2v4\" /><rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\" /><path d=\"M3 10h18\" /><path d=\"M8 14h.01\" /><path d=\"M12 14h.01\" /><path d=\"M16 14h.01\" /><path d=\"M8 18h.01\" /><path d=\"M12 18h.01\" /><path d=\"M16 18h.01\" /></svg>"]];
   const ta = $('#pp-ask-text'), plan = $('#pp-plan'), chips = $$('.pp-chip');
   if (ta && plan) {
     const examples = ['More demo requests from mid-market SaaS teams', 'Show up when buyers ask ChatGPT for a shortlist', 'Launch our new product with press, email and events', 'Fill a CIO dinner with the right thirty people'];
@@ -82,7 +82,7 @@
     const show = (key) => {
       const p = PLANS[key] || PLANS.demos;
       $('#pp-plan-title').textContent = p.title;
-      $('#pp-plan-rows').innerHTML = p.rows.map((r, i) => `<li><b><i style="background:${AREAS[i][1]}"></i>${AREAS[i][0]}</b><span>${r}</span></li>`).join('');
+      $('#pp-plan-rows').innerHTML = p.rows.map((r, i) => `<li><b>${AREAS[i][1]}${AREAS[i][0]}</b><span>${r}</span></li>`).join('');
       plan.classList.remove('open'); void plan.offsetWidth; plan.classList.add('open');
       const goal = ta.value.trim() || p.label;
       const mail = $('#pp-plan-mail');
@@ -123,31 +123,43 @@
     else whenVisible(ans.closest('.pp-card'), () => { if (!on) { on = true; loop = run(); } }, () => { on = false; });
   }
 
-  /* ---------- card 3: a workflow that lights up step by step ---------- */
+  /* ---------- card 3: a HubSpot-style workflow; a token runs node to node ---------- */
   const flow = $('#m-flow');
   if (flow) {
-    const steps = $$('.m-step', flow), bar = $('.bar', flow);
+    const nodes = $$('.wf-n', flow), links = $$('.wf-l', flow);
     let on = false;
-    const light = (n) => { steps.forEach((s, i) => s.classList.toggle('on', i < n)); const last = steps[Math.max(0, n - 1)]; bar.style.height = n ? (last.offsetTop + last.offsetHeight / 2 - 16) + 'px' : '0px'; };
-    const run = async () => { while (on) { for (let n = 1; n <= steps.length && on; n++) { light(n); await sleep(1100); } await sleep(1600); light(0); await sleep(700); } };
-    if (reduce) light(steps.length); else whenVisible(flow.closest('.pp-card'), () => { if (!on) { on = true; run(); } }, () => { on = false; });
+    const reset = () => { nodes.forEach(n => n.classList.remove('on', 'cur')); links.forEach(l => l.classList.remove('on')); };
+    const run = async () => {
+      while (on) {
+        reset(); await sleep(600);
+        for (let i = 0; i < nodes.length && on; i++) {
+          nodes[i].classList.add('cur'); await sleep(850);
+          nodes[i].classList.add('on'); nodes[i].classList.remove('cur');
+          if (links[i]) { links[i].classList.add('on'); await sleep(520); }
+        }
+        await sleep(2200);
+      }
+    };
+    if (reduce) { nodes.forEach(n => n.classList.add('on')); links.forEach(l => l.classList.add('on')); }
+    else { reset(); whenVisible(flow.closest('.pp-card'), () => { if (!on) { on = true; run(); } }, () => { on = false; }); }
   }
 
-  /* ---------- card 4: seats that fill, then follow-ups go out ---------- */
+  /* ---------- card 4: seats around the dinner table fill, then follow-ups go out ---------- */
   const seats = $('#m-seats');
   if (seats) {
-    for (let i = 0; i < 30; i++) seats.appendChild(document.createElement('i'));
-    const dots = $$('i', seats), fu = $('#m-follow');
+    const dots = $$('.tb-row i', seats), fu = $('#m-follow');
     let on = false;
+    const done = () => { fu.classList.add('ok'); fu.textContent = 'Follow-ups sent'; };
     const run = async () => {
       while (on) {
         dots.forEach(d => d.classList.remove('on')); fu.classList.remove('ok'); fu.textContent = 'Invites out';
-        const order = dots.map((d, i) => i).sort(() => Math.random() - .5).slice(0, 26);
-        for (const i of order) { if (!on) return; dots[i].classList.add('on'); await sleep(140); }
-        fu.classList.add('ok'); fu.textContent = 'Follow-ups sent'; await sleep(2600);
+        await sleep(500);
+        const order = dots.map((d, i) => i).sort(() => Math.random() - .5);
+        for (const i of order) { if (!on) return; dots[i].classList.add('on'); await sleep(260); }
+        done(); await sleep(2600);
       }
     };
-    if (reduce) { dots.slice(0, 26).forEach(d => d.classList.add('on')); fu.classList.add('ok'); fu.textContent = 'Follow-ups sent'; }
+    if (reduce) { dots.forEach(d => d.classList.add('on')); done(); }
     else whenVisible(seats.closest('.pp-card'), () => { if (!on) { on = true; run(); } }, () => { on = false; });
   }
 

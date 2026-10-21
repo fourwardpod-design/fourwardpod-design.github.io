@@ -385,3 +385,74 @@
   .pp *,.pp *::before,.pp *::after{animation:none!important;transition:none!important}
   [data-rv],.tt .w{opacity:1!important;transform:none!important;filter:none!important}
 }
+
+/* ==========================================================================
+   v2 card mocks: monochrome icon tiles, real brand marks, quiet status labels,
+   workflow nodes with a travelling token, and a dinner table that fills
+   ========================================================================== */
+svg.ic{display:block;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+svg.bi{display:block;width:100%;height:100%}
+.pp-card{min-height:540px}
+.pp-mock{height:310px}
+.pp-ct{display:flex;align-items:center;gap:14px}
+.pp-ct h3{margin:0}
+.pp-ico{width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--edge),0 8px 18px -12px rgba(11,11,12,.3)}
+.pp-ico svg.ic{width:21px;height:21px;stroke-width:1.7}
+.pp-bm{width:18px;height:18px;flex:none;display:inline-grid;place-items:center}
+.pp-uh b{gap:9px}
+.pp-uh b > svg.ic{width:17px;height:17px;color:var(--ink-2);stroke-width:1.8}
+.pp-stat{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;color:var(--mute);white-space:nowrap}
+.pp-stat.live::before,.pp-stat.ok::before{content:"";width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 0 3px rgba(16,185,129,.16)}
+.pp-stat.live::before{animation:ppLive 1.8s ease-in-out infinite}
+@keyframes ppLive{50%{box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+.pp-stat.ok{color:#047857}
+/* search card */
+.m-q{display:flex;align-items:center;gap:10px}
+.m-q svg.ic{width:16px;height:16px;flex:none;color:var(--mute);stroke-width:2}
+.m-src{align-items:center;flex-wrap:wrap}
+.m-src small{font-size:12px;color:var(--faint);margin-right:2px}
+.m-src span{gap:7px;background:#fff;box-shadow:inset 0 0 0 1px #ECECE8}
+.m-src span:first-child{background:#fff;color:var(--ink-2);font-weight:400}
+.m-src span em{width:14px;height:14px;display:inline-grid;font-style:normal}
+.m-src span svg.ic{width:14px;height:14px;stroke-width:2}
+.m-src span.you{background:#FFF7E6;box-shadow:inset 0 0 0 1px #F7DFA9;color:#7A4E00;font-weight:600}
+/* brand feed */
+.m-feed li{gap:14px}
+.m-feed .fi{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;background:#fff;color:var(--ink-2);box-shadow:inset 0 0 0 1px #ECECE8}
+.m-feed .fi svg.ic{width:17px;height:17px;stroke-width:1.8}
+.m-feed .fi svg.bi{width:17px;height:17px}
+.m-feed li .pp-stat{margin-left:auto}
+/* lifecycle: workflow nodes */
+.wf{position:relative;display:flex;flex-direction:column;align-items:stretch;max-width:430px}
+.wf-n{position:relative;display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px #E8E8E4,0 4px 10px -8px rgba(11,11,12,.25);transition:box-shadow .4s var(--ease),transform .4s var(--ease)}
+.wf-n small{display:block;font-size:11.5px;color:var(--mute);line-height:1.25}
+.wf-n b{display:block;font-size:13.5px;line-height:1.3;color:var(--ink);font-weight:600}
+.wf-i{width:30px;height:30px;flex:none;border-radius:9px;display:grid;place-items:center;background:#F4F4F1;color:var(--ink-2)}
+.wf-i svg.ic{width:16px;height:16px;stroke-width:1.8}
+.wf-n.goal .wf-i{background:#FFF1EC;color:#E5603B}
+.wf-c{margin-left:auto;width:20px;height:20px;flex:none;border-radius:50%;display:grid;place-items:center;background:#10B981;color:#fff;opacity:0;transform:scale(.6);transition:opacity .35s,transform .35s var(--ease)}
+.wf-c svg.ic{width:12px;height:12px;stroke-width:3}
+.wf-n.on .wf-c{opacity:1;transform:none}
+.wf-n.cur{box-shadow:0 0 0 1.5px #FF7A59,0 12px 26px -16px rgba(255,122,89,.7);transform:translateX(3px)}
+.wf-l{position:relative;height:14px;margin-left:26px;width:2px;background:#E8E8E4;overflow:hidden}
+.wf-l i{position:absolute;left:0;top:0;width:100%;height:0;background:#FF7A59;transition:height .5s linear}
+.wf-l.on i{height:100%}
+/* events: a dinner table that fills */
+.ev{display:flex;align-items:center;gap:12px}
+.ev-ph{width:52px;height:52px;flex:none;border-radius:12px;background:var(--img) center/cover}
+.ev-tx b{display:block;font-size:14.5px;color:var(--ink);font-weight:600}
+.ev-tx small{display:block;margin-top:3px;font-size:12.5px;color:var(--mute)}
+.tb{margin:18px 0 0;display:grid;gap:8px}
+.tb-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:0 22px}
+.tb-row i{aspect-ratio:1;max-width:28px;width:100%;justify-self:center;display:grid;place-items:center;border-radius:50%;background:#fff;color:#fff;box-shadow:inset 0 0 0 1.5px #DADAD5;transition:background .35s,box-shadow .35s,transform .35s var(--ease)}
+.tb-row i svg.ic{width:14px;height:14px;stroke-width:2;opacity:0;transform:scale(.6);transition:opacity .3s,transform .3s var(--ease)}
+.tb-row i.on svg.ic{opacity:1;transform:none}
+.tb-row i.on{background:linear-gradient(160deg,#3A3A42,#0B0B0C);box-shadow:0 4px 10px -4px rgba(11,11,12,.45);transform:scale(1.06)}
+.tb-table{height:40px;border-radius:12px;background:linear-gradient(180deg,#F7F5FF,#EFEBFF);box-shadow:inset 0 0 0 1px #E8E1FF;display:grid;place-items:center}
+.tb-table span{font-size:11.5px;color:#6E5BB8}
+.ev-f{display:flex;justify-content:flex-end;margin-top:12px}
+/* hero chips, plan rows and step scenes */
+.pp-chip svg.ic{width:16px;height:16px;color:var(--ink-2);stroke-width:1.8}
+.pp-plan li b svg.ic{width:16px;height:16px;flex:none;color:var(--ink);stroke-width:1.8}
+.pp-check li i svg.ic{width:14px;height:14px;stroke-width:2.4}
+@media (max-width:760px){.pp-card{min-height:0}.pp-mock{height:300px}.tb-row{padding:0 6px;gap:8px}}
