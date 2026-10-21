@@ -4,6 +4,8 @@
 
 Fourward works with B2B SaaS teams as a monthly marketing partnership or a fixed-scope project. Every engagement starts with a call and a free SEO, AEO and GEO audit, followed by a written plan with the price within three working days.
 
+Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma and Rishabh Gautam, and is based in India. More: [What is Fourward?](https://www.fourwardhq.com/blog/what-is-fourward/)
+
 ## Free tools
 
 - [AI visibility check](https://www.fourwardhq.com/tools/ai-visibility-check/): 30 checks on what Google, ChatGPT and Perplexity can read about a website, with one score out of 100.
@@ -17,7 +19,8 @@ Fourward works with B2B SaaS teams as a monthly marketing partnership or a fixed
 
 ## Blog
 
-- [GEO for B2B SaaS: a 7-step playbook](https://www.fourwardhq.com/blog/geo-for-b2b-saas/): crawler access, indexing, pages for buyer prompts, mentions, structured data and measurement, with data from 57 SaaS sites.
+- [What is Fourward?](https://www.fourwardhq.com/blog/what-is-fourward/): what Fourward is, what we do, who is on the team, how working with us starts and how we differ from an agency.
+- [GEO for B2B SaaS: a 7-step guide](https://www.fourwardhq.com/blog/geo-for-b2b-saas/): crawler access, indexing, pages for buyer prompts, mentions, structured data and measurement, with data from 57 SaaS sites.
 - [llms.txt examples from 57 B2B SaaS companies](https://www.fourwardhq.com/blog/llms-txt-examples/): who publishes llms.txt, what they include, five patterns, Google's stance and a template.
 - [Best AI visibility tools in 2026](https://www.fourwardhq.com/blog/best-ai-visibility-tools/): eleven AI visibility tools compared on engines, prompts per plan, price and free options.
 - [Best Peec AI alternatives in 2026](https://www.fourwardhq.com/blog/peec-ai-alternatives/): ten AI visibility tools compared on engines, prompts per plan and price.
