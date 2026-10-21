@@ -254,3 +254,7 @@
   .c2-tilt{transform:none!important}
   .pp-js .c2-node,.pp-js .c2-float,.pp-js .c2-card .c2-cmp tbody tr,.pp-js .c2-card .c2-code div{opacity:1!important;transform:none!important}
 }
+a.c2-brand{color:#fff;transition:background .25s,box-shadow .25s}
+a.c2-brand:hover{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.26)}
+.c2-take .c2-visit{margin-top:22px}
+.c2-take .c2-visit a{display:inline-flex;align-items:center;gap:8px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
