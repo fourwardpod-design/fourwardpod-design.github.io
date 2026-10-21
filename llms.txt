@@ -17,6 +17,8 @@ Fourward works with B2B SaaS teams as a monthly marketing partnership or a fixed
 
 ## Blog
 
+- [GEO for B2B SaaS: a 7-step playbook](https://www.fourwardhq.com/blog/geo-for-b2b-saas/): crawler access, indexing, pages for buyer prompts, mentions, structured data and measurement, with data from 57 SaaS sites.
+- [llms.txt examples from 57 B2B SaaS companies](https://www.fourwardhq.com/blog/llms-txt-examples/): who publishes llms.txt, what they include, five patterns, Google's stance and a template.
 - [Best AI visibility tools in 2026](https://www.fourwardhq.com/blog/best-ai-visibility-tools/): eleven AI visibility tools compared on engines, prompts per plan, price and free options.
 - [Best Peec AI alternatives in 2026](https://www.fourwardhq.com/blog/peec-ai-alternatives/): ten AI visibility tools compared on engines, prompts per plan and price.
 - [Best B2B SaaS marketing agencies in 2026](https://www.fourwardhq.com/blog/best-b2b-saas-marketing-agencies/): fourteen agencies compared on services, published pricing, client results and fit.
