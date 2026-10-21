@@ -84,10 +84,10 @@
     slides.forEach((s, i) => {
       let o = i - cur; if (o > N / 2) o -= N; if (o < -N / 2) o += N;
       const a = Math.abs(o);
-      s.style.transform = `translate(-50%,-50%) translateX(${o * 64}%) translateZ(${-a * 240}px) rotateY(${-o * 26}deg) scale(${a ? 0.84 : 1})`;
-      s.style.opacity = a > 2 ? '0' : a === 2 ? '.28' : a === 1 ? '.62' : '1';
+      s.style.transform = `translate(-50%,-50%) translateX(${o * 58}%) translateZ(${-a * 240}px) rotateY(${-o * 26}deg) scale(${a ? 0.84 : 1})`;
+      s.style.opacity = a > 2 ? '0' : a === 2 ? '.35' : a === 1 ? '.7' : '1';
       s.style.zIndex = String(10 - a);
-      s.style.filter = a ? 'brightness(.55) saturate(.75)' : 'none';
+      s.style.filter = a ? 'saturate(.5) brightness(.98)' : 'none';
       s.style.pointerEvents = a > 1 ? 'none' : 'auto';
       s.classList.toggle('on', o === 0);
       s.setAttribute('aria-hidden', o === 0 ? 'false' : 'true');

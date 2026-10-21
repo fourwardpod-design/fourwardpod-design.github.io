@@ -331,3 +331,24 @@ a.c2-brand:hover{background:#fff;box-shadow:0 0 0 1px var(--line-2),0 12px 24px 
 .cz-cap b{font-size:16px}
 .cz-cap span{font-size:14px;margin-top:4px}
 @media (max-width:640px){.cz-slide{width:84%}}
+/* v1.22.1: lighter proof section, bigger screenshots, same height */
+.c2-proof{background:#F4F4F1;color:var(--ink);box-shadow:inset 0 0 0 1px #E9E9E5;padding:40px 0 30px}
+.c2-proof::before{background:radial-gradient(closest-side,rgba(255,138,61,.12),rgba(110,69,232,.10) 50%,transparent 75%)}
+.c2-proof .c2-h2{color:var(--ink)}
+.c2-proof .tt span:not(.w){color:var(--slate)}
+.c2-proof .c2-sub{color:var(--mute);margin-top:8px}
+.c2-proof .c2-head{margin-bottom:16px}
+.c2-qbar{box-shadow:0 0 0 1px var(--line),0 14px 30px -22px rgba(11,11,12,.35);margin-bottom:12px}
+.cz-slide{width:min(660px,60%)}
+.cz-card{box-shadow:0 30px 60px -34px rgba(11,11,12,.45),0 0 0 1px var(--line)}
+.cz-slide:not(.on) .cz-card{box-shadow:0 0 0 1px var(--line)}
+.cz-ctrl{margin-top:12px}
+.cz-btn{background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--line-2)}
+.cz-btn:hover{background:#fff;box-shadow:0 0 0 1px var(--ink)}
+.cz-dot{background:#DADAD5}
+.cz-dot i{background:var(--ink)}
+.cz-count{color:var(--mute)}
+.cz-cap{margin-top:8px}
+.cz-cap b{color:var(--ink)}
+.cz-cap span{color:var(--mute)}
+@media (max-width:640px){.cz-slide{width:88%}}
