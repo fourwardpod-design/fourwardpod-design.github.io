@@ -466,3 +466,20 @@
 @media (max-width:760px){.pr-grid{grid-template-columns:1fr}}
 /* right column: the first cards scroll away and only the audit card sticks, so it never runs off a short screen */
 @media (min-width:1200px){.post-side{position:static;align-self:stretch;align-content:start}.post-side .side-cta{position:sticky;top:96px}}
+/* screenshot walkthrough: a vector cursor clicks step 1, then step 2 lights up; crisp at any size */
+.post-walk .pw-stage{position:relative;line-height:0}
+.post-walk .pw-stage img{width:100%;height:auto}
+.pw-ov{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.pw-hl{fill:rgba(110,69,232,.08);stroke:#6E45E8;stroke-width:3.5;opacity:0}
+.pw-tag circle{fill:#6E45E8}.pw-tag text{fill:#fff;font:700 20px/1 Inter,Segoe UI,Arial,sans-serif;text-anchor:middle}
+.pw-tag{opacity:0}
+.pw-cur{animation:pw-cur 7s cubic-bezier(.65,0,.35,1) infinite}
+.pw-cur path{fill:#0B0B0C;stroke:#fff;stroke-width:2.5;stroke-linejoin:round}
+.pw-ring{fill:none;stroke:#6E45E8;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center;animation:pw-ring 7s ease-out infinite}
+.pw-s1{animation:pw-s1 7s ease infinite}.pw-s2{animation:pw-s2 7s ease infinite}
+@keyframes pw-cur{0%{transform:translate(var(--x0),var(--y0));opacity:0}8%{opacity:1}32%{transform:translate(var(--x1),var(--y1))}35%{transform:translate(var(--x1),var(--y1)) scale(.86)}38%{transform:translate(var(--x1),var(--y1))}62%,88%{transform:translate(var(--x2),var(--y2));opacity:1}96%,100%{transform:translate(var(--x2),var(--y2));opacity:0}}
+@keyframes pw-ring{0%,34%{opacity:0;transform:scale(.3)}36%{opacity:.9}48%{opacity:0;transform:scale(1.6)}100%{opacity:0}}
+@keyframes pw-s1{0%,34%{opacity:0}38%,92%{opacity:1}100%{opacity:0}}
+@keyframes pw-s2{0%,60%{opacity:0}64%,92%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.pw-cur,.pw-ring{display:none}.pw-s1,.pw-s2{animation:none;opacity:1}}
+html.static .pw-cur,html.static .pw-ring{display:none}html.static .pw-s1,html.static .pw-s2{animation:none;opacity:1}
