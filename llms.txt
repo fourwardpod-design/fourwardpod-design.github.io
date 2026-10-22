@@ -24,7 +24,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
-- [Google's new links in AI Mode and AI Overviews](https://www.fourwardhq.com/blog/google-ai-mode-links-update/): the five link changes Google made on 15 October 2026 and what B2B SaaS teams should do.
+- [Google's new links in AI Mode and AI Overviews](https://www.fourwardhq.com/blog/google-ai-mode-links-update/): the five link changes Google made on 15 October 2026 and what businesses, publishers and creators should do.
 - [ChatGPT ads for B2B SaaS](https://www.fourwardhq.com/blog/chatgpt-ads-b2b-saas/): who sees ChatGPT ads, what they cost, when a B2B test makes sense and the 29 October 2026 creative enhancements deadline.
 - [AI Overviews data in Search Console](https://www.fourwardhq.com/blog/search-console-ai-overviews-report/): where the generative AI report is, what it counts and what it leaves out.
 - [What is Fourward?](https://www.fourwardhq.com/blog/what-is-fourward/): what Fourward is, what we do, who is on the team, how working with us starts and how we differ from an agency.
