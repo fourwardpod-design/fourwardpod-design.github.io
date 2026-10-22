@@ -32,6 +32,9 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 - [llms.txt examples from 57 B2B SaaS companies](https://www.fourwardhq.com/blog/llms-txt-examples/): who publishes llms.txt, what they include, five patterns, Google's stance and a template.
 - [Best AI visibility tools in 2026](https://www.fourwardhq.com/blog/best-ai-visibility-tools/): eleven AI visibility tools compared on engines, prompts per plan, price and free options.
 - [Best Peec AI alternatives in 2026](https://www.fourwardhq.com/blog/peec-ai-alternatives/): ten AI visibility tools compared on engines, prompts per plan and price.
+- [SaaS marketing agency pricing](https://www.fourwardhq.com/blog/saas-marketing-agency-pricing/): every published price from ten agencies, what each band buys, minimum terms and extras.
+- [How to choose a B2B SaaS marketing agency](https://www.fourwardhq.com/blog/how-to-choose-b2b-saas-marketing-agency/): seven steps, from picking the type to agreeing on pipeline reporting, with a two-week process.
+- [25 questions to ask a marketing agency](https://www.fourwardhq.com/blog/questions-to-ask-a-marketing-agency/): first-call questions on team, experience, process, pricing and AI search, with good and bad answers.
 - [Best B2B SaaS marketing agencies in 2026](https://www.fourwardhq.com/blog/best-b2b-saas-marketing-agencies/): fourteen agencies compared on services, published pricing, client results and fit.
 - [Best GEO agencies in 2026](https://www.fourwardhq.com/blog/best-geo-agencies/): twelve agencies compared on their AI search work, pricing and proof, plus a crawler check of each agency's own site.
 - [Best Profound alternatives in 2026](https://www.fourwardhq.com/blog/profound-alternatives/): nine AI visibility tools compared on price, engines and what they act on.
