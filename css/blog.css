@@ -496,3 +496,39 @@ html.static .pw-cur,html.static .pw-ring{display:none}html.static .pw-s1,html.st
 @keyframes pw3-s3{0%,72%{opacity:0}76%,93%{opacity:1}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.pw-3 .pw-s1,.pw-3 .pw-s2,.pw-3 .pw-s3{animation:none;opacity:1}}
 html.static .pw-3 .pw-s1,html.static .pw-3 .pw-s2,html.static .pw-3 .pw-s3{animation:none;opacity:1}
+
+/* ---------- motion for guide posts ---------- */
+.post-motion .rv{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0) * 70ms)}
+.post-motion .rv.in{opacity:1;transform:none}
+.post-motion .post-table tbody tr.rv{transform:translateX(-10px)}
+.post-motion .post-table tbody tr.rv.in{transform:none}
+.post-motion .post-steps li::before{transition:transform .5s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 70ms + .15s),background .5s,border-color .5s,color .5s;transform:scale(.6)}
+.post-motion .post-steps li.in::before{transform:scale(1);background:#0B0B0C;border-color:#0B0B0C;color:#fff}
+.post-motion .post-key.rv{transform:translateY(10px) scale(.985)}
+/* progress pill, bottom centre */
+.post-stepbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,24px);z-index:40;display:flex;align-items:center;gap:10px;padding:9px 14px 9px 12px;border-radius:999px;background:rgba(11,11,12,.92);color:#fff;font-size:13px;font-weight:600;letter-spacing:.01em;box-shadow:0 14px 34px -14px rgba(11,11,12,.6);opacity:0;pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.2,.7,.2,1);backdrop-filter:blur(8px)}
+.post-stepbar.on{opacity:1;transform:translate(-50%,0)}
+.post-stepbar i{position:relative;width:46px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden;display:block}
+.post-stepbar b{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:3px;background:linear-gradient(90deg,#FF8A3D,#E8176C,#6E45E8);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.post-stepbar em{font-style:normal;display:inline-block;min-width:1.2em;text-align:center}
+.post-stepbar.tick em{animation:sbTick .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes sbTick{0%{transform:translateY(6px);opacity:0}100%{transform:none;opacity:1}}
+@media (max-width:640px){.post-stepbar{bottom:12px;font-size:12px}}
+/* price bands: horizontal bars that grow when they come into view */
+.post-bands{margin:22px 0 26px;padding:20px 22px 16px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.07),0 18px 40px -30px rgba(11,11,12,.3)}
+.post-bands .pb-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+.post-bands .pb-head b{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--ink)}
+.post-bands .pb-head span{font-size:12.5px;color:var(--mute)}
+.pb-rows{display:grid;gap:10px}
+.pb-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center}
+.pb-row > span{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.pb-row > span small{display:block;font-weight:500;font-size:12px;color:var(--mute);margin-top:1px}
+.pb-bar{position:relative;height:30px;border-radius:9px;background:#F3F3F1;overflow:hidden}
+.pb-bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:9px;background:linear-gradient(90deg,var(--a),var(--b));transition:width 1.1s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 110ms + .1s)}
+.pb-bar em{position:absolute;left:12px;top:0;bottom:0;display:flex;align-items:center;font-style:normal;font-size:12.5px;font-weight:600;color:#fff;opacity:0;transition:opacity .4s calc(var(--i,0) * 110ms + .7s);text-shadow:0 1px 2px rgba(0,0,0,.15)}
+.pb-row.in .pb-bar i{width:var(--w)}
+.pb-row.in .pb-bar em{opacity:1}
+.post-bands figcaption{margin-top:12px;font-size:12.5px;color:var(--mute)}
+@media (max-width:640px){.pb-row{grid-template-columns:1fr;gap:6px}.post-bands{padding:16px}}
+@media (prefers-reduced-motion:reduce){.post-motion .rv{opacity:1;transform:none;transition:none}.post-motion .post-steps li::before{transform:none;transition:none}.pb-bar i{width:var(--w);transition:none}.pb-bar em{opacity:1}.post-stepbar{display:none}}
+html.static .post-motion .rv{opacity:1;transform:none;transition:none}html.static .pb-bar i{width:var(--w);transition:none}html.static .pb-bar em{opacity:1}html.static .post-stepbar{display:none}

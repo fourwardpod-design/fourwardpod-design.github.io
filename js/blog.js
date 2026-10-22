@@ -55,3 +55,40 @@
     }
   });
 })();
+
+/* ---------- motion for guide posts (main.post-motion): staggered reveals, a progress pill, animated bars ---------- */
+(function () {
+  var main = document.querySelector('main.post-motion'); if (!main) return;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]static=1/.test(location.search) || document.documentElement.classList.contains('static');
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  // 1) reveal: each item fades up when it enters the viewport, staggered inside its group
+  var groups = ['.post-steps', '.post-table tbody', '.post-faq', '.post-list', '.post-bands .pb-rows'];
+  groups.forEach(function (g) { $$(g, main).forEach(function (box) { $$(':scope > *', box).forEach(function (el, i) { el.classList.add('rv'); el.style.setProperty('--i', Math.min(i, 8)); }); }); });
+  $$('.post-key, .post-takeaways, .post-shot, .post-bands', main).forEach(function (el) { el.classList.add('rv'); });
+  if (reduce || !('IntersectionObserver' in window)) { $$('.rv', main).forEach(function (el) { el.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    $$('.rv', main).forEach(function (el) { io.observe(el); });
+  }
+  // 2) progress pill: "Step 3 of 7" for step posts, "Question 12 of 25" for long lists
+  var mode = main.getAttribute('data-track'), marks = [], label = '';
+  if (mode === 'steps') { marks = $$('h2[id^="step-"]', main); label = 'Step'; }
+  if (mode === 'items') { marks = $$('.post-steps li', main).filter(function (li) { return li.closest('.post-steps').hasAttribute('start') || true; }); label = 'Question'; }
+  if (marks.length > 1) {
+    var pill = document.createElement('div'); pill.className = 'post-stepbar'; pill.setAttribute('aria-hidden', 'true');
+    pill.innerHTML = '<i></i><b></b><span>' + label + ' <em>1</em> of ' + marks.length + '</span>';
+    document.body.appendChild(pill);
+    var em = pill.querySelector('em'), bar = pill.querySelector('b'), cur = -1, first = marks[0], last = marks[marks.length - 1], ticking = false;
+    var update = function () {
+      ticking = false;
+      var y = innerHeight * 0.45, n = 0;
+      for (var k = 0; k < marks.length; k++) { if (marks[k].getBoundingClientRect().top < y) n = k + 1; }
+      var top = first.getBoundingClientRect().top, bottom = last.getBoundingClientRect().bottom;
+      var show = top < innerHeight * 0.9 && bottom > 0;
+      pill.classList.toggle('on', show);
+      if (n && n !== cur) { cur = n; em.textContent = n; bar.style.width = (n / marks.length * 100) + '%'; pill.classList.remove('tick'); void pill.offsetWidth; pill.classList.add('tick'); }
+    };
+    addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update); update();
+  }
+})();
