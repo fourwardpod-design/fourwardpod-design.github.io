@@ -464,3 +464,5 @@
 .pr-card small{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
 .pr-card strong{display:block;font-size:14.5px;line-height:1.4;font-weight:600}
 @media (max-width:760px){.pr-grid{grid-template-columns:1fr}}
+/* right column: the first cards scroll away and only the audit card sticks, so it never runs off a short screen */
+@media (min-width:1200px){.post-side{position:static;align-self:stretch;align-content:start}.post-side .side-cta{position:sticky;top:96px}}
