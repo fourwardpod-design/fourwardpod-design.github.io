@@ -1681,3 +1681,20 @@ html.static .rh-cursor{display:none}
 html.static .lm-track{animation:none}
 @media (prefers-reduced-motion:reduce){.lm-track{animation:none}}
 @media (max-width:640px){.lm-item{height:84px;padding:0 28px}.lm-item img{max-height:26px;max-width:118px}.lm-item.tall img{max-height:34px}}
+/* v1.22.3: trusted-by strip matches the service page */
+#trusted{padding-top:56px;padding-bottom:24px}
+.lm-cap{text-align:center;font-size:14px;color:var(--mute);margin:0 0 24px}
+.logo-marquee{border:0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.lm-track{gap:64px;animation-duration:42s}
+.lm-item{height:auto;padding:0}
+.lm-item img,.lm-item.tall img,.lm-item.wide img,.lm-item.small img{height:26px;max-height:none;width:auto;max-width:150px;object-fit:contain;filter:grayscale(1) contrast(1.1);opacity:.55}
+.lm-item:hover img{opacity:1;filter:none;transform:none}
+@media (max-width:640px){
+  #trusted{padding-top:36px;padding-bottom:12px}
+  .lm-cap{font-size:13px;margin-bottom:16px;padding:0 16px}
+  .lm-track{gap:40px;animation-duration:30s}
+  .lm-item img,.lm-item.tall img,.lm-item.wide img,.lm-item.small img{height:20px;max-width:110px}
+  .logo-marquee{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+}
+#trusted{padding-bottom:80px}
+@media (max-width:640px){#trusted{padding-bottom:52px}}
