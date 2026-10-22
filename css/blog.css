@@ -483,3 +483,16 @@
 @keyframes pw-s2{0%,60%{opacity:0}64%,92%{opacity:1}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.pw-cur,.pw-ring{display:none}.pw-s1,.pw-s2{animation:none;opacity:1}}
 html.static .pw-cur,html.static .pw-ring{display:none}html.static .pw-s1,html.static .pw-s2{animation:none;opacity:1}
+/* three-step version: step 1, step 2, then step 3 */
+.pw-3 .pw-cur{animation-name:pw-cur3;animation-duration:9s}
+.pw-3 .pw-ring{animation-name:pw-ring3;animation-duration:9s}
+.pw-3 .pw-ring.r2{animation-name:pw-ring3b}
+.pw-3 .pw-s1{animation-name:pw3-s1;animation-duration:9s}.pw-3 .pw-s2{animation-name:pw3-s2;animation-duration:9s}.pw-s3{opacity:0}.pw-3 .pw-s3{animation:pw3-s3 9s ease infinite}
+@keyframes pw-cur3{0%{transform:translate(var(--x0),var(--y0));opacity:0}6%{opacity:1}22%{transform:translate(var(--x1),var(--y1))}24%{transform:translate(var(--x1),var(--y1)) scale(.86)}26%,30%{transform:translate(var(--x1),var(--y1))}46%{transform:translate(var(--x2),var(--y2))}48%{transform:translate(var(--x2),var(--y2)) scale(.86)}50%,54%{transform:translate(var(--x2),var(--y2))}74%,90%{transform:translate(var(--x3),var(--y3));opacity:1}97%,100%{transform:translate(var(--x3),var(--y3));opacity:0}}
+@keyframes pw-ring3{0%,23%{opacity:0;transform:scale(.3)}25%{opacity:.9}34%{opacity:0;transform:scale(1.6)}100%{opacity:0}}
+@keyframes pw-ring3b{0%,47%{opacity:0;transform:scale(.3)}49%{opacity:.9}58%{opacity:0;transform:scale(1.6)}100%{opacity:0}}
+@keyframes pw3-s1{0%,23%{opacity:0}26%,93%{opacity:1}100%{opacity:0}}
+@keyframes pw3-s2{0%,47%{opacity:0}50%,93%{opacity:1}100%{opacity:0}}
+@keyframes pw3-s3{0%,72%{opacity:0}76%,93%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.pw-3 .pw-s1,.pw-3 .pw-s2,.pw-3 .pw-s3{animation:none;opacity:1}}
+html.static .pw-3 .pw-s1,html.static .pw-3 .pw-s2,html.static .pw-3 .pw-s3{animation:none;opacity:1}
