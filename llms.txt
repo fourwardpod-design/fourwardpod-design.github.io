@@ -28,6 +28,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 - [ChatGPT ads for B2B SaaS](https://www.fourwardhq.com/blog/chatgpt-ads-b2b-saas/): who sees ChatGPT ads, what they cost, when a B2B test makes sense and the 29 October 2026 creative enhancements deadline.
 - [AI Overviews data in Search Console](https://www.fourwardhq.com/blog/search-console-ai-overviews-report/): where the generative AI report is, what it counts and what it leaves out.
 - [What is Fourward?](https://www.fourwardhq.com/blog/what-is-fourward/): what Fourward is, what we do, who is on the team, how working with us starts and how we differ from an agency.
+- [How to get cited by ChatGPT](https://www.fourwardhq.com/blog/how-to-get-cited-by-chatgpt/): nine steps from OpenAI's crawler docs and Ahrefs' citation data, from OAI-SearchBot access to measurement.
 - [GEO for B2B SaaS: a 7-step guide](https://www.fourwardhq.com/blog/geo-for-b2b-saas/): crawler access, indexing, pages for buyer prompts, mentions, structured data and measurement, with data from 57 SaaS sites.
 - [llms.txt examples from 57 B2B SaaS companies](https://www.fourwardhq.com/blog/llms-txt-examples/): who publishes llms.txt, what they include, five patterns, Google's stance and a template.
 - [Best AI visibility tools in 2026](https://www.fourwardhq.com/blog/best-ai-visibility-tools/): eleven AI visibility tools compared on engines, prompts per plan, price and free options.
