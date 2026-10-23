@@ -1558,3 +1558,52 @@
   })();
 
 })();
+
+/* ---------- 9c. search window: rank table (replaces the screen recordings) ----------
+   Rows enter one by one; each position chip rolls like a counter and lands on the real
+   result from the BootcampGuide case study. Two sets alternate. ?static=1 and reduced
+   motion show the first set finished. */
+(function () {
+  var mock = document.querySelector('[data-rank-motion]');
+  if (!mock) return;
+  var $ = function (s, r) { return (r || mock).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || mock).querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]static=1/.test(location.search) || document.documentElement.classList.contains('static');
+  var box = $('.lm-rank'), rows = $('.rk-rows'), foot = $('.rk-foot');
+  var SETS = JSON.parse(mock.getAttribute('data-sets') || '[]');
+  if (!box || !rows || !SETS.length) return;
+  var AI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 6.3L21 10.5l-6.8 2.2L12 19l-2.2-6.3L3 10.5l6.8-2.2z"/></svg>';
+  var render = function (set) {
+    rows.innerHTML = set.rows.map(function (r) {
+      // the chip rolls down a short ladder of numbers and stops on the real position
+      var start = Math.max(r.pos + 4, 7), ladder = [];
+      for (var n = start; n >= r.pos; n--) ladder.push(n);
+      return '<div class="rk-row"><span>' + r.q + '</span>' +
+        (r.ai ? '<span class="rk-tag">' + AI + 'AI Overview</span>' : '<span></span>') +
+        '<span class="rk-pos' + (r.pos > 1 ? ' two' : '') + '" style="--n:' + (ladder.length - 1) + '"><i>' + ladder.map(function (n) { return '<b>#' + n + '</b>'; }).join('') + '</i></span></div>';
+    }).join('');
+    foot.innerHTML = '<b>' + set.foot + '</b><em>' + (set.note || '') + '</em>';
+  };
+  if (reduce || !('IntersectionObserver' in window)) { render(SETS[0]); box.classList.add('is-static'); return; }
+  var k = 0, visible = false, timers = [], running = false;
+  var later = function (fn, ms) { timers.push(setTimeout(fn, ms)); };
+  var clear = function () { timers.forEach(clearTimeout); timers = []; };
+  var play = function () {
+    if (!visible) { running = false; return; }
+    running = true; clear();
+    box.classList.remove('is-leaving'); foot.classList.remove('in');
+    render(SETS[k]);
+    var list = $$('.rk-row');
+    list.forEach(function (row, i) {
+      later(function () { row.classList.add('in'); }, 120 + i * 230);
+      later(function () { row.classList.add('hit'); }, 520 + i * 230);
+    });
+    var done = 520 + list.length * 230 + 1500;
+    later(function () { foot.classList.add('in'); }, done);
+    later(function () { box.classList.add('is-leaving'); }, done + 3600);
+    later(function () { k = (k + 1) % SETS.length; play(); }, done + 4000);
+  };
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) { visible = e.isIntersecting; if (visible && !running) play(); if (!visible) { clear(); running = false; } });
+  }, { threshold: 0.35 }).observe(mock);
+})();

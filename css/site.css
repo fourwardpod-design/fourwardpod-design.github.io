@@ -1698,3 +1698,40 @@ html.static .lm-track{animation:none}
 }
 #trusted{padding-bottom:80px}
 @media (max-width:640px){#trusted{padding-bottom:52px}}
+
+/* v1.32: search window shows a rank table instead of screen recordings. Vector, so it stays sharp. */
+.panel-media .mock.live .rk-bar{height:30px;align-items:center;gap:5px;padding:0 10px;background:#EEF0F3;border-bottom:0}
+.rk-url{flex:1;min-width:0;margin-left:6px;height:20px;display:flex;align-items:center;gap:7px;padding:0 10px;border-radius:999px;background:#fff;font-size:9.5px;color:#5F6368;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk-url b{font-weight:600;color:#202124}
+.rk-url i{width:6px;height:6px;border-radius:50%;background:#00B39A;flex:none;box-shadow:0 0 0 3px rgba(0,179,154,.18)}
+.lm-rank{display:flex;flex-direction:column;padding:12px 16px 10px;background:#fff}
+.rk-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:0 2px 8px;border-bottom:1px solid #ECECE9;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8A8A92}
+.rk-head span:last-child{text-align:right;min-width:68px}
+.rk-rows{flex:1;display:grid;align-content:start}
+.rk-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;height:34px;padding:0 2px;border-bottom:1px solid #F1F1EE;font-size:12.5px;color:#202124;opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .5s var(--ease)}
+.rk-row.in{opacity:1;transform:none}
+.rk-row > span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk-row::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:linear-gradient(90deg,#FF5A2B,#E8177C 60%,#6E45E8);transform:scaleX(0);transform-origin:0 50%;opacity:0}
+.rk-row.hit::after{animation:rk-sweep 1.1s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes rk-sweep{0%{opacity:1;transform:scaleX(0)}70%{opacity:1;transform:scaleX(1)}100%{opacity:0;transform:scaleX(1)}}
+.rk-tag{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 7px;border-radius:999px;font-size:9.5px;font-weight:600;color:#1A73E8;background:#E8F0FE;opacity:0;transform:scale(.7);transition:opacity .25s,transform .5s cubic-bezier(.34,1.56,.64,1)}
+.rk-tag svg{width:9px;height:9px;fill:#1A73E8}
+.rk-row.hit .rk-tag{opacity:1;transform:none;transition-delay:.9s,.9s}
+.rk-pos{position:relative;width:46px;height:24px;border-radius:8px;background:#F3F3F1;overflow:hidden;font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:-.01em;color:#6D6D74;transition:background .4s .9s,color .4s .9s,box-shadow .4s .9s}
+.rk-pos i{position:absolute;left:0;right:0;top:0;display:grid;font-style:normal;transition:transform 1.35s cubic-bezier(.16,1,.3,1)}
+.rk-pos i b{height:24px;display:flex;align-items:center;justify-content:center;font-weight:600}
+.rk-row.hit .rk-pos i{transform:translateY(calc(var(--n) * -24px))}
+.rk-row.hit .rk-pos{background:#0B0B0C;color:#fff;box-shadow:0 8px 16px -10px rgba(11,11,12,.6)}
+.rk-row.hit .rk-pos.two{background:#FFE4D9;color:#B33A12;box-shadow:none}
+.rk-foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:9px;font-size:10.5px;color:#5F6368;opacity:0;transform:translateY(6px);transition:opacity .45s var(--ease),transform .5s var(--ease)}
+.rk-foot.in{opacity:1;transform:none}
+.rk-foot b{color:#202124;font-weight:600}
+.rk-foot em{margin-left:auto;font-style:normal;font-size:9.5px;color:#8A8A92}
+.lm-rank.is-leaving .rk-row,.lm-rank.is-leaving .rk-foot{opacity:0;transform:translateY(-6px);transition-duration:.3s,.3s}
+.lm-rank.is-static .rk-row,.lm-rank.is-static .rk-foot{opacity:1;transform:none;transition:none}
+.lm-rank.is-static .rk-row .rk-pos i{transform:translateY(calc(var(--n) * -24px));transition:none}
+.lm-rank.is-static .rk-row .rk-pos{background:#0B0B0C;color:#fff}
+.lm-rank.is-static .rk-row .rk-pos.two{background:#FFE4D9;color:#B33A12}
+.lm-rank.is-static .rk-tag{opacity:1;transform:none}
+@media (max-width:520px){.rk-row{font-size:11.5px;height:32px}.rk-pos{width:42px}.rk-head span:last-child{min-width:60px}.rk-tag{display:none}}
+@media (max-width:520px){.rk-foot em{display:none}}
