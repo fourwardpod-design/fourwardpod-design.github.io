@@ -8,6 +8,11 @@
 (function () {
   'use strict';
 
+  /* ---------- 0. canonical host: the mirrors (pages.dev, github.io, bare domain) send people to www ---------- */
+  if (/\.(pages\.dev|github\.io)$/.test(location.hostname) || location.hostname === 'fourwardhq.com') {
+    location.replace('https://www.fourwardhq.com' + location.pathname + location.search + location.hash);
+  }
+
   /* ---------- config ---------- */
   var FOURWARD = {
     emails: ['fourwardpod@gmail.com'],
