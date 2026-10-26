@@ -1584,7 +1584,7 @@
       var start = Math.max(r.pos + 4, 7), ladder = [];
       for (var n = start; n >= r.pos; n--) ladder.push(n);
       return '<div class="rk-row"><span>' + r.q + '</span>' +
-        (r.ai ? '<span class="rk-tag">' + AI + 'AI Overview</span>' : '<span></span>') +
+        (r.src ? '<span class="rk-tag">' + AI + 'Top source · AI Overview</span>' : r.ai ? '<span class="rk-tag">' + AI + 'AI Overview</span>' : '<span></span>') +
         '<span class="rk-pos' + (r.pos > 1 ? ' two' : '') + '" style="--n:' + (ladder.length - 1) + '"><i>' + ladder.map(function (n) { return '<b>#' + n + '</b>'; }).join('') + '</i></span></div>';
     }).join('');
     foot.innerHTML = '<b>' + set.foot + '</b><em>' + (set.note || '') + '</em>';
