@@ -1612,3 +1612,74 @@
     es.forEach(function (e) { visible = e.isIntersecting; if (visible && !running) play(); if (!visible) { clear(); running = false; } });
   }, { threshold: 0.35 }).observe(mock);
 })();
+
+/* ---------- 9d. search window: live motion over real Google screenshots (v1.36) ----------
+   Two real searches on Google India. The query is typed into the real search box, the real results page fades in,
+   the camera glides to the AI Overview sources and a ring draws around bootcampguide.com, our own site. For the
+   fees search it then scrolls on to the #1 result. Everything moves in CSS; the pictures are untouched screenshots
+   (account avatar masked). ?static=1 and reduced motion show the first search finished. */
+(function () {
+  var mock = document.querySelector('[data-g3]');
+  if (!mock) return;
+  var $ = function (s, r) { return (r || mock).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || mock).querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]static=1/.test(location.search) || document.documentElement.classList.contains('static');
+  var stage = $('.g3-stage'), cam = $('.g3-cam'), shots = $$('.g3-shot'), typeEl = $('.g3-type'), txt = $('.g3-txt'), ring = $('.g3-ring'), rect = ring && ring.querySelector('rect'), tag = $('.g3-tag'), tabs = $$('.g2-tab'), pill = $('.g2-pill');
+  var Q = JSON.parse(mock.getAttribute('data-scenes') || '[]');
+  if (!stage || !cam || !Q.length) return;
+  var HOME = { wide: { x: 440, y: 180, w: 760 }, sq: { x: 450, y: 110, w: 680 } };
+  var STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 6.3L21 10.5l-6.8 2.2L12 19l-2.2-6.3L3 10.5l6.8-2.2z"/></svg>';
+  var kind = 'wide', SW = 0, SH = 0, cur = HOME, tall = false, timers = [], visible = false, running = false, k = 0, loaded = false;
+  var measure = function () { var r = stage.getBoundingClientRect(); SW = r.width || 1; SH = r.height || 1; kind = SW / SH >= 1.4 ? 'wide' : 'sq'; };
+  var look = function (c, instant) {
+    measure(); cur = c; var g = c[kind] || c.wide, s = SW / g.w, maxY = (tall ? 1494 : 747) - SH / s, y = Math.max(0, Math.min(maxY, g.y)), x = Math.max(0, Math.min(1568 - SW / s, g.x));
+    if (instant) cam.classList.add('no-t');
+    cam.style.transform = 'translate(' + (-x * s).toFixed(2) + 'px,' + (-y * s).toFixed(2) + 'px) scale(' + s.toFixed(4) + ')';
+    if (instant) { void cam.offsetWidth; cam.classList.remove('no-t'); }
+  };
+  var show = function (names) { shots.forEach(function (s) { s.classList.toggle('is-on', names.indexOf(s.getAttribute('data-shot')) >= 0); }); tall = names.some(function (n) { return /-org$/.test(n); }); };
+  var load = function () { if (loaded) return; loaded = true; shots.forEach(function (s) { s.src = s.getAttribute('data-src'); }); };
+  var setTab = function (i) { var t = tabs[i]; if (t && pill) { pill.style.setProperty('--x', t.offsetLeft + 'px'); pill.style.setProperty('--w', t.offsetWidth + 'px'); } tabs.forEach(function (x, j) { x.classList.toggle('is-on', j === i); }); };
+  var mark = function (r, label) {
+    if (!r) { ring.classList.remove('is-on'); tag.classList.remove('is-on'); return; }
+    ring.style.left = r[0] + 'px'; ring.style.top = r[1] + 'px'; ring.style.width = r[2] + 'px'; ring.style.height = r[3] + 'px';
+    ring.setAttribute('viewBox', '0 0 ' + r[2] + ' ' + r[3]); rect.setAttribute('x', 1.75); rect.setAttribute('y', 1.75); rect.setAttribute('width', r[2] - 3.5); rect.setAttribute('height', r[3] - 3.5);
+    rect.style.setProperty('--len', 2 * (r[2] + r[3]) + 'px');
+    ring.classList.remove('is-on'); void ring.offsetWidth; ring.classList.add('is-on');
+    tag.innerHTML = STAR + label; tag.style.left = r[0] + 'px'; tag.style.top = (r[1] - 46) + 'px';
+    tag.classList.remove('is-on'); timers.push(setTimeout(function () { tag.classList.add('is-on'); }, 550));
+  };
+  var later = function (fn, ms) { timers.push(setTimeout(fn, ms)); };
+  var clear = function () { timers.forEach(clearTimeout); timers = []; };
+  measure(); if (shots[0]) shots[0].src = shots[0].getAttribute('data-src'); // the homepage is the base layer, so it loads at once; the results load when the window scrolls into view
+  if (reduce || !('IntersectionObserver' in window)) {
+    load(); mock.classList.add('is-static'); var q0 = Q[0]; setTab(0); show([q0.shot]); look(q0.focus, true); mark(q0.ring, q0.tag); tag.classList.add('is-on'); return;
+  }
+  var play = function (i) {
+    if (!visible) { running = false; return; }
+    running = true; clear(); k = i; var q = Q[i], first = !cam.style.transform;
+    setTab(i); mark(null); show(['home']); look(HOME, first);
+    txt.textContent = ''; typeEl.classList.add('is-on');
+    var t = 700, chars = q.q.split('');
+    chars.forEach(function (ch) { t += 48 + Math.random() * 70 + (ch === ' ' ? 90 : 0); later(function () { txt.textContent += ch; }, t); });
+    t += 420;
+    later(function () { typeEl.classList.remove('is-on'); show([q.shot]); look(q.results); }, t);
+    t += 1700; later(function () { look(q.focus); }, t);
+    t += 750; later(function () { mark(q.ring, q.tag); }, t);
+    t += 3000;
+    if (q.more) {
+      later(function () { mark(null); show([q.shot, q.more.shot]); look(q.more.cam); }, t);
+      t += 1150; later(function () { mark(q.more.ring, q.more.tag); }, t);
+      t += 3000;
+    }
+    later(function () { mark(null); play((i + 1) % Q.length); }, t);
+  };
+  window.addEventListener('resize', function () { measure(); look(cur, true); });
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      visible = e.isIntersecting;
+      if (visible && !running) { load(); var home = shots[0]; if (home.complete && home.naturalWidth) play(k); else { home.addEventListener('load', function () { if (visible && !running) play(k); }, { once: true }); later(function () { if (visible && !running) play(k); }, 2500); } }
+      if (!visible) { clear(); running = false; }
+    });
+  }, { threshold: 0.35 }).observe(mock);
+})();

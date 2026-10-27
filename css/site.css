@@ -1735,3 +1735,27 @@ html.static .lm-track{animation:none}
 .lm-rank.is-static .rk-tag{opacity:1;transform:none}
 @media (max-width:520px){.rk-row{font-size:11.5px;height:32px}.rk-pos{width:42px}.rk-head span:last-child{min-width:60px}.rk-tag{display:none}}
 @media (max-width:520px){.rk-foot em{display:none}}
+
+/* v1.36: live search motion. Real Google screenshots (1568x747); the typing, the results reveal, the camera and the
+   highlight on BootcampGuide animate in CSS, so it stays smooth and sharp at any size. Reuses the g2 window chrome. */
+.g3-stage{position:relative;overflow:hidden;background:#fff;padding:0;isolation:isolate}
+.g3-cam{position:absolute;left:0;top:0;width:1568px;height:1494px;transform-origin:0 0;will-change:transform;transition:transform 1.25s cubic-bezier(.22,1,.36,1)}
+.g3-cam.no-t{transition:none}
+.g3-cam .g3-shot{position:absolute;left:0;top:0;width:1568px!important;height:747px!important;max-width:none;max-height:none;object-fit:fill;display:block;opacity:0;transition:opacity .6s var(--ease)}
+.g3-shot.is-on{opacity:1}
+.g3-shot.below{top:747px}
+.g3-type{position:absolute;left:528px;top:313px;height:26px;display:flex;align-items:center;font:16px/1 Arial,Helvetica,sans-serif;color:#202124;white-space:pre;opacity:0;transition:opacity .25s}
+.g3-type.is-on{opacity:1}
+.g3-type i{display:block;width:1.5px;height:19px;margin-left:1px;background:#202124;animation:g3-blink 1.05s steps(1) infinite}
+@keyframes g3-blink{50%{opacity:0}}
+.g3-ring{position:absolute;overflow:visible;pointer-events:none;opacity:0;transition:opacity .3s;filter:drop-shadow(0 8px 18px rgba(232,23,124,.28))}
+.g3-ring rect{fill:none;stroke:url(#g3g);stroke-width:3.5;stroke-linejoin:round;stroke-dasharray:var(--len) var(--len);stroke-dashoffset:var(--len)}
+.g3-ring.is-on{opacity:1}
+.g3-ring.is-on rect{animation:g3-draw 1s cubic-bezier(.3,0,.15,1) forwards}
+@keyframes g3-draw{to{stroke-dashoffset:0}}
+.g3-tag{position:absolute;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border-radius:999px;background:#0B0B0C;color:#fff;font:600 13.5px/1 var(--sans);letter-spacing:.01em;white-space:nowrap;box-shadow:0 12px 26px -12px rgba(11,11,12,.55);opacity:0;transform:translateY(8px) scale(.9);transition:opacity .35s,transform .65s cubic-bezier(.34,1.56,.64,1)}
+.g3-tag svg{width:13px;height:13px;fill:#FFD166}
+.g3-tag.is-on{opacity:1;transform:none}
+.mock-g3.is-static .g3-cam,.mock-g3.is-static .g3-shot,.mock-g3.is-static .g3-tag{transition:none}
+.mock-g3.is-static .g3-ring rect{animation:none;stroke-dashoffset:0}
+.g3-cam .g3-shot[data-shot="home"]{opacity:1!important}
