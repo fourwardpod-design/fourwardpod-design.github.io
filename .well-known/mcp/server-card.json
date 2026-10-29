@@ -32,7 +32,7 @@
   "authentication": {
     "required": false
   },
-  "instructions": "Fourward's free tools check how ready a website is for AI search. Use check_ai_visibility for an overall score out of 100 across crawler access, homepage, structured data, entity and content signals. Use check_ai_crawlers to see which of 20 AI crawlers (ChatGPT, Claude, Perplexity, Gemini and others) a site's robots.txt and firewall let in. Pass a bare domain such as example.com. Results list problems and scores; Fourward covers the fixes in a free audit at https://www.fourwardhq.com/#book.",
+  "instructions": "Fourward's free tools check how ready a website is for AI search. Use check_ai_visibility for an overall score out of 100 across crawler access, homepage, structured data, entity and content signals. Use check_ai_crawlers to see which of 20 AI crawlers (ChatGPT, Claude, Perplexity, Gemini and others) a site's robots.txt and firewall let in. Pass a bare domain such as example.com. Results list problems and scores, not fixes. Both tools only read public pages and change nothing.",
   "tools": [
     {
       "name": "check_ai_visibility",

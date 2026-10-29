@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../../css/site.css?v=42">
+
 <link rel="canonical" href="https://www.fourwardhq.com/tools/ai-crawler-checker/">
 <link rel="stylesheet" href="../../css/crawler.css?v=3">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://www.fourwardhq.com/tools/ai-crawler-checker/#app","name":"AI crawler checker","url":"https://www.fourwardhq.com/tools/ai-crawler-checker/","applicationCategory":"SEO tool","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"See which AI crawlers can read your site. Tests robots.txt and firewall access for GPTBot, ClaudeBot, PerplexityBot and 17 more bots. Free, no sign-up.","publisher":{"@type":"Organization","name":"Fourward","url":"https://www.fourwardhq.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.fourwardhq.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://www.fourwardhq.com/tools/"},{"@type":"ListItem","position":3,"name":"AI crawler checker","item":"https://www.fourwardhq.com/tools/ai-crawler-checker/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an AI crawler?","acceptedAnswer":{"@type":"Answer","text":"An AI crawler is a bot that reads web pages for an AI company. Some, like OAI-SearchBot and PerplexityBot, fetch pages so AI answers can cite them. Others, like GPTBot and ClaudeBot, collect pages to train AI models."}},{"@type":"Question","name":"Does blocking GPTBot remove my site from ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Not on its own. OpenAI uses GPTBot for training and OAI-SearchBot for ChatGPT search. You can block GPTBot and still allow OAI-SearchBot, so ChatGPT search can find and cite your pages."}},{"@type":"Question","name":"My robots.txt allows AI bots. Why are they still blocked?","acceptedAnswer":{"@type":"Answer","text":"Many firewalls and CDNs block AI bots before they reach robots.txt, for example a \"block AI bots\" setting. The firewall test in this checker loads your homepage as AI bots to spot that."}},{"@type":"Question","name":"What is llms.txt?","acceptedAnswer":{"@type":"Answer","text":"llms.txt is a short text file at the root of your site that lists your most useful pages for AI tools. It is optional, and Google has said it does not use it, but some AI tools read it."}},{"@type":"Question","name":"Should I block AI training bots?","acceptedAnswer":{"@type":"Answer","text":"It is a business choice. Blocking training bots keeps your content out of future model training. It does not stop AI search bots, which are the ones that decide whether you get cited today."}},{"@type":"Question","name":"Is this AI crawler checker free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, needs no sign-up and checks any public website."}}]}]}</script>
@@ -109,7 +110,6 @@
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../../" title="Home">Home</a><span aria-hidden="true">/</span><a href="../" title="Tools">Tools</a><span aria-hidden="true">/</span><span>AI crawler checker</span></nav>
     <h1>AI crawler checker</h1>
     <p class="lead">See which AI bots can read your site: ChatGPT, Claude, Perplexity, Gemini, Copilot and more. We check your robots.txt and your firewall. Free, no sign-up.</p>
-    
     
     <p class="mcp-pointer" style="margin:14px auto 0;max-width:640px;font-size:13.5px;color:var(--mute);text-align:center">Use this check inside Claude or ChatGPT: <a href="../mcp/" title="connect our MCP server">connect our MCP server</a>.</p>
     <div id="cc" data-state="idle">
@@ -217,6 +217,7 @@ Allow: /</pre>
           <li></li>
           <li></li>
           <li><a href="../../#ways" title="Ways to work">Ways to work</a></li>
+          <li><a href="../../privacy/" title="Privacy policy">Privacy policy</a></li>
         </ul>
       </div>
       <div class="foot-col">

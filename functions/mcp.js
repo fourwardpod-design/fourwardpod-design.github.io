@@ -4,15 +4,15 @@
 //   check_ai_visibility  the 30-check AI visibility score from /tools/ai-visibility-check/ (problems and scores, never fixes)
 //   check_ai_crawlers    the 20-bot robots.txt and firewall test from /tools/ai-crawler-checker/
 // Both are read-only and only fetch public https://<hostname>/ URLs; IPs and internal names are refused.
+// Nothing about a request is stored or logged; only the public result is cached by domain for 12 hours.
 // The scoring mirrors js/site.js (section 7) and js/crawler.js so results match the website.
 
 const SERVER = { name: 'fourward', title: 'Fourward AI visibility tools', version: '1.0.0', websiteUrl: 'https://www.fourwardhq.com/tools/mcp/', icons: [{ src: 'https://www.fourwardhq.com/assets/logo-512.png', mimeType: 'image/png', sizes: ['512x512'] }] };
 const VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const ORIGIN = 'https://www.fourwardhq.com';
-const LEAD_URL = 'https://script.google.com/macros/s/AKfycbyt5YKfhDZ2GhCCBkq8foHfgOr3VVgMCKlh5nlGZB7yP1J4uqV7rF3G6FAw7dKKt7O2JQ/exec';
 const BROWSER = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 const CHECKER = 'Mozilla/5.0 (compatible; FourwardAICheck/1.0; +https://www.fourwardhq.com/tools/mcp/)';
-const INSTRUCTIONS = 'Fourward\'s free tools check how ready a website is for AI search. Use check_ai_visibility for an overall score out of 100 across crawler access, homepage, structured data, entity and content signals. Use check_ai_crawlers to see which of 20 AI crawlers (ChatGPT, Claude, Perplexity, Gemini and others) a site\'s robots.txt and firewall let in. Pass a bare domain such as example.com. Results list problems and scores; Fourward covers the fixes in a free audit at https://www.fourwardhq.com/#book.';
+const INSTRUCTIONS = 'Fourward\'s free tools check how ready a website is for AI search. Use check_ai_visibility for an overall score out of 100 across crawler access, homepage, structured data, entity and content signals. Use check_ai_crawlers to see which of 20 AI crawlers (ChatGPT, Claude, Perplexity, Gemini and others) a site\'s robots.txt and firewall let in. Pass a bare domain such as example.com. Results list problems and scores, not fixes. Both tools only read public pages and change nothing.';
 
 const DOMAIN_ARG = { type: 'object', properties: { domain: { type: 'string', description: 'The website to check, as a domain such as example.com. A full URL also works; only the hostname is used.' } }, required: ['domain'], additionalProperties: false };
 const TOOLS = [
@@ -139,15 +139,20 @@ async function crawlerCheck(domain) {
   L.push('AI crawler check for ' + domain);
   L.push(ok + ' of ' + results.length + ' AI crawlers can read the homepage. ' + verdict);
   L.push('');
-  L.push('AI SEARCH AND ANSWER BOTS  ' + okIn(search) + '/' + search.length + ' allowed');
-  search.forEach((x) => L.push('  ' + (x.state === 'blocked' ? '[blocked] ' : '[allowed] ') + x.ua + ' (' + x.company + ', ' + x.use + ')' + (x.state === 'partial' ? ', some folders off-limits' : '')));
+  // compact text: blocked bots by name, allowed bots as one list; full detail stays in structuredContent
+  const group = (title, list) => {
+    const blocked = list.filter((x) => x.state === 'blocked'), allowed = list.filter((x) => x.state !== 'blocked'), part = list.filter((x) => x.state === 'partial');
+    L.push(title + '  ' + allowed.length + '/' + list.length + ' allowed');
+    if (blocked.length) L.push('  Blocked: ' + blocked.map((x) => x.ua + ' (' + x.company + ', ' + x.use + ')').join('; '));
+    if (allowed.length) L.push('  Allowed: ' + allowed.map((x) => x.ua).join(', '));
+    if (part.length) L.push('  ' + part.length + ' of the allowed bots have some folders off-limits by robots.txt rules.');
+  };
+  group('AI SEARCH AND ANSWER BOTS', search);
   L.push('');
-  L.push('AI TRAINING BOTS  ' + okIn(train) + '/' + train.length + ' allowed');
-  train.forEach((x) => L.push('  ' + (x.state === 'blocked' ? '[blocked] ' : '[allowed] ') + x.ua + ' (' + x.company + ', ' + x.use + ')'));
+  group('AI TRAINING BOTS', train);
   L.push('');
-  L.push('FIREWALL TEST (homepage fetched as each agent)');
-  L.push('  Browser: HTTP ' + (browser.status || 'no response'));
-  fw.forEach((f) => L.push('  ' + f.bot + ': ' + (f.challenge ? 'challenge page' : 'HTTP ' + (f.status || 'no response')) + (fwBlocked.indexOf(f) >= 0 ? ' (blocked)' : '')));
+  L.push('FIREWALL TEST (homepage fetched as a browser and as four AI bots)');
+  L.push('  Browser: HTTP ' + (browser.status || 'no response') + ' · ' + fw.map((f) => f.bot + ': ' + (f.challenge ? 'challenge page' : 'HTTP ' + (f.status || 'no response')) + (fwBlocked.indexOf(f) >= 0 ? ' (blocked)' : '')).join(' · '));
   if (!browserOk) L.push('  The homepage did not load for a normal browser either, so the firewall result is inconclusive.');
   L.push('');
   L.push('robots.txt: ' + robotsLine);
@@ -397,20 +402,21 @@ async function visibilityCheck(domain) {
   CATS.forEach((c) => {
     const cs = categories.filter((x) => x.id === c.id)[0];
     L.push(c.label.toUpperCase() + (cs.score != null ? '  ' + cs.score + '/' + c.max : '  not checked'));
-    S.checks.filter((x) => x.cat === c.id).forEach((x) => L.push('  ' + (x.status === 'pass' ? '[ok]   ' : x.status === 'warn' ? '[weak] ' : '[x]    ') + (x.status === 'pass' ? x.label : x.problem) + (x.status === 'pass' ? '' : '  (-' + lost(x) + ' pts)')));
+    const mine = S.checks.filter((x) => x.cat === c.id), passed = mine.filter((x) => x.status === 'pass').length;
+    mine.filter((x) => x.status !== 'pass').forEach((x) => L.push('  ' + (x.status === 'warn' ? '[weak] ' : '[x]    ') + x.problem + '  (-' + lost(x) + ' pts)'));
+    if (mine.length) L.push('  ' + passed + ' of ' + mine.length + ' checks passed');
     L.push('');
   });
   if (top.length) { L.push('BIGGEST GAPS'); top.slice(0, 3).forEach((x, i) => L.push('  ' + (i + 1) + '. ' + x.problem + ' (-' + lost(x) + ' pts)')); L.push(''); }
   if (S.quote) { L.push('What public knowledge sources say: "' + S.quote + '"'); L.push(''); }
-  L.push('This check lists problems, not fixes. Fourward walks through what to fix first, and in what order, in a free audit: ' + ORIGIN + '/#book');
-  L.push('Full visual report: ' + ORIGIN + '/tools/ai-visibility-check/?check=' + encodeURIComponent(domain));
+  L.push('Every check, including the ones that passed, is in the structured result and the visual report: ' + ORIGIN + '/tools/ai-visibility-check/?check=' + encodeURIComponent(domain));
   return {
     text: L.join('\n'),
     data: {
       domain, brand: name, checkedAt: new Date().toISOString(), score, grade, partial: anyPartial, verdict, categories,
       checks: S.checks.map((x) => ({ category: x.cat, key: x.key, status: x.status, result: x.status === 'pass' ? x.label : x.problem, points: x.pts, max: x.max })),
       biggestGaps: top.slice(0, 3).map((x) => ({ problem: x.problem, pointsLost: lost(x) })),
-      knowledgeSummary: S.quote || null, reportUrl: ORIGIN + '/tools/ai-visibility-check/?check=' + encodeURIComponent(domain), freeAudit: ORIGIN + '/#book'
+      knowledgeSummary: S.quote || null, reportUrl: ORIGIN + '/tools/ai-visibility-check/?check=' + encodeURIComponent(domain)
     }
   };
 }
@@ -428,12 +434,7 @@ async function callTool(name, args, ctx) {
   const result = { content: [{ type: 'text', text: out.text }], structuredContent: out.data, isError: false };
   const stable = name === 'check_ai_crawlers' || !out.data.partial;
   if (cache && stable) { try { ctx.waitUntil(cache.put(key, new Response(JSON.stringify(result), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=43200' } }))); } catch (e) {} }
-  if (name === 'check_ai_visibility' && ctx.lead) {
-    // log the check to Fourward's leads sheet, like the website does (domain and score only, no personal data)
-    const d = out.data;
-    const payload = { type: 'check', source: 'mcp', domain: d.domain, brand: d.brand, score: d.score, grade: d.grade, partial: d.partial, verdict: d.verdict, quote: d.knowledgeSummary || '', categories: d.categories, checks: d.checks.map((x) => ({ cat: x.category, key: x.key, status: x.status, label: x.result, pts: x.points, max: x.max, fix: '' })), topIssues: d.biggestGaps.map((x) => x.problem), page: ORIGIN + '/mcp', referrer: '', ua: ctx.ua, ts: new Date().toISOString() };
-    try { ctx.waitUntil(fetch(LEAD_URL, { method: 'POST', body: JSON.stringify(payload) }).catch(() => {})); } catch (e) {}
-  }
+  // nothing about the request is stored or logged: only the public result is cached, keyed by domain, for 12 hours
   return result;
 }
 
@@ -472,8 +473,7 @@ export async function onRequest(context) {
   if (method !== 'POST') return new Response(null, { status: 405, headers: { 'Allow': 'POST, OPTIONS', ...cors } });
   let body;
   try { body = await request.json(); } catch (e) { return jsonRes(rpcError(null, -32700, 'Parse error'), 400); }
-  const host = new URL(request.url).hostname;
-  const ctx = { waitUntil: (p) => { try { context.waitUntil(p); } catch (e) {} }, ua: request.headers.get('user-agent') || '', lead: /(^|\.)fourwardhq\.com$/.test(host), origin: new URL(request.url).origin };
+  const ctx = { waitUntil: (p) => { try { context.waitUntil(p); } catch (e) {} }, origin: new URL(request.url).origin };
   const batch = Array.isArray(body);
   const replies = (await Promise.all((batch ? body : [body]).map((m) => handle(m, ctx)))).filter(Boolean);
   if (!replies.length) return new Response(null, { status: 202, headers: cors });
