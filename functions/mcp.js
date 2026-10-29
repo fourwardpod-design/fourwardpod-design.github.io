@@ -6,7 +6,7 @@
 // Both are read-only and only fetch public https://<hostname>/ URLs; IPs and internal names are refused.
 // The scoring mirrors js/site.js (section 7) and js/crawler.js so results match the website.
 
-const SERVER = { name: 'fourward', title: 'Fourward AI visibility tools', version: '1.0.0', websiteUrl: 'https://www.fourwardhq.com/tools/mcp/' };
+const SERVER = { name: 'fourward', title: 'Fourward AI visibility tools', version: '1.0.0', websiteUrl: 'https://www.fourwardhq.com/tools/mcp/', icons: [{ src: 'https://www.fourwardhq.com/assets/logo-512.png', mimeType: 'image/png', sizes: ['512x512'] }] };
 const VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const ORIGIN = 'https://www.fourwardhq.com';
 const LEAD_URL = 'https://script.google.com/macros/s/AKfycbyt5YKfhDZ2GhCCBkq8foHfgOr3VVgMCKlh5nlGZB7yP1J4uqV7rF3G6FAw7dKKt7O2JQ/exec';
