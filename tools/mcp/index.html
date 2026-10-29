@@ -39,6 +39,115 @@
 .mcp-prompts li{padding:9px 14px;border-radius:999px;background:#F3F3F1;font-size:14px;color:var(--ink)}
 @media (max-width:760px){.mcp-apps{grid-template-columns:1fr}.mcp-url code{font-size:13px}}
 </style>
+<style>/* MCP connect demo (/tools/mcp/): three guided mock walkthroughs, one per app, in the site's calm motion
+   style: opacity + small translate at .55s expo-out, letter-by-letter typing, a soft press ring on buttons
+   and one linear progress bar per step. No bounces, no cursor-chasing. ?static=1 and reduced motion show
+   the finished state. Inlined by build-mcp.js. */
+.mdm{--mde:cubic-bezier(.22,1,.36,1);margin:16px 0 30px}
+.mdm-tabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:#F3F3F1;margin:0 0 14px}
+.mdm-tabs button{height:34px;padding:0 16px;border:0;border-radius:999px;background:none;font:600 13.5px/1 var(--body);color:var(--mute);cursor:pointer;transition:color .3s,background .3s,box-shadow .3s}
+.mdm-tabs button.is-on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(11,11,12,.14)}
+.mdm-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px;align-items:stretch}
+.mdm-win{position:relative;display:flex;flex-direction:column;border-radius:16px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.08),0 24px 50px -34px rgba(11,11,12,.45);overflow:hidden}
+.mdm-bar{display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;background:#F6F6F4;border-bottom:1px solid #ECECE8;flex:none}
+.mdm-bar i{width:10px;height:10px;border-radius:50%;background:#DEDED9}
+.mdm-bar span{margin-left:8px;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mdm-stage{position:relative;flex:1;min-height:322px}
+.mdm-scene{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .4s var(--mde)}
+.mdm-scene.is-on{opacity:1;visibility:visible}
+.mdm-pane{position:absolute;inset:0;padding:20px 22px;opacity:0;transform:translateY(12px);transition:opacity .55s var(--mde),transform .55s var(--mde);pointer-events:none}
+.mdm-pane.is-on{opacity:1;transform:none}
+/* window furniture */
+.mdm-h{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:600 13.5px/1.2 var(--display);color:var(--ink)}
+.mdm-h em{font-style:normal;color:var(--faint)}
+.mdm-h .dim2{color:var(--mute);font-weight:500}
+.mdm-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;background:#FAFAF8;box-shadow:inset 0 0 0 1px #EFEFEB;margin:0 0 8px}
+.mdm-row.hero{background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.09),0 12px 26px -18px rgba(11,11,12,.35)}
+.mdm-row > div{flex:1;min-width:0}
+.mdm-row b{display:block;font:600 13.5px/1.25 var(--display);color:var(--ink)}
+.mdm-row small{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:12px;color:var(--mute)}
+.mdm-row.dim{opacity:.62}
+.mdm-ico{flex:none;width:30px;height:30px;border-radius:9px;background:#F1F1EE;display:grid;place-items:center;font:600 12.5px/1 var(--display);color:#8A8A92}
+.mdm-ico.fw{background:#fff;box-shadow:inset 0 0 0 1px #ECECE8}
+.mdm-ico.fw img{width:19px;height:19px;display:block}
+.mdm-btn{position:relative;display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:10px;background:var(--ink);color:#fff;font:600 13px/1 var(--body);margin-top:6px}
+.mdm-btn.lite{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px #DEDED9}
+.mdm-btn.pulse{animation:mdm-press .55s var(--mde)}
+.mdm-btn.pulse::after{content:"";position:absolute;inset:0;border-radius:inherit;animation:mdm-ring .7s ease-out forwards}
+@keyframes mdm-press{0%,100%{transform:scale(1)}35%{transform:scale(.965)}}
+@keyframes mdm-ring{0%{box-shadow:0 0 0 0 rgba(11,11,12,.3)}100%{box-shadow:0 0 0 12px rgba(11,11,12,0)}}
+/* modal with fields */
+.mdm-dimmer{position:absolute;inset:0;background:rgba(11,11,12,.16)}
+.mdm-modal{position:relative;max-width:330px;margin:4px auto 0;padding:16px 18px 18px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.08),0 24px 50px -24px rgba(11,11,12,.5)}
+.mdm-modal > b{display:block;font:600 14px/1.2 var(--display);color:var(--ink);margin:0 0 10px}
+.mdm-modal label{display:block;font:600 11px/1 var(--body);letter-spacing:.02em;color:var(--mute);margin:10px 0 5px}
+.mdm-input{display:flex;align-items:center;height:34px;padding:0 11px;border-radius:9px;background:#fff;box-shadow:inset 0 0 0 1px #DEDED9;font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.mdm-input.typing{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.mdm-caret{display:none;flex:none;width:1.5px;height:15px;margin-left:1px;background:var(--ink);animation:mdm-blink 1.05s steps(1) infinite}
+.mdm-input.typing .mdm-caret{display:block}
+@keyframes mdm-blink{50%{opacity:0}}
+/* toggles, radios, status */
+.mdm-tgl{flex:none;width:36px;height:21px;border-radius:999px;background:#D9D9D4;position:relative;transition:background .35s var(--mde)}
+.mdm-tgl::after{content:"";position:absolute;top:2.5px;left:2.5px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(11,11,12,.25);transition:transform .35s var(--mde)}
+.mdm-tgl.go{background:#137333}
+.mdm-tgl.go::after{transform:translateX(15px)}
+.mdm-radio{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;box-shadow:inset 0 0 0 1px #E6E6E2;margin-top:10px;font-size:12.5px;color:var(--ink)}
+.mdm-radio i{flex:none;width:16px;height:16px;border-radius:50%;box-shadow:inset 0 0 0 1.5px #C9C9C4;position:relative;transition:box-shadow .3s}
+.mdm-radio i::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--ink);transform:scale(0);transition:transform .35s var(--mde)}
+.mdm-radio.go i{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.mdm-radio.go i::after{transform:scale(1)}
+.mdm-dot{flex:none;width:7px;height:7px;border-radius:50%;background:#D9D9D4;transition:background .4s,box-shadow .4s}
+.mdm-dot.go{background:#1BA55C;box-shadow:0 0 0 3px rgba(27,165,92,.15)}
+.mdm-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.mdm-chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:7px;background:#F1EEFF;color:#5A36C9;font-family:var(--mono);font-size:11px;opacity:0;transform:translateY(7px);transition:opacity .5s var(--mde),transform .5s var(--mde)}
+.mdm-chip.go{opacity:1;transform:none}
+/* ChatGPT chat pane */
+.mdm-chat{position:absolute;left:22px;right:22px;bottom:20px}
+.mdm-pop{display:flex;align-items:center;gap:11px;max-width:290px;padding:11px 13px;border-radius:13px 13px 13px 5px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.09),0 16px 32px -18px rgba(11,11,12,.4);margin:0 0 11px;opacity:0;transform:translateY(9px);transition:opacity .55s var(--mde),transform .55s var(--mde)}
+.mdm-pop.go{opacity:1;transform:none}
+.mdm-pop > div{flex:1;min-width:0}
+.mdm-pop b{display:block;font:600 13px/1.2 var(--display);color:var(--ink)}
+.mdm-pop small{font-size:11.5px;color:var(--mute)}
+.mdm-ok2{flex:none;width:20px;height:20px;border-radius:50%;background:#E6F4EA;color:#137333;display:grid;place-items:center;font-size:11px;font-weight:700;opacity:0;transform:scale(.6);transition:opacity .4s var(--mde),transform .45s var(--mde)}
+.mdm-ok2.go{opacity:1;transform:none}
+.mdm-composer{display:flex;align-items:center;gap:10px;height:42px;padding:0 13px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px #DEDED9;font-size:13px;color:var(--faint)}
+.mdm-plus{flex:none;width:24px;height:24px;border-radius:50%;background:#F1F1EE;display:grid;place-items:center;font-size:15px;color:var(--ink)}
+/* Cursor editor */
+.mdm-edit{position:absolute;inset:16px 18px 18px;display:flex;flex-direction:column;border-radius:12px;background:#111114;overflow:hidden}
+.mdm-edit-tab{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:11px;color:#9A9AA3}
+.mdm-edit-tab u{text-decoration:none;color:#D9D9DE}
+.mdm-code{flex:1;margin:0;padding:13px 16px;font-family:var(--mono);font-size:clamp(10px,2.7vw,12px);line-height:1.85;color:#D9D9DE;white-space:pre;overflow:hidden}
+.mdm-code .k{color:#A99BFF}
+.mdm-code .s{color:#5ED3A6}
+.mdm-code .p{color:#8A8A92}
+.mdm-toast{position:absolute;right:30px;bottom:32px;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:11px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.08),0 18px 36px -16px rgba(11,11,12,.5);font-size:12.5px;color:var(--ink);opacity:0;transform:translateY(10px);transition:opacity .55s var(--mde),transform .55s var(--mde)}
+.mdm-toast.go{opacity:1;transform:none}
+.mdm-toast .mdm-dot{background:#1BA55C;box-shadow:0 0 0 3px rgba(27,165,92,.15)}
+/* step rail */
+.mdm-steps{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.mdm-steps li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start;padding:13px 15px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.07);opacity:.55;transition:opacity .4s}
+.mdm-steps .n{width:30px;height:30px;border-radius:50%;background:#F3F3F1;display:grid;place-items:center;font:600 13px/1 var(--display);color:var(--ink);transition:background .35s,color .35s}
+.mdm-steps p{margin:1px 0 0;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.mdm-steps .bar{display:block;height:3px;border-radius:3px;background:#EFEFEC;margin-top:9px;overflow:hidden}
+.mdm-steps .bar i{display:block;height:100%;width:0;border-radius:3px;background:var(--ink)}
+.mdm-steps li.is-on{opacity:1}
+.mdm-steps li.is-on .n{background:var(--ink);color:#fff}
+.mdm-steps li.done{opacity:.8}
+.mdm-steps li.done .n{background:#E6F4EA;color:#137333}
+.mdm-note{margin:10px 0 0;font-size:12.5px;color:var(--mute)}
+@media (max-width:760px){
+  .mdm-body{grid-template-columns:1fr}
+  .mdm-stage{min-height:280px}
+  .mdm-pane{padding:16px}
+  .mdm-input{font-size:10.5px}
+  .mdm-edit{inset:12px}
+  .mdm-steps li{padding:11px 13px}
+}
+@media (prefers-reduced-motion:reduce){
+  .mdm *{transition:none!important;animation:none!important}
+}
+.mdm.is-static .mdm-pane,.mdm.is-static .mdm-chip,.mdm.is-static .mdm-pop,.mdm.is-static .mdm-toast{transition:none}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://www.fourwardhq.com/tools/mcp/#app","name":"Fourward MCP server","url":"https://www.fourwardhq.com/tools/mcp/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Connect Fourward's free MCP server to Claude, ChatGPT, Cursor or VS Code and run the AI visibility check and AI crawler checker from chat. No sign-up or API key.","publisher":{"@id":"https://www.fourwardhq.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.fourwardhq.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://www.fourwardhq.com/tools/"},{"@type":"ListItem","position":3,"name":"MCP server","item":"https://www.fourwardhq.com/tools/mcp/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an MCP server?","acceptedAnswer":{"@type":"Answer","text":"MCP, the Model Context Protocol, is an open standard that lets AI assistants use outside tools. Once you add Fourward's MCP server, Claude, ChatGPT and other assistants can run our checks when you ask them to."}},{"@type":"Question","name":"Is the Fourward MCP server free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, needs no account and no API key. It runs the same free checks as the tools on our website."}},{"@type":"Question","name":"Which tools does it include?","acceptedAnswer":{"@type":"Answer","text":"Two: check_ai_visibility, which scores a site out of 100 across 30 checks, and check_ai_crawlers, which shows which of 20 AI crawlers can read a site."}},{"@type":"Question","name":"Does it fix anything on my site?","acceptedAnswer":{"@type":"Answer","text":"No. Both tools only read public pages, robots.txt, sitemaps and public knowledge sources. They list problems and scores. We cover the fixes in a free audit."}},{"@type":"Question","name":"What do you store?","acceptedAnswer":{"@type":"Answer","text":"Nothing about your requests. We do not log MCP calls or receive your conversation. The public result for each domain is cached for up to 12 hours so repeat checks are fast. Our privacy policy has the details."}},{"@type":"Question","name":"Which apps can use it?","acceptedAnswer":{"@type":"Answer","text":"Any app that supports remote MCP servers over HTTP, including Claude, Claude Code, ChatGPT in developer mode, Cursor and VS Code."}}]}]}</script>
 </head>
 <body>
@@ -138,6 +247,97 @@
     <p>Both tools return the same results as the <a href="../ai-visibility-check/" title="AI visibility check">AI visibility check</a> and the <a href="../ai-crawler-checker/" title="AI crawler checker">AI crawler checker</a> on this site. They list problems and scores, not fixes.</p>
 
     <h2>Add it to your AI app</h2>
+    <p>Watch the whole thing once, then follow the matching card below. Each one takes under a minute.</p>
+    <div class="mdm" data-mdm>
+      <div class="mdm-tabs" role="tablist" aria-label="Pick an app to watch">
+        <button type="button" class="is-on" data-tab="claude">Claude</button>
+        <button type="button" data-tab="chatgpt">ChatGPT</button>
+        <button type="button" data-tab="cursor">Cursor</button>
+      </div>
+      <div class="mdm-body">
+        <div class="mdm-win" aria-hidden="true">
+          <div class="mdm-bar"><i></i><i></i><i></i><span data-mdm-title>Claude · Settings</span></div>
+          <div class="mdm-stage">
+            <div class="mdm-scene is-on" data-scene="claude">
+              <div class="mdm-pane is-on" data-hold="1500">
+                <div class="mdm-h"><b>Settings</b><em>›</em><b>Connectors</b></div>
+                <div class="mdm-row dim"><span class="mdm-ico">G</span><div><b>Google Drive</b><small>Connected</small></div></div>
+                <div class="mdm-row dim"><span class="mdm-ico">S</span><div><b>Slack</b><small>Connected</small></div></div>
+                <span class="mdm-btn" data-pulse="1100">Add custom connector</span>
+              </div>
+              <div class="mdm-pane" data-hold="1200">
+                <div class="mdm-dimmer"></div>
+                <div class="mdm-modal">
+                  <b>Add custom connector</b>
+                  <label>Name</label>
+                  <div class="mdm-input"><span data-type="Fourward"></span><i class="mdm-caret"></i></div>
+                  <label>Server URL</label>
+                  <div class="mdm-input"><span data-type="https://www.fourwardhq.com/mcp"></span><i class="mdm-caret"></i></div>
+                  <span class="mdm-btn" data-pulse="450">Add</span>
+                </div>
+              </div>
+              <div class="mdm-pane" data-hold="3400">
+                <div class="mdm-h"><b>Settings</b><em>›</em><b>Connectors</b></div>
+                <div class="mdm-row hero"><span class="mdm-ico fw"><img src="../../assets/logo-512.png" alt="logo 512" width="19" height="19"></span><div><b>Fourward</b><small><u class="mdm-dot" data-on="400"></u><span data-on="400">Connected · no sign-in needed</span></small></div></div>
+                <div class="mdm-chips"><span class="mdm-chip" data-on="850">check_ai_visibility</span><span class="mdm-chip" data-on="1050">check_ai_crawlers</span></div>
+              </div>
+            </div>
+            <div class="mdm-scene" data-scene="chatgpt">
+              <div class="mdm-pane" data-hold="1700">
+                <div class="mdm-h"><b>Settings</b><em>›</em><b>Apps</b><em>›</em><b>Advanced</b></div>
+                <div class="mdm-row"><div><b>Developer mode</b><small>Add unverified apps by URL</small></div><span class="mdm-tgl" data-on="1150"></span></div>
+              </div>
+              <div class="mdm-pane" data-hold="1100">
+                <div class="mdm-dimmer"></div>
+                <div class="mdm-modal">
+                  <b>New app</b>
+                  <label>Name</label>
+                  <div class="mdm-input"><span data-type="Fourward"></span><i class="mdm-caret"></i></div>
+                  <label>MCP server URL</label>
+                  <div class="mdm-input"><span data-type="https://www.fourwardhq.com/mcp"></span><i class="mdm-caret"></i></div>
+                  <div class="mdm-radio" data-on="350"><i></i>No authentication</div>
+                  <span class="mdm-btn" data-pulse="800">Create</span>
+                </div>
+              </div>
+              <div class="mdm-pane" data-hold="3400">
+                <div class="mdm-h"><b>New chat</b></div>
+                <div class="mdm-chat">
+                  <div class="mdm-pop" data-on="350"><span class="mdm-ico fw"><img src="../../assets/logo-512.png" alt="logo 512" width="19" height="19"></span><div><b>Fourward</b><small>2 actions · ready</small></div><span class="mdm-ok2" data-on="950">✓</span></div>
+                  <div class="mdm-composer"><span class="mdm-plus">+</span><span>Ask anything…</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="mdm-scene" data-scene="cursor">
+              <div class="mdm-pane" data-fast data-hold="1500"><div class="mdm-edit"><div class="mdm-edit-tab"><u>.cursor/mcp.json</u><span>· Cursor settings</span></div><pre class="mdm-code"><span class='p' data-type='{
+'></span><span class='k' data-type='  "mcpServers": {
+'></span><span class='k' data-type='    "fourward": {
+'></span><span class='s' data-type='      "url": "https://www.fourwardhq.com/mcp"
+'></span><span class='p' data-type='    }
+'></span><span class='p' data-type='  }
+'></span><span class='p' data-type='}'></span></pre></div></div>
+              <div class="mdm-pane" data-hold="2100"><div class="mdm-edit"><div class="mdm-edit-tab"><u>.cursor/mcp.json</u><span>· Cursor settings</span></div><pre class="mdm-code"><span class='p'>{
+</span><span class='k'>  "mcpServers": {
+</span><span class='k'>    "fourward": {
+</span><span class='s'>      "url": "https://www.fourwardhq.com/mcp"
+</span><span class='p'>    }
+</span><span class='p'>  }
+</span><span class='p'>}</span></pre></div><div class="mdm-toast" data-on="450"><u class="mdm-dot"></u>Saved · fourward detected</div></div>
+              <div class="mdm-pane" data-hold="3400">
+                <div class="mdm-h"><b>Settings</b><em>›</em><b>MCP</b></div>
+                <div class="mdm-row hero"><span class="mdm-ico fw"><img src="../../assets/logo-512.png" alt="logo 512" width="19" height="19"></span><div><b>fourward</b><small><u class="mdm-dot" data-on="400"></u><span data-on="400">Running · 2 tools</span></small></div><span class="mdm-tgl" data-on="400"></span></div>
+                <div class="mdm-chips"><span class="mdm-chip" data-on="850">check_ai_visibility</span><span class="mdm-chip" data-on="1050">check_ai_crawlers</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="mdm-steps" data-mdm-steps>
+          <li><span class="n">1</span><div><p>Open Settings, then Connectors</p><span class="bar"><i></i></span></div></li>
+          <li><span class="n">2</span><div><p>Name it Fourward, paste the URL, select Add</p><span class="bar"><i></i></span></div></li>
+          <li><span class="n">3</span><div><p>Done. Both tools are connected</p><span class="bar"><i></i></span></div></li>
+        </ol>
+      </div>
+      <p class="mdm-note">A guided mock, not a recording. Menu names can shift as the apps update; the cards below stay current.</p>
+    </div>
     <div class="mcp-apps">
       <div class="mcp-app"><h3>Claude</h3><ol><li>Open Settings, then Connectors.</li><li>Choose Add custom connector.</li><li>Name it Fourward and paste <code>https://www.fourwardhq.com/mcp</code>.</li><li>Leave sign-in off, then select Add.</li></ol></div>
       <div class="mcp-app"><h3>Claude Code</h3><ol><li>Run this in your terminal:</li></ol><pre class="cc-code">claude mcp add --transport http fourward https://www.fourwardhq.com/mcp<button type="button" class="mcp-copy" data-copy="claude mcp add --transport http fourward https://www.fourwardhq.com/mcp">Copy</button></pre></div>
@@ -279,3 +479,101 @@
 
 <script src="../../js/site.js?v=42" defer></script>
 <script>document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var t=b.getAttribute('data-copy');var done=function(){var o=b.textContent;b.textContent='Copied';b.classList.add('is-done');setTimeout(function(){b.textContent=o;b.classList.remove('is-done')},1600)};if(navigator.clipboard)navigator.clipboard.writeText(t).then(done,done);else done();});</script>
+<script>/* MCP connect demo engine. Plays each app's scene as a loop of panes: the pane fades up, [data-type] text is
+   typed letter by letter, [data-on] elements switch on after their delay, [data-pulse] gets a press ring, and
+   the active step's bar fills linearly for exactly the pane's duration. Pauses off-screen; tabs switch scenes;
+   ?static=1 and reduced motion show each scene's finished state. Inlined by build-mcp.js. */
+(function () {
+  var root = document.querySelector('[data-mdm]');
+  if (!root) return;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]static=1/.test(location.search) || document.documentElement.classList.contains('static');
+  var tabs = [].slice.call(root.querySelectorAll('.mdm-tabs button'));
+  var scenes = {};
+  [].slice.call(root.querySelectorAll('.mdm-scene')).forEach(function (s) { scenes[s.getAttribute('data-scene')] = s; });
+  var stepsBox = root.querySelector('[data-mdm-steps]');
+  var title = root.querySelector('[data-mdm-title]');
+  var CAP = {
+    claude: { t: 'Claude · Settings', s: ['Open Settings, then Connectors', 'Name it Fourward, paste the URL, select Add', 'Done. Both tools are connected'] },
+    chatgpt: { t: 'ChatGPT · Settings', s: ['Turn on Developer mode under Settings › Apps › Advanced', 'Create the app with the URL and no authentication', 'In a chat, pick Fourward from the + menu'] },
+    cursor: { t: 'Cursor · .cursor/mcp.json', s: ['Paste the snippet into .cursor/mcp.json', 'Save. Cursor detects the server', 'Both tools are on under Settings › MCP'] }
+  };
+  var cur = 'claude', timers = [], visible = false;
+  var later = function (fn, ms) { timers.push(setTimeout(fn, ms)); };
+  var clearT = function () { timers.forEach(clearTimeout); timers = []; };
+  var panesOf = function (n) { return [].slice.call(scenes[n].querySelectorAll('.mdm-pane')); };
+  var lisOf = function () { return [].slice.call(stepsBox.children); };
+  var resetScene = function (n) {
+    panesOf(n).forEach(function (p) {
+      p.classList.remove('is-on');
+      [].slice.call(p.querySelectorAll('[data-type]')).forEach(function (x) { x.textContent = ''; });
+      [].slice.call(p.querySelectorAll('.go,.pulse,.typing')).forEach(function (x) { x.classList.remove('go', 'pulse', 'typing'); });
+    });
+    lisOf().forEach(function (li) {
+      li.classList.remove('is-on', 'done');
+      var bar = li.querySelector('.bar i');
+      if (bar) { bar.style.transition = 'none'; bar.style.width = '0'; }
+    });
+  };
+  var renderSteps = function (n) {
+    title.textContent = CAP[n].t;
+    stepsBox.innerHTML = CAP[n].s.map(function (c, i) {
+      return '<li><span class="n">' + (i + 1) + '</span><div><p>' + c + '</p><span class="bar"><i></i></span></div></li>';
+    }).join('');
+  };
+  var finishPane = function (p) {
+    [].slice.call(p.querySelectorAll('[data-type]')).forEach(function (x) { x.textContent = x.getAttribute('data-type'); });
+    [].slice.call(p.querySelectorAll('[data-on]')).forEach(function (x) { x.classList.add('go'); });
+  };
+  var playPane = function (n, i) {
+    if (n !== cur) return;
+    var panes = panesOf(n);
+    if (i >= panes.length) { later(function () { resetScene(n); playPane(n, 0); }, 1500); return; }
+    var p = panes[i];
+    panes.forEach(function (x, j) { x.classList.toggle('is-on', j === i); });
+    lisOf().forEach(function (li, j) { li.classList.toggle('is-on', j === i); li.classList.toggle('done', j < i); });
+    var t = 430; // pane entrance settles first
+    [].slice.call(p.querySelectorAll('[data-type]')).forEach(function (x) {
+      var txt = x.getAttribute('data-type'), box = x.parentNode;
+      var cps = p.hasAttribute('data-fast') ? 20 : 42;
+      (function (at) { later(function () { if (box.classList) box.classList.add('typing'); }, at); })(t);
+      for (var c = 1; c <= txt.length; c++) (function (c) { later(function () { x.textContent = txt.slice(0, c); }, t + c * cps); })(c);
+      t += txt.length * cps + 190;
+      (function (at) { later(function () { if (box.classList) box.classList.remove('typing'); }, at); })(t);
+    });
+    [].slice.call(p.querySelectorAll('[data-on]')).forEach(function (x) {
+      later(function () { x.classList.add('go'); }, t + (+x.getAttribute('data-on') || 0));
+    });
+    var pu = p.querySelector('[data-pulse]'), puD = pu ? +pu.getAttribute('data-pulse') : 0;
+    if (pu) later(function () { pu.classList.add('pulse'); }, t + puD);
+    var total = t + (pu ? puD + 650 : 0) + (+p.getAttribute('data-hold') || 2600);
+    var li = lisOf()[i], bar = li && li.querySelector('.bar i');
+    if (bar) { bar.style.transition = 'none'; bar.style.width = '0'; void bar.offsetWidth; bar.style.transition = 'width ' + total + 'ms linear'; bar.style.width = '100%'; }
+    later(function () { playPane(n, i + 1); }, total);
+  };
+  var start = function (n) {
+    clearT();
+    resetScene(cur);
+    cur = n;
+    Object.keys(scenes).forEach(function (k) { scenes[k].classList.toggle('is-on', k === n); });
+    tabs.forEach(function (b) { b.classList.toggle('is-on', b.getAttribute('data-tab') === n); });
+    renderSteps(n);
+    if (reduce) {
+      root.classList.add('is-static');
+      var panes = panesOf(n), last = panes[panes.length - 1];
+      panes.forEach(function (x, j) { x.classList.toggle('is-on', j === panes.length - 1); });
+      finishPane(last);
+      lisOf().forEach(function (li) { li.classList.add('done'); var bar = li.querySelector('.bar i'); if (bar) { bar.style.transition = 'none'; bar.style.width = '100%'; } });
+      return;
+    }
+    playPane(n, 0);
+  };
+  tabs.forEach(function (b) { b.addEventListener('click', function () { start(b.getAttribute('data-tab')); }); });
+  if (reduce || !('IntersectionObserver' in window)) { start('claude'); return; }
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      visible = e.isIntersecting;
+      if (visible) start(cur); else clearT();
+    });
+  }, { threshold: 0.3 }).observe(root);
+})();
+</script>
