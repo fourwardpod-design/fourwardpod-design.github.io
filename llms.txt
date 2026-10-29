@@ -10,6 +10,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 - [AI visibility check](https://www.fourwardhq.com/tools/ai-visibility-check/): 30 checks on what Google, ChatGPT and Perplexity can read about a website, with one score out of 100.
 - [AI crawler checker](https://www.fourwardhq.com/tools/ai-crawler-checker/): shows which of 20 AI crawlers can read a website, from robots.txt rules to firewall access, plus llms.txt and sitemap checks.
+- [MCP server](https://www.fourwardhq.com/tools/mcp/): both checks as tools for Claude, ChatGPT, Cursor and VS Code. Remote MCP over HTTP at https://www.fourwardhq.com/mcp, no sign-up or API key.
 
 ## Services
 
