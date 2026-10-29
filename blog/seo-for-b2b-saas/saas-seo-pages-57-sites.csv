@@ -1,0 +1,58 @@
+Company,Domain,Pricing page,Comparison or alternatives pages,Integrations directory,Template gallery,Customer stories,Use-case or industry pages,Blog location,Example comparison page,Integration URLs counted,Template URLs counted,Sitemaps read,Sitemaps not read
+Ahrefs,ahrefs.com,Yes,Yes,No,No,No,Yes,Folder (/blog),ahrefs.com/vs/semrush,0,0,8,0
+Airtable,airtable.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/articles),www.airtable.com/airtable-for-marketing-operations-vs-others,237,293,1,0
+Algolia,algolia.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.algolia.com/competitors/compare-algolia-vs-athos,152,0,5,0
+Amplitude,amplitude.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),amplitude.com/amplitude-vs-mixpanel,145,237,10,0
+Asana,asana.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/resources),asana.com/compare/asana-vs-kintone,617,271,17,0
+Atlassian,atlassian.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),www.atlassian.com/software/bitbucket/comparison/bitbucket-pipelines-vs-jenkins,75,302,10,0
+Brex,brex.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/journal),www.brex.com/versus/concur,12,0,1,0
+Calendly,calendly.com,Yes,No,Yes,No,Yes,Yes,Folder (/blog),,99,0,1,0
+Clerk,clerk.com,Yes,No,Yes,No,No,No,Folder (/blog),,18,0,1,0
+ClickUp,clickup.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),clickup.com/compare/clarizen-vs-clickup,93,23882,28,0
+Cloudflare,cloudflare.com,Yes,Yes,No,No,Yes,Yes,Subdomain,www.cloudflare.com/cloudflare-vs-akamai/,0,0,1,0
+Datadog,datadoghq.com,Yes,No,Yes,No,Yes,Yes,Folder (/blog),,1,0,19,0
+Deel,deel.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.deel.com/deel-vs-competitors,181,0,1,0
+Docusign,docusign.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),www.docusign.com/vs/docusign-vs-adobe-sign,53,77,65,0
+Dropbox,dropbox.com,Yes,Yes,Yes,Yes,Yes,Yes,Subdomain,www.dropbox.com/ftp-vs-dropbox,271,329,11,0
+Figma,figma.com,Yes,No,Yes,Yes,Yes,Yes,Folder (/blog),,34,310,32,9
+Freshworks,freshworks.com,Not checked: the site blocked automated requests,,,,,,,,,,,
+GitHub,github.com,Yes,No,Yes,No,Yes,Yes,Separate domain (github.blog),,4,0,1,0
+GitLab,about.gitlab.com,Yes,Yes,No,No,Yes,Yes,Folder (/blog),about.gitlab.com/compare/gitlab-vs-github,0,0,4,0
+Gong,gong.io,Yes,Yes,No,Yes,Yes,Yes,Folder (/blog),www.gong.io/gong-vs-outreach,0,31,1,0
+Grammarly,grammarly.com,Yes,Yes,No,No,Yes,No,Folder (/blog),www.grammarly.com/business/grammarly-vs-microsoft-copilot,0,0,20,0
+Hotjar (Contentsquare),hotjar.com,Yes,Yes,No,No,Yes,Yes,Folder (/blog),contentsquare.com/compare/amplitude,0,0,7,0
+HubSpot,hubspot.com,Yes,Yes,Yes,Yes,Yes,Yes,Subdomain,www.hubspot.com/comparisons/pipedrive-vs-hubspot,20,3,1,0
+Intercom,intercom.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.intercom.com/compare-intercom-vs-zendesk,61,0,8,0
+Linear,linear.app,Yes,No,Yes,No,Yes,No,Folder (/now),,351,0,1,0
+Loom,loom.com,Yes,Yes,No,No,Yes,Yes,Folder on Atlassian's site,www.loom.com/comparison/loom-vs-vidyard,0,0,2,0
+Mailchimp,mailchimp.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/resources),mailchimp.com/resources/mailchimp-vs-mailgun,345,16,5,0
+Mintlify,mintlify.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.mintlify.com/library/mintlify-vs-readme,96,0,1,0
+Miro,miro.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),miro.com/compare/miro-vs-lucidspark,197,1224,57,0
+Mixpanel,mixpanel.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),mixpanel.com/compare/google-analytics,71,10,11,0
+monday.com,monday.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),monday.com/alternative/quickbase,32,168,21,0
+Netlify,netlify.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),www.netlify.com/edgeio-vs-netlify,325,12,2,0
+Notion,notion.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),www.notion.com/lp/notion-vs-airtable,1,2111,70,110
+Okta,okta.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.okta.com/resources/whitepapers/okta-vs-adfs,8391,0,26,0
+Pipedrive,pipedrive.com,Not checked: the site blocked automated requests,,,,,,,,,,,
+Plaid,plaid.com,Yes,No,Yes,No,Yes,Yes,Folder (/blog),,2,0,1,0
+PostHog,posthog.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),posthog.com/compare/posthog-vs-datadog,17,42,2,0
+Postman,postman.com,Yes,No,Yes,Yes,Yes,Yes,Subdomain,,37,7,18,9
+Ramp,ramp.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),ramp.com/versus/brex,138,0,18,0
+Resend,resend.com,Yes,No,No,Yes,Yes,No,Folder (/blog),,0,13,13,0
+Retool,retool.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),retool.com/resources/videos/retool-vs-replit-building-an-internal-tool-side-by-side,78,371,6,0
+Rippling,rippling.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.rippling.com/compare/rippling-vs-adp,7,0,1,0
+Salesforce,salesforce.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.salesforce.com/compare/salesforce-vs-servicenow,66,0,70,51
+Sanity,sanity.io,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),www.sanity.io/sanity-vs-agility-cms,0,165,6,0
+Semrush,semrush.com,Yes,Yes,Yes,No,No,Yes,Folder (/blog),www.semrush.com/semrush-vs-ahrefs,69,0,70,214
+Sentry,sentry.io,Yes,Yes,Yes,No,Yes,Yes,Subdomain,sentry.io/resources/sentry-vs-crashlytics-mobile-developers-guide,40,0,4,0
+Shopify,shopify.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),www.shopify.com/compare/bigcommerce-vs-salesforce-vs-shopify,1,8,70,569
+Slack,slack.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),slack.com/compare/slack-vs-email,2825,619,17,0
+Stripe,stripe.com,Yes,No,Yes,No,Yes,Yes,Folder (/blog),,3,0,10,0
+Supabase,supabase.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),supabase.com/alternatives/supabase-vs-auth0,12,0,5,0
+Twilio,twilio.com,Yes,No,Yes,No,Yes,Yes,Folder (/blog),,342,0,8,0
+Typeform,typeform.com,Yes,Yes,No,Yes,No,Yes,Folder (/blog),www.typeform.com/try/alternative/lf/best-software-ftf,0,3123,1,0
+Vercel,vercel.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),vercel.com/guide/vercel-sandbox-vs-e2b,324,635,1,0
+Webflow,webflow.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),webflow.com/vs/wordpress,540,2811,7,0
+Zapier,zapier.com,Yes,Yes,Yes,Yes,Yes,Yes,Folder (/blog),zapier.com/l/microsoft-power-automate-vs-zapier,66104,2,70,783
+Zendesk,zendesk.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.zendesk.com/why-zendesk/zendesk-vs-zoom,2509,0,3,0
+Zoom,zoom.com,Yes,Yes,Yes,No,Yes,Yes,Folder (/blog),www.zoom.com/products/team-chat/zoom-vs-microsoft-teams,5,0,19,0

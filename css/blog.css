@@ -532,3 +532,50 @@ html.static .pw-3 .pw-s1,html.static .pw-3 .pw-s2,html.static .pw-3 .pw-s3{anima
 @media (max-width:640px){.pb-row{grid-template-columns:1fr;gap:6px}.post-bands{padding:16px}}
 @media (prefers-reduced-motion:reduce){.post-motion .rv{opacity:1;transform:none;transition:none}.post-motion .post-steps li::before{transform:none;transition:none}.pb-bar i{width:var(--w);transition:none}.pb-bar em{opacity:1}.post-stepbar{display:none}}
 html.static .post-motion .rv{opacity:1;transform:none;transition:none}html.static .pb-bar i{width:var(--w);transition:none}html.static .pb-bar em{opacity:1}html.static .post-stepbar{display:none}
+
+/* v1.37: SEO for B2B SaaS post. Buyer journey (drawn line, staggered stops, a slow dot along the path),
+   a framed screen recording, and a two-up proof row. Calm expo-out reveals and linear loops only. */
+.post-journey{margin:26px 0 24px;padding:24px 22px 18px;border-radius:20px;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.07),0 18px 40px -30px rgba(11,11,12,.3)}
+.post-journey .pj-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px}
+.post-journey .pj-head b{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--ink)}
+.post-journey .pj-head span{font-size:12.5px;color:var(--mute)}
+.pj-track{position:relative}
+.pj-line{position:absolute;left:10%;right:10%;top:22px;height:2px;border-radius:2px;pointer-events:none;background:linear-gradient(90deg,#FF8A3D,#E8176C 35%,#6E45E8 70%,#00A390);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.6s cubic-bezier(.16,1,.3,1) .25s}
+.post-journey.in .pj-line{transform:none}
+.pj-run{position:absolute;left:10%;right:10%;top:19px;height:10px;pointer-events:none;opacity:0;transition:opacity .4s 1.8s}
+.post-journey.in .pj-run{opacity:1}
+.pj-run i{position:absolute;top:0;left:0;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#0B0B0C;box-shadow:0 0 0 4px rgba(11,11,12,.08);animation:pj-run 8s linear 1.8s infinite}
+@keyframes pj-run{0%{left:0;opacity:0}6%{opacity:1}94%{opacity:1}100%{left:100%;opacity:0}}
+.pj-stops{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.pj-stops li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.pj-ico{position:relative;z-index:1;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.09),0 8px 18px -12px rgba(11,11,12,.4);color:var(--ink)}
+.pj-ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pj-stops b{margin-top:6px;font-family:var(--display);font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.25;color:var(--ink)}
+.pj-stops p{margin:0;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.pj-stops em{margin-top:4px;display:inline-flex;align-items:center;gap:6px;font-style:normal;font-size:12px;font-weight:600;line-height:1.3;color:var(--ink);background:#F6F6F4;border-radius:999px;padding:5px 10px}
+.pj-stops em::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--t,#6E45E8)}
+.post-journey figcaption{margin-top:16px;font-size:12.5px;line-height:1.5;color:var(--mute)}
+.post-body .post-journey figcaption a{color:var(--mute)}
+@media (max-width:760px){
+  .pj-stops{grid-template-columns:1fr;gap:14px}
+  .pj-stops li{display:grid;grid-template-columns:46px minmax(0,1fr);align-items:start;text-align:left;column-gap:14px;row-gap:3px}
+  .pj-stops li > :not(.pj-ico){grid-column:2}
+  .pj-ico{grid-row:1 / span 3}
+  .pj-stops b{margin-top:2px}
+  .pj-stops em{justify-self:start}
+  .pj-line{left:22px;right:auto;top:23px;bottom:23px;width:2px;height:auto;background:linear-gradient(180deg,#FF8A3D,#E8176C 35%,#6E45E8 70%,#00A390);transform:scaleY(0);transform-origin:50% 0}
+  .pj-run{display:none}
+}
+.post-video{margin:14px 0 22px}
+.pv-frame{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(11,11,12,.08),0 24px 50px -34px rgba(11,11,12,.45)}
+.pv-bar{display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;background:#F6F6F4;border-bottom:1px solid #ECECE8}
+.pv-bar i{width:10px;height:10px;border-radius:50%;background:#DEDED9}
+.pv-bar span{margin-left:10px;flex:1;max-width:340px;height:24px;border-radius:7px;background:#fff;box-shadow:inset 0 0 0 1px #E6E6E2;font-size:12px;line-height:24px;color:var(--mute);padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pv-frame video,.pv-frame img{display:block;width:100%;height:auto;background:#fff}
+.post-video figcaption{font-size:13px;color:var(--mute);margin-top:8px;line-height:1.5}
+.post-body .post-video figcaption a{color:var(--mute)}
+.post-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0 22px}
+.post-pair .post-shot{margin:0}
+@media (max-width:760px){.post-pair{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.pj-line{transform:none!important;transition:none}.pj-run{display:none}}
+html.static .pj-line{transform:none!important;transition:none}html.static .pj-run{display:none}

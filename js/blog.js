@@ -62,9 +62,11 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]static=1/.test(location.search) || document.documentElement.classList.contains('static');
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   // 1) reveal: each item fades up when it enters the viewport, staggered inside its group
-  var groups = ['.post-steps', '.post-table tbody', '.post-faq', '.post-list', '.post-bands .pb-rows'];
+  var groups = ['.post-steps', '.post-table tbody', '.post-faq', '.post-list', '.post-bands .pb-rows', '.pj-stops'];
   groups.forEach(function (g) { $$(g, main).forEach(function (box) { $$(':scope > *', box).forEach(function (el, i) { el.classList.add('rv'); el.style.setProperty('--i', Math.min(i, 8)); }); }); });
-  $$('.post-key, .post-takeaways, .post-shot, .post-bands', main).forEach(function (el) { el.classList.add('rv'); });
+  $$('.post-key, .post-takeaways, .post-shot, .post-bands, .post-journey, .post-video', main).forEach(function (el) { el.classList.add('rv'); });
+  // screen recordings: play only while on screen, never under reduced motion
+  $$('.post-video video', main).forEach(function (v) { if (reduce) { v.removeAttribute('autoplay'); v.pause(); return; } if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }); }, { threshold: 0.25 }).observe(v); });
   if (reduce || !('IntersectionObserver' in window)) { $$('.rv', main).forEach(function (el) { el.classList.add('in'); }); }
   else {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
