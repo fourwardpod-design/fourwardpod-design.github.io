@@ -427,7 +427,7 @@ const rpcError = (id, code, message) => ({ jsonrpc: '2.0', id: id == null ? null
 async function callTool(name, args, ctx) {
   const domain = cleanDomain(args && args.domain);
   if (!domain) return { content: [{ type: 'text', text: 'Pass a public website as a domain, for example "example.com".' }], isError: true };
-  const key = ctx.origin + '/__mcp-cache/' + name + '/' + domain;
+  const key = ctx.origin + '/__mcp-cache/v2/' + name + '/' + domain; // bump the version when the result format changes
   let cache = null; try { cache = caches.default; } catch (e) {}
   if (cache) { try { const hit = await cache.match(key); if (hit) return await hit.json(); } catch (e) {} }
   const out = name === 'check_ai_crawlers' ? await crawlerCheck(domain) : await visibilityCheck(domain);
