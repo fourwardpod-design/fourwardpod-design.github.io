@@ -25,6 +25,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [B2B brand building](https://www.fourwardhq.com/blog/b2b-brand-building/): B2B brand building for SaaS in 2026: the 95-5 rule, seven steps to be remembered by buyers and named in AI answers, the 50/50 budget split, and how to measure it.
 - [Brand monitoring tools](https://www.fourwardhq.com/blog/best-tools-for-brand-reputation-monitoring/): Best tools for brand reputation monitoring in 2026: Brand24, Mention, Awario, Sprout Social, Meltwater, Brandwatch, Talkwalker, Google Alerts and Fourward's free AI visibility check, with pricing.
 - [ChatGPT new update](https://www.fourwardhq.com/blog/chatgpt-new-update/): ChatGPT new update (November 2026): OpenAI's reported business analytics tool for mentions and clicks, what it won't show, and six steps for B2B SaaS marketers.
 - [SaaS link building](https://www.fourwardhq.com/blog/saas-link-building/): SaaS link building in 2026: six tactics that work, the link spam to skip, published costs from $350 a link to $15,000 a month, and how to budget by stage.
