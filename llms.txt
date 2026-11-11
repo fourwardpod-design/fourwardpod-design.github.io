@@ -25,6 +25,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [What is an AI crawler](https://www.fourwardhq.com/blog/what-is-ai-crawler/): What an AI crawler is: training, search and user bots from OpenAI, Anthropic, Perplexity, Google, Apple, Common Crawl and Meta, and how SaaS sites should set robots.txt and firewalls.
 - [Google updates 2026](https://www.fourwardhq.com/blog/google-updates-2026/): Google updates 2026 (as of November): two core updates, four spam updates, AI Overviews joined with AI Mode, more ads in AI answers, and six steps for B2B SaaS teams.
 - [B2B lead generation tools](https://www.fourwardhq.com/blog/best-b2b-lead-generation-tools/): Best B2B lead generation tools in 2026: Apollo.io, HubSpot, ZoomInfo, LinkedIn Sales Navigator, Clay, Lusha, Instantly, lemlist, RB2B, Leadfeeder and Fourward's free AI visibility check, with pricing models.
 - [B2B brand building](https://www.fourwardhq.com/blog/b2b-brand-building/): B2B brand building for SaaS in 2026: the 95-5 rule, seven steps to be remembered by buyers and named in AI answers, the 50/50 budget split, and how to measure it.
