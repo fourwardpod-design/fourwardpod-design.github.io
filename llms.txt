@@ -25,6 +25,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [Semrush vs Ahrefs](https://www.fourwardhq.com/blog/semrush-vs-ahrefs/): Semrush vs Ahrefs in 2026: list prices ($139 vs $129 first plans), seat costs, free options, data claims, Semrush One vs Brand Radar for AI search tracking, and who each fits.
 - [Semrush alternatives](https://www.fourwardhq.com/blog/semrush-alternatives/): Best Semrush alternatives in 2026: Ahrefs, SE Ranking, Serpstat, Similarweb, SpyFu, Mangools and Fourward's free AI visibility check, with pricing and AI search tracking.
 - [What is an AI crawler](https://www.fourwardhq.com/blog/what-is-ai-crawler/): What an AI crawler is: training, search and user bots from OpenAI, Anthropic, Perplexity, Google, Apple, Common Crawl and Meta, and how SaaS sites should set robots.txt and firewalls.
 - [Google updates 2026](https://www.fourwardhq.com/blog/google-updates-2026/): Google updates 2026 (as of November): two core updates, four spam updates, AI Overviews joined with AI Mode, more ads in AI answers, and six steps for B2B SaaS teams.
