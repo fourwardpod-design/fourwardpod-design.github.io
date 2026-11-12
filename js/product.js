@@ -86,7 +86,7 @@
       plan.classList.remove('open'); void plan.offsetWidth; plan.classList.add('open');
       const goal = ta.value.trim() || p.label;
       const mail = $('#pp-plan-mail');
-      if (mail) mail.href = 'mailto:fourwardpod@gmail.com?subject=' + encodeURIComponent('Fourward: ' + goal) + '&body=' + encodeURIComponent('What has to move: ' + goal + '\n\nCompany website: \n\nAnything we should know: \n');
+      if (mail) mail.href = 'mailto:growth@fourwardhq.com?subject=' + encodeURIComponent('Fourward: ' + goal) + '&body=' + encodeURIComponent('What has to move: ' + goal + '\n\nCompany website: \n\nAnything we should know: \n');
     };
     chips.forEach(c => c.addEventListener('click', () => {
       typing = false;

@@ -15,7 +15,7 @@
 
   /* ---------- config ---------- */
   var FOURWARD = {
-    emails: ['fourwardpod@gmail.com'],
+    emails: ['growth@fourwardhq.com'],
     // Paste a Cal.com / Calendly / Google appointment link here and the
     // "Book in Google Calendar" button will send visitors there instead of a Google Calendar invite.
     bookingUrl: '',
@@ -28,7 +28,7 @@
     // requests and bookings to a Google Sheet and emails each report from the Fourward Gmail.
     // Until it is set, everything goes through FormSubmit to formTo (needs a one-time activation click).
     leadUrl: 'https://script.google.com/macros/s/AKfycbyt5YKfhDZ2GhCCBkq8foHfgOr3VVgMCKlh5nlGZB7yP1J4uqV7rF3G6FAw7dKKt7O2JQ/exec',
-    formTo: 'fourwardpod@gmail.com',
+    formTo: 'growth@fourwardhq.com',
     // The dedicated tool page; the hero card links its detailed results there.
     toolUrl: location.pathname.indexOf('/tools/ai-visibility-check/') >= 0 ? location.pathname.replace(/[^/]*$/, '') : location.pathname.replace(/[^/]*$/, '') + 'tools/ai-visibility-check/',
     hostTz: 'Asia/Kolkata',       // working hours are defined in this zone
