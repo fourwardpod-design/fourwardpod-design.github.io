@@ -25,6 +25,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [Product listing for SaaS](https://www.fourwardhq.com/blog/product-listing-for-saas/): Product listing for SaaS: where to list (G2, the Capterra network, AWS and Microsoft marketplaces, partner app stores, Product Hunt), setup steps, fees and US review rules.
 - [AI Mode new features](https://www.fourwardhq.com/blog/ai-mode-new-features/): AI Mode new features (November 2026): home services booking links in the US, ads across follow-up questions, the November core update, and steps for B2B SaaS search and paid plans.
 - [Intent data best practices](https://www.fourwardhq.com/blog/b2b-intent-data-best-practices/): B2B intent data best practices for SaaS teams in 2026: 10 steps with the tools that support each, including HubSpot, Leadfeeder, Bombora, G2 Buyer Intent, 6sense and ZoomInfo.
 - [ChatGPT for SEO](https://www.fourwardhq.com/blog/how-to-use-chatgpt-for-seo/): How to use ChatGPT for SEO (2026): four workflows with prompts for keyword research, content briefs, audits and schema markup, plus Google's rules on AI content.
