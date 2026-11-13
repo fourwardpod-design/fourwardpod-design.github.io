@@ -25,6 +25,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [Business case study](https://www.fourwardhq.com/blog/how-to-write-a-business-case-study/): How to write a business case study for B2B SaaS: eight steps, interview questions, a section template, FTC disclosure rules and how to make results quotable in AI answers.
 - [SaaS link building agencies](https://www.fourwardhq.com/blog/best-saas-link-building-agencies/): Best SaaS link building agencies in 2026: Fourward, uSERP, dofollow.com, MADX Digital, Page One Power, Siege Media, Editorial.Link and Respona, with pricing and tactics.
 - [Product listing for SaaS](https://www.fourwardhq.com/blog/product-listing-for-saas/): Product listing for SaaS: where to list (G2, the Capterra network, AWS and Microsoft marketplaces, partner app stores, Product Hunt), setup steps, fees and US review rules.
 - [AI Mode new features](https://www.fourwardhq.com/blog/ai-mode-new-features/): AI Mode new features (November 2026): home services booking links in the US, ads across follow-up questions, the November core update, and steps for B2B SaaS search and paid plans.
