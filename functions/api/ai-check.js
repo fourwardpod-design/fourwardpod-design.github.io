@@ -56,7 +56,7 @@ const sameSite = (h, d) => !!h && (h === d || h.slice(-(d.length + 1)) === '.' +
 const labelOf = (domain) => { const l = domain.split('.')[0]; return l.charAt(0).toUpperCase() + l.slice(1); };
 const decode = (s) => String(s || '').replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp|#39);/gi, (m, e) => { const k = e.toLowerCase(); if (k[0] === '#') { const n = k[1] === 'x' ? parseInt(k.slice(2), 16) : parseInt(k.slice(1), 10); try { return String.fromCodePoint(n); } catch (x) { return m; } } return { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', '#39': "'" }[k] || m; });
 const firstSentences = (t, n) => { const s = String(t || '').split(/(?<=[.!?])\s+/); const out = s.slice(0, n || 2).join(' '); return out.length > 220 ? s[0] : out; };
-const plural = (n, one, many) => n + ' ' + (n === 1 ? one : (many || one + 's'));
+const plural = (n, one, many) => Number(n).toLocaleString('en-US') + ' ' + (n === 1 ? one : (many || one + 's'));
 const num = (n) => Number(n).toLocaleString('en-US');
 const round1 = (n) => Math.round(n * 10) / 10;
 const daysSince = (iso) => { const t = Date.parse(iso); return isNaN(t) ? null : Math.floor((Date.now() - t) / 864e5); };
@@ -603,7 +603,7 @@ async function partEntity(domain, brandIn) {
   const [e, wk, nCites, nReddit, nHn, dm, cc, tr] = await Promise.all([pWd, pWiki, safe(cites()), safe(reddit()), safe(hn()), safe(demand()), safe(commonCrawl()), safe(tranco())]);
 
   const wiki = !!(wk && wk.w && wk.w.type === 'standard');
-  R.add('entity', 'wikipedia', wk && wk.linked ? 'Wikipedia article' : 'Wikipedia article (not tied to your site in Wikidata)', 'No Wikipedia article', wiki ? (wk.linked ? 5 : 3.5) : 0, 5);
+  R.add('entity', 'wikipedia', 'Wikipedia article', wiki ? 'Wikipedia has an article, but Wikidata does not tie it to your site' : 'No Wikipedia article', wiki ? (wk.linked ? 5 : 3.5) : 0, 5);
   if (nCites == null) R.skip('entity', 'wikicites', 'Wikipedia did not answer');
   else R.add('entity', 'wikicites', 'Wikipedia links to your site from ' + plural(nCites, 'article') + (nCites >= 500 ? ' or more' : ''), nCites ? 'Wikipedia links to your site from only ' + plural(nCites, 'article') : 'No Wikipedia article links to your site', nCites >= 10 ? 3 : nCites >= 3 ? 2 : nCites ? 1 : 0, 3);
   R.add('entity', 'wikidata', 'Wikidata item links your site', 'No Wikidata item for your domain', e ? 3 : 0, 3);
