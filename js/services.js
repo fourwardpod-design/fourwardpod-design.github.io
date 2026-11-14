@@ -135,7 +135,7 @@
     const first = inHero(el);
     SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'sv-l', autoSplit: true, onSplit(self) {
       gsap.set(el, { autoAlpha: 1 });
-      return gsap.from(self.lines, { yPercent: 108, duration: 1.25, stagger: .085, delay: first ? .1 : 0, scrollTrigger: first ? null : { trigger: el, start: 'top 88%', once: true } });
+      return gsap.from(self.lines, { yPercent: 135, duration: 1.25, stagger: .085, delay: first ? .1 : 0, scrollTrigger: first ? null : { trigger: el, start: 'top 88%', once: true } });
     } });
   });
   // copy and small parts: a short rise

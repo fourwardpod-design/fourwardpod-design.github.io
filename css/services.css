@@ -25,7 +25,8 @@
 .sv-sec--tight{padding:clamp(60px,7vw,100px) 0}
 .sv-sec--tint{background:linear-gradient(180deg,#FAFAF8,#fff)}
 /* line masks made by SplitText */
-.sv-line{overflow:hidden;padding-bottom:.09em;margin-bottom:-.09em}
+/* room below for g, y, p and beside for overhanging letters; negative margins keep the line spacing */
+.sv-l-mask{padding:.14em .08em .22em;margin:-.14em -.08em -.22em}
 
 /* ---------- reveal defaults (only when JS is on and motion is allowed) ---------- */
 .sv-js:not(.sv-static) .sv [data-sv="lines"],.sv-js:not(.sv-static) .sv [data-sv="fade"],.sv-js:not(.sv-static) .sv [data-sv="shot"],.sv-js:not(.sv-static) .sv [data-sv="tick"],.sv-js:not(.sv-static) .sv [data-sv="row"],.sv-js:not(.sv-static) .sv-stage{visibility:hidden}
@@ -574,7 +575,11 @@
   .sp-strip img{width:62vw}
 }
 @media (max-width:1099px){.eh-c{right:0}}
-@media (max-width:759px){.sa-serp .sv-tag{left:auto;right:1.5%;height:30px;font-size:12px}}
+@media (max-width:1099px){.sa-serp .sv-tag{left:auto;right:1.5%}}
+@media (max-width:759px){.sa-serp .sv-tag{height:30px;font-size:12px}}
+/* search queries on the proof cards wrap instead of being cut on small screens */
+.sp-serp q{display:block;white-space:normal;height:auto;padding:5px 10px;line-height:16px;border-radius:13px;width:max-content}
+@media (max-width:759px){.sp-serp q{line-height:16px}}
 /* the small window opens on the faces, not on the middle of the photograph */
 .sv-js:not(.sv-static) .ew-ph-in{transform-origin:50% 22%}
 /* phones: the pinned screen is as tall as the visible area, so the text is never under the browser bar */
