@@ -579,3 +579,9 @@ html.static .post-motion .rv{opacity:1;transform:none;transition:none}html.stati
 @media (max-width:760px){.post-pair{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.pj-line{transform:none!important;transition:none}.pj-run{display:none}}
 html.static .pj-line{transform:none!important;transition:none}html.static .pj-run{display:none}
+
+/* v60: reviewer next to the author */
+.post-meta .pm-rev .pm-photo{width:32px;height:32px}
+.post-meta .pm-rev b{font-size:14px}
+.author-box .ab-rev{margin:12px 0 0;font-size:14px;color:var(--mute)}
+.author-box .ab-rev a{color:inherit;text-decoration:underline;text-underline-offset:2px}
