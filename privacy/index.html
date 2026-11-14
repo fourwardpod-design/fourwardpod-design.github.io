@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../css/site.css?v=55">
+<link rel="stylesheet" href="../css/site.css?v=56">
 
 <link rel="canonical" href="https://www.fourwardhq.com/privacy/">
 <link rel="stylesheet" href="../css/crawler.css?v=3">
@@ -117,11 +117,12 @@
     <h3>When you visit the website</h3>
     <ul>
       <li><strong>Analytics.</strong> We use Google Analytics 4, which records the pages you view, how you arrived, your device and browser, and your approximate location. It sets cookies to do this, so it only runs if you choose <strong>Accept</strong> in the cookie banner. If you choose Reject, Google Analytics does not load. You can change your choice at any time with <strong>Cookie settings</strong> at the bottom of every page.</li>
-      <li><strong>Saved in your browser.</strong> The site stores a few items in your browser's local storage: AI visibility check results for 24 hours, so a repeat check loads instantly, and your name and email if you ask for a report, so the form is filled in next time. They stay on your device.</li>
+      <li><strong>Saved in your browser.</strong> The site stores a few items in your browser's local storage: AI visibility check results for 24 hours, so a repeat check loads instantly, and your email address once you unlock a report, so later reports open without asking again. They stay on your device.</li>
     </ul>
     <h3>When you use the AI visibility check on the website</h3>
     <ul>
-      <li>We record the domain you checked, its results, the page you were on, the page that sent you, your time zone, your browser language, your browser's user agent and the time. We use this to see how the tool is used and which companies are interested in our services.</li>
+      <li>The domain you enter is sent to our server, which reads that site's public pages. We record the domain you checked, its results, the page you were on, the page that sent you, your time zone, your browser language, your browser's user agent and the time. We use this to see how the tool is used and which companies are interested in our services.</li>
+      <li>To open the detailed results you enter an email address. We store it with the domain you checked and its results, email you the report, and may follow up about your free audit. To check that the address can receive mail, we look up its domain's mail records through Cloudflare's public DNS service.</li>
     </ul>
     <h3>When you contact us, book a call, ask for a report or sign up for emails</h3>
     <ul>
@@ -139,7 +140,7 @@
     </ul>
 
     <h2>What our tools read</h2>
-    <p>The AI visibility check and the AI crawler checker only read public information: the website being checked, and public knowledge sources about it. To do this our server or your browser sends the domain to Wikidata, Wikipedia and DuckDuckGo's instant answer API, and may read pages through Jina Reader and Microlink when a site can't be read directly.</p>
+    <p>The AI visibility check and the AI crawler checker only read public information: the website being checked, and public knowledge sources about it. To do this our server sends the domain or brand name to Wikipedia, Wikidata, the Hacker News search API, Arctic Shift (a public archive of Reddit), Google's search suggestions, Common Crawl and the Tranco ranking, and may read a page through Jina Reader when a site can't be read directly.</p>
 
     <h2>Who we share data with</h2>
     <ul>
@@ -167,39 +168,7 @@
   </div>
 </section>
 </main>
-<script>
-(function () {
-  var vis = document.getElementById('vis'), res = document.getElementById('results');
-  if (!vis || !res) return;
-  var q = function (s) { return res.querySelector(s); };
-  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var ICON = { crawl: 'i-search', page: 'i-grid', schema: 'i-flag', entity: 'i-users', content: 'i-chat' };
-  var GLYPH = { pass: '\u2713', warn: '!', fail: '\u2715' };
-  vis.addEventListener('vis:done', function (e) {
-    var d = e.detail; if (!d) return;
-    res.hidden = false;
-    q('[data-tr-title]').textContent = d.domain;
-    q('[data-tr-verdict]').textContent = d.verdict || '';
-    var sc = d.score; q('[data-tr-score]').textContent = sc == null ? '–' : sc; q('[data-tr-grade]').textContent = d.grade || 'Partial';
-    var ring = q('.tr-score .ring'); ring.style.strokeDashoffset = String(100 - (sc || 0));
-    q('[data-tr-score-wrap]').setAttribute('data-grade', sc == null ? '' : sc >= 80 ? 'good' : sc >= 55 ? 'mid' : 'low');
-    var n = { pass: 0, warn: 0, fail: 0 }; d.checks.forEach(function (c) { n[c.status] = (n[c.status] || 0) + 1; });
-    q('[data-tr-pass]').textContent = n.pass; q('[data-tr-warn]').textContent = n.warn; q('[data-tr-fail]').textContent = n.fail;
-    q('[data-tr-gaps]').innerHTML = (d.topIssues || []).slice(0, 3).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') || '<li>None. Every check passed.</li>';
-    q('[data-tr-cats]').innerHTML = d.categories.map(function (c) {
-      var rows = d.checks.filter(function (x) { return x.cat === c.id; }).sort(function (a, b) { var o = { fail: 0, warn: 1, pass: 2 }; return o[a.status] - o[b.status]; });
-      var ratio = c.score == null ? 0 : c.score / c.max, cls = c.score == null ? '' : ratio >= .8 ? 'good' : ratio >= .5 ? 'mid' : 'low';
-      return '<article class="tr-cat"><header><span class="tool-cat-ico"><svg><use href="#' + ICON[c.id] + '"/></svg></span><b>' + esc(c.label) + '</b><span class="tr-cat-score">' + (c.score == null ? 'not checked' : c.score + '<small>/' + c.max + '</small>') + '</span></header>' +
-        '<div class="vis-meter ' + cls + '"><i style="width:' + Math.round(ratio * 100) + '%"></i></div>' +
-        '<ul>' + rows.map(function (x) { return '<li class="tr-row ' + x.status + '"><span class="tr-g">' + GLYPH[x.status] + '</span><span class="tr-l">' + esc(x.label) + '</span><span class="tr-p">' + x.pts + '/' + x.max + '</span></li>'; }).join('') + '</ul></article>';
-    }).join('');
-    try { history.replaceState(null, '', location.pathname + '?check=' + encodeURIComponent(d.domain) + '#results'); } catch (err) {}
-    if (!/[?&]static=1/.test(location.search)) setTimeout(function () { res.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
-  });
-  q('[data-tr-email]').addEventListener('click', function () { var b = vis.querySelector('[data-vis-report]'); vis.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (b && !b.hidden) setTimeout(function () { b.click(); }, 400); });
-  q('[data-tr-share]').addEventListener('click', function (ev) { var url = location.href.split('#')[0]; var btn = ev.currentTarget; (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Link copied'; }).catch(function () { window.prompt('Copy this link', url); }); setTimeout(function () { btn.textContent = 'Copy link to these results'; }, 2200); });
-})();
-</script>
+
 <!-- ========================== FOOTER ========================== -->
 <footer class="footer">
   <div class="wash" aria-hidden="true"></div>
@@ -259,4 +228,4 @@
   </div>
 </footer>
 
-<script src="../js/site.js?v=51" defer></script>
+<script src="../js/site.js?v=52" defer></script>

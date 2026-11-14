@@ -6,9 +6,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI visibility check · Free tool · Fourward</title>
-<meta name="description" content="Free AI visibility check for B2B SaaS: thirty tests on what Google, ChatGPT and Perplexity can read about your site, scored out of 100, with detailed results.">
+<meta name="description" content="Free AI visibility check for B2B SaaS: 75 checks on what ChatGPT, Claude, Perplexity and Google can reach and read about your site, scored out of 100.">
 <meta property="og:title" content="AI visibility check · Free tool · Fourward">
-<meta property="og:description" content="Free AI visibility check for B2B SaaS: thirty tests on what Google, ChatGPT and Perplexity can read about your site, scored out of 100, with detailed results.">
+<meta property="og:description" content="Free AI visibility check for B2B SaaS: 75 checks on what ChatGPT, Claude, Perplexity and Google can reach and read about your site, scored out of 100.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -18,8 +18,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../../css/site.css?v=55">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI visibility check","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://www.fourwardhq.com/tools/ai-visibility-check/","description":"Free AI visibility check for B2B SaaS: thirty tests on what Google, ChatGPT and Perplexity can read about your site, scored out of 100, with detailed results.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"Fourward","url":"https://www.fourwardhq.com/"}}</script>
+<link rel="stylesheet" href="../../css/site.css?v=56">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI visibility check","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://www.fourwardhq.com/tools/ai-visibility-check/","description":"Free AI visibility check for B2B SaaS: 75 checks on what ChatGPT, Claude, Perplexity and Google can reach and read about your site, scored out of 100.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"Fourward","url":"https://www.fourwardhq.com/"}}</script>
 <link rel="canonical" href="https://www.fourwardhq.com/tools/ai-visibility-check/">
 </head>
 <body>
@@ -104,8 +104,9 @@
     <div class="tool-head">
       <span class="eyebrow">Free tool</span>
       <h1 class="h1 tool-title">AI visibility check</h1>
-      <p class="lead">Thirty tests on what Google, ChatGPT and Perplexity can read about your site, scored strictly out of 100. Run it, then get every result by email.</p>
+      <p class="lead">75 checks on what ChatGPT, Claude, Perplexity and Google can reach, read and find out about your company, scored strictly out of 100. Run it free, then unlock every result with your email.</p>
     <p class="mcp-pointer" style="margin:14px auto 0;max-width:640px;font-size:13.5px;color:var(--mute);text-align:center">Use this check inside Claude or ChatGPT: <a href="../mcp/" title="connect our MCP server">connect our MCP server</a>.</p>
+    
     
     
     
@@ -156,12 +157,12 @@
           <div class="vis-glow" aria-hidden="true"></div>
           <div class="vis-head">
             <span class="vis-eyebrow"><svg aria-hidden="true"><use href="#i-scan"/></svg>AI visibility check</span>
-            <span class="vis-badge"><i></i>Live · 30 checks</span>
+            <span class="vis-badge"><i></i>Live · 75 checks</span>
           </div>
           <div class="vis-hello" data-vis-intro>
             <h3 class="vis-title">Buyers ask AI first. Will it find you?</h3>
             <p class="vis-intro">Can it read your site and explain what you sell, or does it name someone else?</p>
-            <p class="vis-proof">30 checks. One score out of 100. Under a minute.</p>
+            <p class="vis-proof">75 checks. One score out of 100. Under a minute.</p>
           </div>
           <form class="vis-form" id="vis-form" autocomplete="off">
             <label class="sr-only" for="vis-domain">Your website</label>
@@ -169,11 +170,12 @@
             <input id="vis-domain" type="text" inputmode="url" placeholder="yourcompany.com" spellcheck="false" autocapitalize="off">
             <button type="submit" class="vis-go" data-vis-go>Run check <svg><use href="#i-arrow"/></svg></button>
           </form>
-          <p class="vis-scope">Covers crawl access, page signals, structured data, authority and AI-ready content.</p>
+          <p class="vis-scope">Covers crawler access, a firewall test, page signals, structured data, authority and buyer content.</p>
           <div class="vis-meta">
-            <ul class="vis-engs" aria-label="Engines covered"><li>Google AI Overviews</li><li>ChatGPT</li><li>Perplexity</li><li>Gemini</li></ul>
+            <ul class="vis-engs" aria-label="Engines covered"><li>ChatGPT</li><li>Claude</li><li>Perplexity</li><li>Google AI</li></ul>
             <span class="vis-try">Try <button type="button" data-vis-try="stripe.com">stripe.com</button> <button type="button" data-vis-try="hubspot.com">hubspot.com</button></span>
           </div>
+          <p class="vis-error" data-vis-error aria-live="polite"></p>
           <div class="vis-scan" data-vis-scan hidden>
             <div class="vis-scan-top"><span class="vis-scan-k"><i class="vis-pulse"></i>Scanning <b data-vis-scan-domain></b></span><b class="vis-pct" data-vis-pct>0%</b></div>
             <div class="vis-bar"><i data-vis-bar></i></div>
@@ -181,62 +183,40 @@
             <p class="vis-log" data-vis-log aria-live="polite"></p>
           </div>
           <div class="vis-result" data-vis-result hidden>
-            <div class="vis-hero">
-              <div class="vis-gauge">
-                <svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="vis-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--g1)"/><stop offset="1" stop-color="var(--g2)"/></linearGradient></defs><circle class="track" cx="60" cy="60" r="52"/><circle class="ring" cx="60" cy="60" r="52" pathLength="100"/></svg>
-                <div><b data-vis-score aria-live="polite">–</b><span>/ 100</span></div>
-              </div>
-              <div class="vis-hero-r">
-                <div class="vis-brand">
-                  <img data-vis-logo alt="Logo of the website being checked" width="28" height="28" hidden>
-                  <div><b data-vis-name>–</b><span data-vis-domain-label>–</span></div>
-                </div>
-                <span class="vis-grade" data-vis-grade></span>
-                <div class="vis-counts" data-vis-counts></div>
-              </div>
+            <div class="vis-st" data-vis-st>
+              <div class="vis-st-top"><img data-vis-st-logo alt="Logo of the website being checked" width="22" height="22" hidden><span class="vis-st-dom" data-vis-st-dom></span><span class="vis-st-sep" aria-hidden="true"></span><span class="vis-st-when" data-vis-st-when>Checked just now</span><button type="button" class="vis-st-again" data-vis-again><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg>Check another</button></div>
+              <div class="vis-st-score"><div class="vis-st-big"><b data-vis-st-n aria-live="polite">–</b><span>/100</span></div><div class="vis-st-grade"><b><i aria-hidden="true"></i><span data-vis-st-grade></span></b><span>AI visibility score</span></div></div>
+              <p class="vis-st-say" data-vis-st-say></p>
+              <div class="vis-st-spec" data-vis-st-spec></div>
             </div>
-            <p class="vis-say" data-vis-say></p>
-            <ul class="vis-cats" data-vis-cats></ul>
-            <div class="vis-fixes" data-vis-fixes hidden><b>Biggest gaps</b><ol></ol></div>
-            <div class="vis-engines" data-vis-engines hidden></div>
             <div class="vis-foot">
-              <p class="vis-verdict" data-vis-verdict></p>
-              <div class="vis-actions" data-vis-actions hidden><button type="button" class="vis-go" data-vis-report>Email me the full report <svg><use href="#i-arrow"/></svg></button><a class="vis-ghost" data-vis-detail href="../../tools/ai-visibility-check/" title="See detailed results">See detailed results</a><button type="button" class="vis-ghost" data-vis-reset>Check another</button></div>
-              <form class="vis-lead" data-vis-lead hidden novalidate>
-                <b class="vis-lead-title">Get the full report for <span data-vis-lead-domain></span></b>
-                <p class="vis-lead-sub">Every check, what we found and where you lose visibility, sent to your inbox.</p>
-                <div class="vis-fields">
-                  <label class="sr-only" for="vis-name">Your name</label><input id="vis-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
-                  <label class="sr-only" for="vis-email">Work email</label><input id="vis-email" name="email" type="email" placeholder="Work email" autocomplete="email" required>
-                  <label class="sr-only" for="vis-company">Company</label><input id="vis-company" name="company" type="text" placeholder="Company (optional)" autocomplete="organization">
-                </div>
-                <input class="vis-hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-                <div class="vis-lead-actions"><button type="submit" class="vis-go">Send my report <svg><use href="#i-arrow"/></svg></button><button type="button" class="vis-ghost" data-vis-lead-cancel>Back</button></div>
-                <p class="vis-legal">We send this report once and may follow up about your free audit.</p>
-                <p class="vis-status" data-vis-status aria-live="polite"></p>
-              </form>
+              <form class="vis-gate" data-vis-gate data-gate-form novalidate></form>
+              <div class="vis-open" data-vis-open hidden>
+                <p class="vis-open-msg" data-vis-open-msg></p>
+                <div class="vis-actions"><a class="vis-go" data-vis-detail href="#results" title="See every result">See every result <svg><use href="#i-arrow"/></svg></a><button type="button" class="vis-ghost" data-vis-mail hidden>Email me this report</button></div>
+              </div>
             </div>
           </div>
-          <p class="vis-note">Runs live in your browser against the public web. Checked domains are logged so we can follow up on report requests.</p>
+          <p class="vis-note">Runs live against the public web. Checked domains are logged so we can follow up on report requests.</p>
         </div>
 
       </div>
       <aside class="tool-aside" data-tool-aside>
         <h2 class="tool-aside-title">What we test</h2>
         <ul class="tool-cats">
-          <li><span class="tool-cat-ico"><svg><use href="#i-search"/></svg></span><div><b>AI crawler access</b><span class="tool-pts">15 points</span><p>Whether the crawlers behind ChatGPT search, Perplexity, Gemini, Copilot and Claude are allowed to read your site, and whether your sitemap is reachable.</p></div></li>
-          <li><span class="tool-cat-ico"><svg><use href="#i-grid"/></svg></span><div><b>What your homepage tells machines</b><span class="tool-pts">25 points</span><p>The signals engines read first: title, description, headings, depth of copy, image text and social tags.</p></div></li>
-          <li><span class="tool-cat-ico"><svg><use href="#i-flag"/></svg></span><div><b>Structured data</b><span class="tool-pts">20 points</span><p>The JSON-LD that tells machines who you are and what you sell: Organization, profiles, product and FAQ markup.</p></div></li>
-          <li><span class="tool-cat-ico"><svg><use href="#i-users"/></svg></span><div><b>Entity &amp; authority</b><span class="tool-pts">25 points</span><p>Whether you exist as a known entity: a Wikidata item tied to your domain, a Wikipedia article, knowledge summaries and linked profiles.</p></div></li>
-          <li><span class="tool-cat-ico"><svg><use href="#i-chat"/></svg></span><div><b>AI-ready content</b><span class="tool-pts">15 points</span><p>The pages AI answers lean on for buying questions: pricing, customer proof, docs, comparisons, plus llms.txt.</p></div></li>
+          <li><span class="tool-cat-ico"><svg><use href="#i-search"/></svg></span><div><b>AI crawler access</b><span class="tool-pts">25 points</span><p>Whether ChatGPT, Claude, Perplexity, Google and Bing are let in: robots.txt rules for 10 crawlers, a firewall test under five AI bot names, your sitemap and how fast your server answers.</p></div></li>
+          <li><span class="tool-cat-ico"><svg><use href="#i-grid"/></svg></span><div><b>What your pages tell machines</b><span class="tool-pts">20 points</span><p>What a crawler gets without running JavaScript: your words, links, title, description and headings, plus any tag that keeps a page out of AI answers.</p></div></li>
+          <li><span class="tool-cat-ico"><svg><use href="#i-flag"/></svg></span><div><b>Structured data</b><span class="tool-pts">10 points</span><p>The JSON-LD that tells machines who you are and what you sell: Organization, profiles, product, prices and article markup.</p></div></li>
+          <li><span class="tool-cat-ico"><svg><use href="#i-users"/></svg></span><div><b>Entity &amp; authority</b><span class="tool-pts">27 points</span><p>What the wider web says about you: Wikipedia and Wikidata, review and social profiles, Reddit and Hacker News threads, whether buyers search for your brand, and the crawl AI models train on.</p></div></li>
+          <li><span class="tool-cat-ico"><svg><use href="#i-chat"/></svg></span><div><b>AI-ready content</b><span class="tool-pts">18 points</span><p>The pages AI answers lean on for buying questions: prices a machine can read, comparison and product pages, customer proof, docs and how fresh it all is.</p></div></li>
         </ul>
-        <p class="tool-note">Live checks run in your browser against the public web: your homepage, robots.txt, sitemap and llms.txt, plus Wikidata, Wikipedia and DuckDuckGo. Nothing is installed on your site.</p>
+        <p class="tool-note">Checks run live on our server against the public web: your homepage and key pages, robots.txt and sitemap, plus Wikipedia, Wikidata, Reddit and Hacker News archives, Google suggestions, Common Crawl and the Tranco ranking. Nothing is installed on your site.</p>
       </aside>
     </div>
   </div>
 </section>
 
-<section class="section tool-results" id="results" hidden>
+<section class="section tool-results" id="results" hidden data-locked="true">
   <div class="wrap">
     <div class="tr-head">
       <div>
@@ -255,11 +235,13 @@
       <div class="tr-stat"><b data-tr-fail>0</b><span>failed</span></div>
       <div class="tr-gaps"><span class="tr-gaps-label">Biggest gaps</span><ol data-tr-gaps></ol></div>
     </div>
+    <p class="tr-open" data-tr-open hidden></p>
     <div class="tr-cats" data-tr-cats></div>
-    <div class="tr-actions">
-      <button type="button" class="btn btn-dark" data-tr-email>Email me this report <svg><use href="#i-arrow"/></svg></button>
+    <div class="tr-gate" data-tr-gate hidden></div>
+    <div class="tr-actions" data-tr-actions hidden>
+      <a class="btn btn-dark" href="../../#book" title="Book your free session">Book your free session <svg><use href="#i-arrow"/></svg></a>
       <button type="button" class="btn btn-ghost" data-tr-share>Copy link to these results</button>
-      <a class="btn btn-ghost" href="../../#book" title="Book your free session">Book your free session</a>
+      <button type="button" class="btn btn-ghost" data-vis-reset>Check another site</button>
     </div>
   </div>
 </section>
@@ -278,39 +260,7 @@
   </div>
 </section>
 </main>
-<script>
-(function () {
-  var vis = document.getElementById('vis'), res = document.getElementById('results');
-  if (!vis || !res) return;
-  var q = function (s) { return res.querySelector(s); };
-  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var ICON = { crawl: 'i-search', page: 'i-grid', schema: 'i-flag', entity: 'i-users', content: 'i-chat' };
-  var GLYPH = { pass: '\u2713', warn: '!', fail: '\u2715' };
-  vis.addEventListener('vis:done', function (e) {
-    var d = e.detail; if (!d) return;
-    res.hidden = false;
-    q('[data-tr-title]').textContent = d.domain;
-    q('[data-tr-verdict]').textContent = d.verdict || '';
-    var sc = d.score; q('[data-tr-score]').textContent = sc == null ? '–' : sc; q('[data-tr-grade]').textContent = d.grade || 'Partial';
-    var ring = q('.tr-score .ring'); ring.style.strokeDashoffset = String(100 - (sc || 0));
-    q('[data-tr-score-wrap]').setAttribute('data-grade', sc == null ? '' : sc >= 80 ? 'good' : sc >= 55 ? 'mid' : 'low');
-    var n = { pass: 0, warn: 0, fail: 0 }; d.checks.forEach(function (c) { n[c.status] = (n[c.status] || 0) + 1; });
-    q('[data-tr-pass]').textContent = n.pass; q('[data-tr-warn]').textContent = n.warn; q('[data-tr-fail]').textContent = n.fail;
-    q('[data-tr-gaps]').innerHTML = (d.topIssues || []).slice(0, 3).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') || '<li>None. Every check passed.</li>';
-    q('[data-tr-cats]').innerHTML = d.categories.map(function (c) {
-      var rows = d.checks.filter(function (x) { return x.cat === c.id; }).sort(function (a, b) { var o = { fail: 0, warn: 1, pass: 2 }; return o[a.status] - o[b.status]; });
-      var ratio = c.score == null ? 0 : c.score / c.max, cls = c.score == null ? '' : ratio >= .8 ? 'good' : ratio >= .5 ? 'mid' : 'low';
-      return '<article class="tr-cat"><header><span class="tool-cat-ico"><svg><use href="#' + ICON[c.id] + '"/></svg></span><b>' + esc(c.label) + '</b><span class="tr-cat-score">' + (c.score == null ? 'not checked' : c.score + '<small>/' + c.max + '</small>') + '</span></header>' +
-        '<div class="vis-meter ' + cls + '"><i style="width:' + Math.round(ratio * 100) + '%"></i></div>' +
-        '<ul>' + rows.map(function (x) { return '<li class="tr-row ' + x.status + '"><span class="tr-g">' + GLYPH[x.status] + '</span><span class="tr-l">' + esc(x.label) + '</span><span class="tr-p">' + x.pts + '/' + x.max + '</span></li>'; }).join('') + '</ul></article>';
-    }).join('');
-    try { history.replaceState(null, '', location.pathname + '?check=' + encodeURIComponent(d.domain) + '#results'); } catch (err) {}
-    if (!/[?&]static=1/.test(location.search)) setTimeout(function () { res.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
-  });
-  q('[data-tr-email]').addEventListener('click', function () { var b = vis.querySelector('[data-vis-report]'); vis.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (b && !b.hidden) setTimeout(function () { b.click(); }, 400); });
-  q('[data-tr-share]').addEventListener('click', function (ev) { var url = location.href.split('#')[0]; var btn = ev.currentTarget; (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Link copied'; }).catch(function () { window.prompt('Copy this link', url); }); setTimeout(function () { btn.textContent = 'Copy link to these results'; }, 2200); });
-})();
-</script>
+
 <!-- ========================== FOOTER ========================== -->
 <footer class="footer">
   <div class="wash" aria-hidden="true"></div>
@@ -370,4 +320,4 @@
   </div>
 </footer>
 
-<script src="../../js/site.js?v=51" defer></script>
+<script src="../../js/site.js?v=52" defer></script>

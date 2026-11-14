@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../../css/site.css?v=55">
+<link rel="stylesheet" href="../../css/site.css?v=56">
 
 <link rel="canonical" href="https://www.fourwardhq.com/tools/ai-crawler-checker/">
 <link rel="stylesheet" href="../../css/crawler.css?v=3">
@@ -152,39 +152,7 @@ Allow: /</pre>
   </div>
 </section>
 </main>
-<script>
-(function () {
-  var vis = document.getElementById('vis'), res = document.getElementById('results');
-  if (!vis || !res) return;
-  var q = function (s) { return res.querySelector(s); };
-  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var ICON = { crawl: 'i-search', page: 'i-grid', schema: 'i-flag', entity: 'i-users', content: 'i-chat' };
-  var GLYPH = { pass: '\u2713', warn: '!', fail: '\u2715' };
-  vis.addEventListener('vis:done', function (e) {
-    var d = e.detail; if (!d) return;
-    res.hidden = false;
-    q('[data-tr-title]').textContent = d.domain;
-    q('[data-tr-verdict]').textContent = d.verdict || '';
-    var sc = d.score; q('[data-tr-score]').textContent = sc == null ? '–' : sc; q('[data-tr-grade]').textContent = d.grade || 'Partial';
-    var ring = q('.tr-score .ring'); ring.style.strokeDashoffset = String(100 - (sc || 0));
-    q('[data-tr-score-wrap]').setAttribute('data-grade', sc == null ? '' : sc >= 80 ? 'good' : sc >= 55 ? 'mid' : 'low');
-    var n = { pass: 0, warn: 0, fail: 0 }; d.checks.forEach(function (c) { n[c.status] = (n[c.status] || 0) + 1; });
-    q('[data-tr-pass]').textContent = n.pass; q('[data-tr-warn]').textContent = n.warn; q('[data-tr-fail]').textContent = n.fail;
-    q('[data-tr-gaps]').innerHTML = (d.topIssues || []).slice(0, 3).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') || '<li>None. Every check passed.</li>';
-    q('[data-tr-cats]').innerHTML = d.categories.map(function (c) {
-      var rows = d.checks.filter(function (x) { return x.cat === c.id; }).sort(function (a, b) { var o = { fail: 0, warn: 1, pass: 2 }; return o[a.status] - o[b.status]; });
-      var ratio = c.score == null ? 0 : c.score / c.max, cls = c.score == null ? '' : ratio >= .8 ? 'good' : ratio >= .5 ? 'mid' : 'low';
-      return '<article class="tr-cat"><header><span class="tool-cat-ico"><svg><use href="#' + ICON[c.id] + '"/></svg></span><b>' + esc(c.label) + '</b><span class="tr-cat-score">' + (c.score == null ? 'not checked' : c.score + '<small>/' + c.max + '</small>') + '</span></header>' +
-        '<div class="vis-meter ' + cls + '"><i style="width:' + Math.round(ratio * 100) + '%"></i></div>' +
-        '<ul>' + rows.map(function (x) { return '<li class="tr-row ' + x.status + '"><span class="tr-g">' + GLYPH[x.status] + '</span><span class="tr-l">' + esc(x.label) + '</span><span class="tr-p">' + x.pts + '/' + x.max + '</span></li>'; }).join('') + '</ul></article>';
-    }).join('');
-    try { history.replaceState(null, '', location.pathname + '?check=' + encodeURIComponent(d.domain) + '#results'); } catch (err) {}
-    if (!/[?&]static=1/.test(location.search)) setTimeout(function () { res.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
-  });
-  q('[data-tr-email]').addEventListener('click', function () { var b = vis.querySelector('[data-vis-report]'); vis.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (b && !b.hidden) setTimeout(function () { b.click(); }, 400); });
-  q('[data-tr-share]').addEventListener('click', function (ev) { var url = location.href.split('#')[0]; var btn = ev.currentTarget; (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Link copied'; }).catch(function () { window.prompt('Copy this link', url); }); setTimeout(function () { btn.textContent = 'Copy link to these results'; }, 2200); });
-})();
-</script>
+
 <!-- ========================== FOOTER ========================== -->
 <footer class="footer">
   <div class="wash" aria-hidden="true"></div>
@@ -245,5 +213,5 @@ Allow: /</pre>
 </footer>
 
 <script>window.FW_BOTS=[{"ua":"Googlebot","company":"Google","use":"Google Search and AI Overviews","type":"search"},{"ua":"Bingbot","company":"Microsoft","use":"Bing and Copilot answers","type":"search"},{"ua":"OAI-SearchBot","company":"OpenAI","use":"ChatGPT search results","type":"search"},{"ua":"ChatGPT-User","company":"OpenAI","use":"ChatGPT opening a page a person asked about","type":"user"},{"ua":"PerplexityBot","company":"Perplexity","use":"Perplexity answers","type":"search"},{"ua":"Perplexity-User","company":"Perplexity","use":"Perplexity opening a page a person asked about","type":"user"},{"ua":"Claude-SearchBot","company":"Anthropic","use":"Claude search results","type":"search"},{"ua":"Claude-User","company":"Anthropic","use":"Claude opening a page a person asked about","type":"user"},{"ua":"Applebot","company":"Apple","use":"Siri and Spotlight answers","type":"search"},{"ua":"DuckAssistBot","company":"DuckDuckGo","use":"DuckDuckGo AI answers","type":"search"},{"ua":"MistralAI-User","company":"Mistral","use":"Le Chat opening a page a person asked about","type":"user"},{"ua":"GPTBot","company":"OpenAI","use":"Training OpenAI models","type":"training"},{"ua":"ClaudeBot","company":"Anthropic","use":"Training Claude models","type":"training"},{"ua":"Google-Extended","company":"Google","use":"Gemini model training and grounding","type":"training"},{"ua":"Applebot-Extended","company":"Apple","use":"Apple AI model training","type":"training"},{"ua":"Meta-ExternalAgent","company":"Meta","use":"Meta AI model training","type":"training"},{"ua":"CCBot","company":"Common Crawl","use":"Open web dataset many AI models train on","type":"training"},{"ua":"Bytespider","company":"ByteDance","use":"ByteDance AI model training","type":"training"},{"ua":"Amazonbot","company":"Amazon","use":"Alexa and Amazon AI","type":"training"},{"ua":"cohere-ai","company":"Cohere","use":"Cohere AI models","type":"training"}];</script>
-<script src="../../js/site.js?v=51" defer></script>
+<script src="../../js/site.js?v=52" defer></script>
 <script src="../../js/crawler.js?v=3" defer></script>

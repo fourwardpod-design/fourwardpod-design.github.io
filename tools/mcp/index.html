@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../../css/site.css?v=55">
+<link rel="stylesheet" href="../../css/site.css?v=56">
 
 <link rel="canonical" href="https://www.fourwardhq.com/tools/mcp/">
 <link rel="stylesheet" href="../../css/crawler.css?v=3">
@@ -148,7 +148,7 @@
 }
 .mdm.is-static .mdm-pane,.mdm.is-static .mdm-chip,.mdm.is-static .mdm-pop,.mdm.is-static .mdm-toast{transition:none}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://www.fourwardhq.com/tools/mcp/#app","name":"Fourward MCP server","url":"https://www.fourwardhq.com/tools/mcp/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Connect Fourward's free MCP server to Claude, ChatGPT, Cursor or VS Code and run the AI visibility check and AI crawler checker from chat. No sign-up or API key.","publisher":{"@id":"https://www.fourwardhq.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.fourwardhq.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://www.fourwardhq.com/tools/"},{"@type":"ListItem","position":3,"name":"MCP server","item":"https://www.fourwardhq.com/tools/mcp/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an MCP server?","acceptedAnswer":{"@type":"Answer","text":"MCP, the Model Context Protocol, is an open standard that lets AI assistants use outside tools. Once you add Fourward's MCP server, Claude, ChatGPT and other assistants can run our checks when you ask them to."}},{"@type":"Question","name":"Is the Fourward MCP server free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, needs no account and no API key. It runs the same free checks as the tools on our website."}},{"@type":"Question","name":"Which tools does it include?","acceptedAnswer":{"@type":"Answer","text":"Two: check_ai_visibility, which scores a site out of 100 across 30 checks, and check_ai_crawlers, which shows which of 20 AI crawlers can read a site."}},{"@type":"Question","name":"Does it fix anything on my site?","acceptedAnswer":{"@type":"Answer","text":"No. Both tools only read public pages, robots.txt, sitemaps and public knowledge sources. They list problems and scores. We cover the fixes in a free audit."}},{"@type":"Question","name":"What do you store?","acceptedAnswer":{"@type":"Answer","text":"Nothing about your requests. We do not log MCP calls or receive your conversation. The public result for each domain is cached for up to 12 hours so repeat checks are fast. Our privacy policy has the details."}},{"@type":"Question","name":"Which apps can use it?","acceptedAnswer":{"@type":"Answer","text":"Any app that supports remote MCP servers over HTTP, including Claude, Claude Code, ChatGPT in developer mode, Cursor and VS Code."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://www.fourwardhq.com/tools/mcp/#app","name":"Fourward MCP server","url":"https://www.fourwardhq.com/tools/mcp/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Connect Fourward's free MCP server to Claude, ChatGPT, Cursor or VS Code and run the AI visibility check and AI crawler checker from chat. No sign-up or API key.","publisher":{"@id":"https://www.fourwardhq.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.fourwardhq.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://www.fourwardhq.com/tools/"},{"@type":"ListItem","position":3,"name":"MCP server","item":"https://www.fourwardhq.com/tools/mcp/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an MCP server?","acceptedAnswer":{"@type":"Answer","text":"MCP, the Model Context Protocol, is an open standard that lets AI assistants use outside tools. Once you add Fourward's MCP server, Claude, ChatGPT and other assistants can run our checks when you ask them to."}},{"@type":"Question","name":"Is the Fourward MCP server free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, needs no account and no API key. It runs the same free checks as the tools on our website."}},{"@type":"Question","name":"Which tools does it include?","acceptedAnswer":{"@type":"Answer","text":"Two: check_ai_visibility, which scores a site out of 100 across 75 checks, and check_ai_crawlers, which shows which of 20 AI crawlers can read a site."}},{"@type":"Question","name":"Does it fix anything on my site?","acceptedAnswer":{"@type":"Answer","text":"No. Both tools only read public pages, robots.txt, sitemaps and public knowledge sources. They list problems and scores. We cover the fixes in a free audit."}},{"@type":"Question","name":"What do you store?","acceptedAnswer":{"@type":"Answer","text":"Nothing about your requests. We do not log MCP calls or receive your conversation. The public result for each domain is cached for up to 12 hours so repeat checks are fast. Our privacy policy has the details."}},{"@type":"Question","name":"Which apps can use it?","acceptedAnswer":{"@type":"Answer","text":"Any app that supports remote MCP servers over HTTP, including Claude, Claude Code, ChatGPT in developer mode, Cursor and VS Code."}}]}]}</script>
 </head>
 <body>
 <div class="frame" aria-hidden="true"><i></i></div>
@@ -239,7 +239,7 @@
 <section class="cc-body">
   <div class="wrap cc-doc">
     <h2>Two tools</h2>
-    <div class="cc-tablewrap"><table class="cc-table"><thead><tr><th>Tool</th><th>What it does</th><th>Ask it</th></tr></thead><tbody><tr><td><code>check_ai_visibility</code></td><td>Scores a website out of 100 on 30 checks: AI crawler access, homepage signals, structured data, entity and authority, and AI-ready content.</td><td>"How AI-ready is hubspot.com?"</td></tr><tr><td><code>check_ai_crawlers</code></td><td>Shows which of 20 AI crawlers can read the homepage, from robots.txt rules to a firewall test, plus llms.txt and sitemap lines.</td><td>"Can ChatGPT and Claude crawl notion.com?"</td></tr></tbody></table></div>
+    <div class="cc-tablewrap"><table class="cc-table"><thead><tr><th>Tool</th><th>What it does</th><th>Ask it</th></tr></thead><tbody><tr><td><code>check_ai_visibility</code></td><td>Scores a website out of 100 on 75 checks: AI crawler access and a firewall test, what pages tell machines, structured data, entity and authority, and AI-ready content.</td><td>"How AI-ready is hubspot.com?"</td></tr><tr><td><code>check_ai_crawlers</code></td><td>Shows which of 20 AI crawlers can read the homepage, from robots.txt rules to a firewall test, plus llms.txt and sitemap lines.</td><td>"Can ChatGPT and Claude crawl notion.com?"</td></tr></tbody></table></div>
     <p>Both tools return the same results as the <a href="../ai-visibility-check/" title="AI visibility check">AI visibility check</a> and the <a href="../ai-crawler-checker/" title="AI crawler checker">AI crawler checker</a> on this site. They list problems and scores, not fixes.</p>
 
     <h2>Add it to your AI app</h2>
@@ -377,43 +377,11 @@
     <p>The checks show where AI search can't read or trust a site. What to fix first, and in what order, is what we cover in a <a href="../../#book" title="free audit">free audit</a> with our team.</p>
 
     <h2>Frequently asked questions</h2>
-    <div class="cc-faq"><details><summary>What is an MCP server?</summary><p>MCP, the Model Context Protocol, is an open standard that lets AI assistants use outside tools. Once you add Fourward's MCP server, Claude, ChatGPT and other assistants can run our checks when you ask them to.</p></details><details><summary>Is the Fourward MCP server free?</summary><p>Yes. It is free, needs no account and no API key. It runs the same free checks as the tools on our website.</p></details><details><summary>Which tools does it include?</summary><p>Two: check_ai_visibility, which scores a site out of 100 across 30 checks, and check_ai_crawlers, which shows which of 20 AI crawlers can read a site.</p></details><details><summary>Does it fix anything on my site?</summary><p>No. Both tools only read public pages, robots.txt, sitemaps and public knowledge sources. They list problems and scores. We cover the fixes in a free audit.</p></details><details><summary>What do you store?</summary><p>Nothing about your requests. We do not log MCP calls or receive your conversation. The public result for each domain is cached for up to 12 hours so repeat checks are fast. Our privacy policy has the details.</p></details><details><summary>Which apps can use it?</summary><p>Any app that supports remote MCP servers over HTTP, including Claude, Claude Code, ChatGPT in developer mode, Cursor and VS Code.</p></details></div>
+    <div class="cc-faq"><details><summary>What is an MCP server?</summary><p>MCP, the Model Context Protocol, is an open standard that lets AI assistants use outside tools. Once you add Fourward's MCP server, Claude, ChatGPT and other assistants can run our checks when you ask them to.</p></details><details><summary>Is the Fourward MCP server free?</summary><p>Yes. It is free, needs no account and no API key. It runs the same free checks as the tools on our website.</p></details><details><summary>Which tools does it include?</summary><p>Two: check_ai_visibility, which scores a site out of 100 across 75 checks, and check_ai_crawlers, which shows which of 20 AI crawlers can read a site.</p></details><details><summary>Does it fix anything on my site?</summary><p>No. Both tools only read public pages, robots.txt, sitemaps and public knowledge sources. They list problems and scores. We cover the fixes in a free audit.</p></details><details><summary>What do you store?</summary><p>Nothing about your requests. We do not log MCP calls or receive your conversation. The public result for each domain is cached for up to 12 hours so repeat checks are fast. Our privacy policy has the details.</p></details><details><summary>Which apps can use it?</summary><p>Any app that supports remote MCP servers over HTTP, including Claude, Claude Code, ChatGPT in developer mode, Cursor and VS Code.</p></details></div>
   </div>
 </section>
 </main>
-<script>
-(function () {
-  var vis = document.getElementById('vis'), res = document.getElementById('results');
-  if (!vis || !res) return;
-  var q = function (s) { return res.querySelector(s); };
-  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var ICON = { crawl: 'i-search', page: 'i-grid', schema: 'i-flag', entity: 'i-users', content: 'i-chat' };
-  var GLYPH = { pass: '\u2713', warn: '!', fail: '\u2715' };
-  vis.addEventListener('vis:done', function (e) {
-    var d = e.detail; if (!d) return;
-    res.hidden = false;
-    q('[data-tr-title]').textContent = d.domain;
-    q('[data-tr-verdict]').textContent = d.verdict || '';
-    var sc = d.score; q('[data-tr-score]').textContent = sc == null ? '–' : sc; q('[data-tr-grade]').textContent = d.grade || 'Partial';
-    var ring = q('.tr-score .ring'); ring.style.strokeDashoffset = String(100 - (sc || 0));
-    q('[data-tr-score-wrap]').setAttribute('data-grade', sc == null ? '' : sc >= 80 ? 'good' : sc >= 55 ? 'mid' : 'low');
-    var n = { pass: 0, warn: 0, fail: 0 }; d.checks.forEach(function (c) { n[c.status] = (n[c.status] || 0) + 1; });
-    q('[data-tr-pass]').textContent = n.pass; q('[data-tr-warn]').textContent = n.warn; q('[data-tr-fail]').textContent = n.fail;
-    q('[data-tr-gaps]').innerHTML = (d.topIssues || []).slice(0, 3).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') || '<li>None. Every check passed.</li>';
-    q('[data-tr-cats]').innerHTML = d.categories.map(function (c) {
-      var rows = d.checks.filter(function (x) { return x.cat === c.id; }).sort(function (a, b) { var o = { fail: 0, warn: 1, pass: 2 }; return o[a.status] - o[b.status]; });
-      var ratio = c.score == null ? 0 : c.score / c.max, cls = c.score == null ? '' : ratio >= .8 ? 'good' : ratio >= .5 ? 'mid' : 'low';
-      return '<article class="tr-cat"><header><span class="tool-cat-ico"><svg><use href="#' + ICON[c.id] + '"/></svg></span><b>' + esc(c.label) + '</b><span class="tr-cat-score">' + (c.score == null ? 'not checked' : c.score + '<small>/' + c.max + '</small>') + '</span></header>' +
-        '<div class="vis-meter ' + cls + '"><i style="width:' + Math.round(ratio * 100) + '%"></i></div>' +
-        '<ul>' + rows.map(function (x) { return '<li class="tr-row ' + x.status + '"><span class="tr-g">' + GLYPH[x.status] + '</span><span class="tr-l">' + esc(x.label) + '</span><span class="tr-p">' + x.pts + '/' + x.max + '</span></li>'; }).join('') + '</ul></article>';
-    }).join('');
-    try { history.replaceState(null, '', location.pathname + '?check=' + encodeURIComponent(d.domain) + '#results'); } catch (err) {}
-    if (!/[?&]static=1/.test(location.search)) setTimeout(function () { res.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
-  });
-  q('[data-tr-email]').addEventListener('click', function () { var b = vis.querySelector('[data-vis-report]'); vis.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (b && !b.hidden) setTimeout(function () { b.click(); }, 400); });
-  q('[data-tr-share]').addEventListener('click', function (ev) { var url = location.href.split('#')[0]; var btn = ev.currentTarget; (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Link copied'; }).catch(function () { window.prompt('Copy this link', url); }); setTimeout(function () { btn.textContent = 'Copy link to these results'; }, 2200); });
-})();
-</script>
+
 <!-- ========================== FOOTER ========================== -->
 <footer class="footer">
   <div class="wash" aria-hidden="true"></div>
@@ -473,7 +441,7 @@
   </div>
 </footer>
 
-<script src="../../js/site.js?v=51" defer></script>
+<script src="../../js/site.js?v=52" defer></script>
 <script>document.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var t=b.getAttribute('data-copy');var done=function(){var o=b.textContent;b.textContent='Copied';b.classList.add('is-done');setTimeout(function(){b.textContent=o;b.classList.remove('is-done')},1600)};if(navigator.clipboard)navigator.clipboard.writeText(t).then(done,done);else done();});</script>
 <script>/* MCP connect demo engine. Plays each app's scene as a loop of panes: the pane fades up, [data-type] text is
    typed letter by letter, [data-on] elements switch on after their delay, [data-pulse] gets a press ring, and

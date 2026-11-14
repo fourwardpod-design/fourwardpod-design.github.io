@@ -1771,3 +1771,72 @@ html.static .lm-track{animation:none}
 .fw-cookie-link{background:none;border:0;padding:0;margin-left:16px;font:inherit;color:inherit;opacity:.7;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .fw-cookie-link:hover{opacity:1}
 @media (prefers-reduced-motion:reduce){.fw-consent{transition:none}}
+
+/* v56: AI check gate. The card shows the score, the findings stay locked until an email unlocks them. */
+.vis-error{margin:10px 0 0;font-size:13px;line-height:1.5;color:#9B3627}
+.vis-error:empty{display:none}
+.vis-gate[hidden],.vis-open[hidden],.tr-gate[hidden],.tr-open[hidden],.tr-actions[hidden]{display:none!important}
+.vis-gate{position:relative;display:grid;gap:12px;margin:0;padding:16px;border-radius:20px;border:1px solid rgba(110,69,232,.16);background:radial-gradient(130% 150% at 0% 0%,rgba(110,69,232,.09),transparent 58%),radial-gradient(130% 150% at 100% 100%,rgba(255,90,43,.08),transparent 58%),#fff}
+.vis-gate-head{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;align-items:center}
+.vis-gate-lock{width:38px;height:38px;border-radius:12px;background:linear-gradient(180deg,#26262B,#0B0B0C);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 10px 18px -10px rgba(11,11,12,.6),0 1px 0 rgba(255,255,255,.14) inset}
+.vis-gate-lock svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.vis-gate-head div b{display:block;font:600 15.5px/1.25 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.vis-gate-head div span{display:block;margin-top:3px;font-size:12.5px;line-height:1.45;color:var(--mute)}
+.vis-gate-row{display:flex;gap:8px;align-items:stretch;height:54px;padding:5px 5px 5px 16px;border-radius:16px;background:#fff;border:1px solid var(--line-2);box-shadow:0 1px 2px rgba(11,11,12,.04);transition:border-color .2s,box-shadow .2s}
+.vis-gate-row:focus-within{border-color:#8C7BFF;box-shadow:0 0 0 4px rgba(140,123,255,.14)}
+.vis-gate-row input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:15px;color:var(--ink)}
+.vis-gate-row input::placeholder{color:var(--faint)}
+.vis .vis-gate-row .vis-go,.vis-gate-row .vis-go{flex:none;display:inline-flex;align-items:center;gap:8px;height:auto;padding:0 16px;border:0;border-radius:12px;font:inherit;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer;color:#fff;background:linear-gradient(180deg,#26262B,#0B0B0C);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 8px 18px -8px rgba(11,11,12,.45);transition:box-shadow .2s,opacity .2s}
+.vis-gate-row .vis-go svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vis-gate-row .vis-go:disabled{opacity:.6;cursor:default}
+.vis-gate .vis-legal{margin:0;font-size:11.5px!important;line-height:1.45;color:var(--faint)!important}
+.vis-gate .vis-legal a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.vis-gate .vis-status{margin:0;font-size:12.5px!important}
+.vis-open{display:grid;gap:12px}
+.vis-open-msg,.tr-open{display:flex;align-items:flex-start;gap:10px;margin:0;padding:12px 14px;border-radius:14px;background:rgba(19,162,115,.08);border:1px solid rgba(19,162,115,.2);font-size:13.5px!important;line-height:1.45;color:#0E5C3F!important}
+.vis-open-msg i,.tr-open i{flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;background:#13A273;color:#fff;font-style:normal;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.vis-open-msg b,.tr-open b{font-weight:600;overflow-wrap:anywhere}
+.vis-open .vis-actions{display:flex;flex-wrap:wrap;gap:8px}
+.vis-open .vis-actions [hidden]{display:none!important}
+.vis-open .vis-actions .vis-go{flex:1;justify-content:center;height:50px;border-radius:15px;font-size:15px;text-decoration:none}
+.hero .vis-open .vis-actions .vis-ghost{display:inline-flex;height:50px;border-radius:15px}
+.vis-tool .vis-open [data-vis-detail]{display:inline-flex}
+.hero .vis-foot{gap:0}
+@media (max-width:520px){
+  .vis-gate{padding:14px}
+  .vis-gate-row{flex-direction:column;height:auto;padding:6px;gap:6px}
+  .vis-gate-row input{height:44px;padding:0 10px}
+  .vis-gate-row .vis-go{height:46px;justify-content:center}
+}
+/* the tool page's detailed section while locked: real marks, real points, no words */
+.tr-row.skip .tr-g{background:rgba(11,11,12,.07);color:var(--mute)}
+.tr-row.skip .tr-l{color:var(--mute)}
+.tr-row.is-locked .tr-l{display:flex;align-items:center;min-height:20px}
+.tr-blur{display:block;height:9px;max-width:100%;border-radius:5px;background:linear-gradient(90deg,rgba(11,11,12,.17),rgba(11,11,12,.07))}
+.tr-row.fail.is-locked .tr-blur{background:linear-gradient(90deg,rgba(224,82,62,.36),rgba(224,82,62,.13))}
+.tr-row.warn.is-locked .tr-blur{background:linear-gradient(90deg,rgba(227,154,31,.4),rgba(227,154,31,.15))}
+.tr-row.pass.is-locked .tr-blur{background:linear-gradient(90deg,rgba(31,168,115,.28),rgba(31,168,115,.1))}
+.tr-row.fail.is-locked .tr-p,.tr-row.warn.is-locked .tr-p{color:#9B3627;font-weight:500}
+.tr-lockline{display:inline-flex;align-items:center;gap:10px;width:100%;vertical-align:middle}
+.tr-lockline .tr-blur{flex:none}
+.tr-lockline em{font-style:normal;font-weight:400;font-size:12.5px;color:var(--mute);white-space:nowrap}
+.tool-results[data-locked="true"] .tr-cats{max-height:470px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 38%,transparent 96%);mask-image:linear-gradient(#000 38%,transparent 96%);user-select:none;pointer-events:none}
+.tr-gate{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(18px,3vw,44px);align-items:center;margin:-150px 0 0;padding:clamp(20px,2.8vw,34px);border-radius:26px;border:1px solid rgba(110,69,232,.18);background:radial-gradient(120% 150% at 0% 0%,rgba(110,69,232,.11),transparent 56%),radial-gradient(120% 150% at 100% 100%,rgba(255,90,43,.10),transparent 56%),#fff;box-shadow:0 1px 2px rgba(11,11,12,.04),0 40px 80px -44px rgba(59,42,122,.45)}
+.tr-gate .vis-gate{background:none;border:0;padding:0;border-radius:0;gap:14px}
+.tr-gate .vis-gate-head{grid-template-columns:46px minmax(0,1fr);gap:14px;align-items:start}
+.tr-gate .vis-gate-lock{width:46px;height:46px;border-radius:14px}
+.tr-gate .vis-gate-lock svg{width:20px;height:20px}
+.tr-gate .vis-gate-head div b{font-size:clamp(20px,2.1vw,27px);font-weight:500;letter-spacing:-.03em;line-height:1.14}
+.tr-gate .vis-gate-head div span{margin-top:7px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.tr-gate .vis-gate-row{height:60px;padding:6px 6px 6px 18px;border-radius:18px}
+.tr-gate .vis-gate-row input{font-size:16px}
+.tr-gate .vis-gate-row .vis-go{padding:0 20px;border-radius:13px;font-size:15px}
+.tr-gate-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.tr-gate-list li{position:relative;padding:13px 14px 13px 42px;border-radius:14px;background:rgba(255,255,255,.78);border:1px solid var(--line);font-size:14px;line-height:1.4;color:var(--ink-2)}
+.tr-gate-list li::before{content:"\2713";position:absolute;left:13px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:#0B0B0C;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.tr-open{margin:0 0 14px}
+@keyframes tr-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tool-results.is-revealing .tr-row{animation:tr-in .5s var(--ease) both;animation-delay:calc(var(--i,0)*16ms)}
+@media (max-width:860px){.tr-gate{grid-template-columns:1fr;margin-top:-170px}.tr-gate-list{grid-template-columns:1fr}}
+@media (max-width:520px){.tr-gate{padding:18px;border-radius:22px}.tr-gate .vis-gate-head{grid-template-columns:40px minmax(0,1fr)}.tr-gate .vis-gate-lock{width:40px;height:40px}.tr-gate .vis-gate-row{height:auto;padding:6px}}
+@media (prefers-reduced-motion:reduce){.tool-results.is-revealing .tr-row{animation:none}}
