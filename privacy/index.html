@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>if(/\.github\.io$|^fourward\.pages\.dev$|^fourwardhq\.com$/.test(location.hostname))location.replace('https://www.fourwardhq.com'+location.pathname+location.search+location.hash)</script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}(function(){var h=location.hostname;if(/^(localhost|127\.|\[::1\])/.test(h)||/\.github\.io$/.test(h)||/\..+\.pages\.dev$/.test(h))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-3LY1RGR0P8';document.head.appendChild(s);gtag('js',new Date());gtag('config','G-3LY1RGR0P8');})();</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.fwLoadGA=function(){if(window.fwGA)return;var h=location.hostname;if(/^(localhost|127\.|\[::1\])/.test(h)||/\.github\.io$/.test(h)||/\..+\.pages\.dev$/.test(h))return;window.fwGA=1;gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-3LY1RGR0P8';document.head.appendChild(s);gtag('js',new Date());gtag('config','G-3LY1RGR0P8');};try{if(localStorage.getItem('fw-consent')==='granted')window.fwLoadGA();}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy policy · Fourward</title>
@@ -18,10 +18,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../css/site.css?v=42">
+<link rel="stylesheet" href="../css/site.css?v=55">
+
 <link rel="canonical" href="https://www.fourwardhq.com/privacy/">
 <link rel="stylesheet" href="../css/crawler.css?v=3">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.fourwardhq.com/privacy/","url":"https://www.fourwardhq.com/privacy/","name":"Privacy policy","description":"What Fourward collects on fourwardhq.com, in our free tools and in our MCP server, why, who we share it with, how long we keep it and how to reach us.","dateModified":"2026-10-29","publisher":{"@id":"https://www.fourwardhq.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.fourwardhq.com/"},{"@type":"ListItem","position":2,"name":"Privacy policy","item":"https://www.fourwardhq.com/privacy/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.fourwardhq.com/privacy/","url":"https://www.fourwardhq.com/privacy/","name":"Privacy policy","description":"What Fourward collects on fourwardhq.com, in our free tools and in our MCP server, why, who we share it with, how long we keep it and how to reach us.","dateModified":"2026-11-14","publisher":{"@id":"https://www.fourwardhq.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.fourwardhq.com/"},{"@type":"ListItem","position":2,"name":"Privacy policy","item":"https://www.fourwardhq.com/privacy/"}]}]}</script>
 </head>
 <body>
 <div class="frame" aria-hidden="true"><i></i></div>
@@ -104,7 +105,7 @@
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="../" title="Home">Home</a><span aria-hidden="true">/</span><span>Privacy policy</span></nav>
     <h1>Privacy policy</h1>
-    <p class="lead">What we collect on this website, in our free tools and in our MCP server, why, and how to reach us. Last updated 29 October 2026.</p>
+    <p class="lead">What we collect on this website, in our free tools and in our MCP server, why, and how to reach us. Last updated 14 November 2026.</p>
   </div>
 </section>
 <section class="cc-body">
@@ -115,7 +116,7 @@
     <h2>What we collect</h2>
     <h3>When you visit the website</h3>
     <ul>
-      <li><strong>Analytics.</strong> We use Google Analytics 4, which records the pages you view, how you arrived, your device and browser, and your approximate location. It sets cookies to do this.</li>
+      <li><strong>Analytics.</strong> We use Google Analytics 4, which records the pages you view, how you arrived, your device and browser, and your approximate location. It sets cookies to do this, so it only runs if you choose <strong>Accept</strong> in the cookie banner. If you choose Reject, Google Analytics does not load. You can change your choice at any time with <strong>Cookie settings</strong> at the bottom of every page.</li>
       <li><strong>Saved in your browser.</strong> The site stores a few items in your browser's local storage: AI visibility check results for 24 hours, so a repeat check loads instantly, and your name and email if you ask for a report, so the form is filled in next time. They stay on your device.</li>
     </ul>
     <h3>When you use the AI visibility check on the website</h3>
@@ -258,4 +259,4 @@
   </div>
 </footer>
 
-<script src="../js/site.js?v=42" defer></script>
+<script src="../js/site.js?v=51" defer></script>

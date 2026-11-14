@@ -1683,3 +1683,53 @@
     });
   }, { threshold: 0.35 }).observe(mock);
 })();
+
+/* ---------- 99. cookie consent: Google Analytics loads only after "Accept" (choice kept in localStorage) ---------- */
+(function () {
+  var KEY = 'fw-consent';
+  var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  var set = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+  var dropGaCookies = function () {
+    document.cookie.split(';').forEach(function (c) {
+      var n = c.split('=')[0].trim();
+      if (/^_ga/.test(n)) ['', '; domain=.' + location.hostname.replace(/^www\./, ''), '; domain=' + location.hostname].forEach(function (d) {
+        document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+      });
+    });
+  };
+  var privacy = (function () { var a = document.querySelector('a[href$="privacy/"]'); return a ? a.getAttribute('href') : '/privacy/'; })();
+  var box = null;
+  var close = function () { if (box) { box.classList.remove('is-open'); var b = box; setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 250); box = null; } };
+  var choose = function (v) {
+    set(v);
+    if (v === 'granted') { if (window.fwLoadGA) window.fwLoadGA(); if (window.gtag) window.gtag('consent', 'update', { analytics_storage: 'granted' }); }
+    else { if (window.gtag) window.gtag('consent', 'update', { analytics_storage: 'denied' }); dropGaCookies(); }
+    close();
+  };
+  var open = function () {
+    if (box) return;
+    box = document.createElement('div');
+    box.className = 'fw-consent';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-live', 'polite');
+    box.setAttribute('aria-label', 'Cookie choice');
+    box.innerHTML = '<p><b>Cookies</b> We use Google Analytics cookies to see which pages help visitors. No ads, and nothing is shared for advertising. <a href="' + privacy + '">Privacy policy</a></p>' +
+      '<div class="fw-consent-btns"><button type="button" class="btn btn-ghost btn-sm" data-c="denied">Reject</button><button type="button" class="btn btn-dark btn-sm" data-c="granted">Accept</button></div>';
+    box.addEventListener('click', function (e) { var b = e.target.closest('[data-c]'); if (b) choose(b.getAttribute('data-c')); });
+    document.body.appendChild(box);
+    setTimeout(function () { if (box) box.classList.add('is-open'); }, 30);
+  };
+  window.fwCookieSettings = open;
+  // a "Cookie settings" link in the footer, so the choice can be changed later
+  var foot = document.querySelector('.foot-bottom') || document.querySelector('footer');
+  if (foot && !foot.querySelector('.fw-cookie-link')) {
+    var l = document.createElement('button');
+    l.type = 'button'; l.className = 'fw-cookie-link'; l.textContent = 'Cookie settings';
+    l.addEventListener('click', open);
+    foot.appendChild(l);
+  }
+  var v = get();
+  if (v !== 'granted' && v !== 'denied') {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', open); else open();
+  }
+})();
