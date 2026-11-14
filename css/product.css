@@ -473,3 +473,9 @@ svg.bi{display:block;width:100%;height:100%}
 .pp-pt b{font-size:17px;color:var(--ink)}
 .pp-pt p{font-size:14px;color:var(--ink-2);margin-top:6px}
 @media (max-width:900px){.pp-dark{padding:52px 0;border-radius:22px}.pp-hub{gap:32px}}
+
+/* service cards link to their pages */
+.pp-svc-go{display:inline-flex;align-items:center;gap:6px;margin:4px 0 2px;font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;width:max-content}
+.pp-svc-go svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
+.pp-svc-go:hover{text-decoration:underline;text-underline-offset:3px}
+.pp-svc-go:hover svg{transform:translateX(3px)}

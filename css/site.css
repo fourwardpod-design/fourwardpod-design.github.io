@@ -1840,3 +1840,9 @@ html.static .lm-track{animation:none}
 @media (max-width:860px){.tr-gate{grid-template-columns:1fr;margin-top:-170px}.tr-gate-list{grid-template-columns:1fr}}
 @media (max-width:520px){.tr-gate{padding:18px;border-radius:22px}.tr-gate .vis-gate-head{grid-template-columns:40px minmax(0,1fr)}.tr-gate .vis-gate-lock{width:40px;height:40px}.tr-gate .vis-gate-row{height:auto;padding:6px}}
 @media (prefers-reduced-motion:reduce){.tool-results.is-revealing .tr-row{animation:none}}
+
+/* v57: service cards link to their pages */
+.svc-go{position:relative;z-index:3;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none}
+.svc-go svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
+.svc-go:hover{text-decoration:underline;text-underline-offset:3px}
+.svc-go:hover svg{transform:translateX(3px)}

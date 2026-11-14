@@ -15,6 +15,10 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 ## Services
 
 - [B2B SaaS marketing](https://www.fourwardhq.com/b2b-saas-marketing/): the service page: one senior team for search and AI visibility, brand and PR, lifecycle and events, how engagements start, ways to work and FAQs.
+- [Search, content and AI visibility](https://www.fourwardhq.com/search-content-ai-visibility/): SEO, GEO and AEO for B2B SaaS: technical SEO, content, comparison pages and AI citations in ChatGPT, Perplexity and Google AI Overviews, with the real search results behind it.
+- [Brand, PR and partnerships](https://www.fourwardhq.com/brand-pr-partnerships/): positioning, PR and media, founder thought leadership, online reputation (G2, Trustpilot, Glassdoor), LinkedIn, social, partnerships and awards, with press the team has earned.
+- [Lifecycle and demand generation](https://www.fourwardhq.com/lifecycle-demand-generation/): HubSpot and CRM, email workflows, newsletters and gated content, webinars and video, ABM, sales enablement and funnel reporting.
+- [Field marketing and events](https://www.fourwardhq.com/field-marketing-events/): executive dinners, partner events, event series, paid media to fill the room and follow up that books meetings, with events the team has run.
 - [What we do](https://www.fourwardhq.com/#services): search, content and AI visibility; brand, PR and partnerships; lifecycle and demand generation; field marketing and events.
 - [Process](https://www.fourwardhq.com/#process): discovery call, free audit, written plan, kickoff.
 - [Ways to work](https://www.fourwardhq.com/#ways): free audit and session, monthly marketing partnership, fixed-scope project.
