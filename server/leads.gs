@@ -23,7 +23,7 @@ const TEAM = 'growth@fourwardhq.com';
 // The "Fourward leads" sheet on the fourwardpod Google account. A script created from the sheet
 // (Extensions → Apps Script) can leave this as is; a standalone script needs the ID.
 const SHEET_ID = '1L_crfYf97khTdndtTgyO1m-_OBM8pmkzT2pbizAibY0';
-const SITE = 'https://fourwardpod-design.github.io/';
+const SITE = 'https://www.fourwardhq.com/';
 const BOOK = SITE + '#book';
 
 function doGet() {
@@ -173,9 +173,9 @@ function reportHtml(d, name) {
     '<tr><td style="padding:26px 30px 30px">' +
       '<div style="background:#0B0B0C;border-radius:14px;padding:22px 22px">' +
         '<div style="' + font + 'font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.4px">Your free session is waiting</div>' +
-        '<div style="' + font + 'font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;margin-top:6px">Thirty minutes with the owner of each lane. We walk you through this report, what to fix first and what a 30-day plan would move.</div>' +
+        '<div style="' + font + 'font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;margin-top:6px">Thirty minutes with our senior team. We walk you through this report, what to fix first and what a 30-day plan would move.</div>' +
         '<a href="' + BOOK + '" style="display:inline-block;margin-top:14px;background:#FFFFFF;color:#0B0B0C;' + font + 'font-size:14px;font-weight:600;text-decoration:none;padding:11px 18px;border-radius:999px">Book your free session &rarr;</a>' +
       '</div>' +
-      '<p style="' + font + 'font-size:12px;color:#A3A3AA;line-height:1.5;margin:18px 0 0">Fourward · four lanes, one direction. You received this because you asked for this report on ' + h(SITE.replace(/^https?:\/\//, '').replace(/\/$/, '')) + '. Reply to this email to reach the team.</p>' +
+      '<p style="' + font + 'font-size:12px;color:#A3A3AA;line-height:1.5;margin:18px 0 0">Fourward · one senior marketing team for B2B SaaS. You received this because you asked for this report on ' + h(SITE.replace(/^https?:\/\//, '').replace(/\/$/, '')) + '. Reply to this email to reach the team.</p>' +
     '</td></tr></table></div>';
 }
