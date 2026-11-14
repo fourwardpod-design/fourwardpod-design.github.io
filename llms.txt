@@ -25,6 +25,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [llms.txt file](https://www.fourwardhq.com/blog/llmstxt-file/): How to create an llms.txt file for a B2B SaaS site: which pages to list, the Markdown format, hosting by platform, testing and upkeep.
 - [Keyword research tools](https://www.fourwardhq.com/blog/best-keyword-research-tools/): Best keyword research tools in 2026: Semrush, Ahrefs, SE Ranking, Google Keyword Planner, Google Search Console, Mangools, AnswerThePublic and Fourward's free AI visibility check, with pricing and AI search data.
 - [Business case study](https://www.fourwardhq.com/blog/how-to-write-a-business-case-study/): How to write a business case study for B2B SaaS: eight steps, interview questions, a section template, FTC disclosure rules and how to make results quotable in AI answers.
 - [SaaS link building agencies](https://www.fourwardhq.com/blog/best-saas-link-building-agencies/): Best SaaS link building agencies in 2026: Fourward, uSERP, dofollow.com, MADX Digital, Page One Power, Siege Media, Editorial.Link and Respona, with pricing and tactics.
