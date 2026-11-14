@@ -19,7 +19,7 @@
  * To change the code later: edit, then Deploy → Manage deployments → Edit → New version.
  */
 
-const TEAM = 'fourwardpod@gmail.com';
+const TEAM = 'growth@fourwardhq.com';
 // The "Fourward leads" sheet on the fourwardpod Google account. A script created from the sheet
 // (Extensions → Apps Script) can leave this as is; a standalone script needs the ID.
 const SHEET_ID = '1L_crfYf97khTdndtTgyO1m-_OBM8pmkzT2pbizAibY0';
