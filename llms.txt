@@ -29,6 +29,7 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [November 2026 core update](https://www.fourwardhq.com/blog/google-november-2026-core-update/): Google's November 2026 core update (started 10 Nov 2026, up to 2 weeks): live status, rollout times of every core update since 2021 against Google's estimates, first-week Search Console data from BootcampGuide, and what to do.
 - [Content management tools](https://www.fourwardhq.com/blog/best-content-management-tools/): Best content management tools in 2026 for B2B SaaS marketing sites: Webflow, Framer, HubSpot Content Hub, WordPress, Storyblok and Sanity, compared on publishing speed, robots.txt control, AI crawler access and pricing.
 - [SaaS comparison pages](https://www.fourwardhq.com/blog/saas-comparison-pages/): SaaS comparison pages in 2026: X vs Y, alternatives and category pages, which to build first, seven steps to build one, how AI answers pick them up, and mistakes to avoid.
 - [Free technical SEO tools](https://www.fourwardhq.com/blog/seo-free-tools-online-for-technical-seo/): Free technical SEO tools in 2026: Google Search Console, Bing Webmaster Tools, Screaming Frog, Ahrefs Webmaster Tools, Semrush, PageSpeed Insights, Lighthouse, Rich Results Test, Schema Markup Validator and Fourward's AI crawler checker, with free limits and gaps.

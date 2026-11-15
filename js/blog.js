@@ -94,3 +94,49 @@
     addEventListener('resize', update); update();
   }
 })();
+
+/* ---------- live status of a Google update (.post-status[data-incident]) and click-to-play YouTube (.yt-frame) ---------- */
+(function () {
+  var box = document.querySelector('.post-status[data-incident]');
+  if (box && window.fetch) {
+    var name = box.getAttribute('data-incident'), win = +box.getAttribute('data-window') || 14;
+    var set = function (sel, txt) { var el = box.querySelector(sel); if (el) el.textContent = txt; };
+    var fmt = function (d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+    fetch('https://status.search.google.com/incidents.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (list) {
+      if (!list || !list.length) return;
+      var e = null;
+      for (var i = 0; i < list.length; i++) if ((list[i].external_desc || '').trim() === name) e = list[i];
+      if (!e) return;
+      var begin = new Date(e.begin || box.getAttribute('data-start'));
+      if (e.end) {
+        var end = new Date(e.end), took = Math.round((end - begin) / 864e5 * 10) / 10;
+        box.classList.add('is-done');
+        set('.ps-state', 'Finished rolling out');
+        set('.ps-when', 'completed ' + fmt(end) + ', live from Google');
+        set('.ps-day', 'Done in ' + took + ' days');
+        box.style.setProperty('--p', 1);
+      } else {
+        var el = (Date.now() - begin) / 864e5, n = Math.floor(el) + 1;
+        set('.ps-state', el > win ? 'Still rolling out, past Google’s estimate' : 'Still rolling out');
+        set('.ps-when', 'live from Google, ' + fmt(new Date()));
+        set('.ps-day', el > win ? 'Day ' + n + ', past the ' + (win / 7) + '-week estimate' : 'Day ' + n + ' of up to ' + win);
+        box.style.setProperty('--p', Math.min(el / win, 1).toFixed(3));
+      }
+      box.classList.add('is-live');
+    }).catch(function () {});
+  }
+  // YouTube: the player (privacy-enhanced mode) loads only when someone presses play
+  Array.prototype.forEach.call(document.querySelectorAll('.yt-frame[data-yt]'), function (a) {
+    a.addEventListener('click', function (ev) {
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey) return; // let people open YouTube in a new tab
+      ev.preventDefault();
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-yt') + '?autoplay=1&rel=0';
+      f.title = a.getAttribute('data-title') || 'YouTube video';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      f.setAttribute('allowfullscreen', ''); f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      var w = document.createElement('div'); w.className = 'yt-frame is-playing'; w.appendChild(f);
+      a.parentNode.replaceChild(w, a);
+    });
+  });
+})();
