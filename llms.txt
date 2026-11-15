@@ -29,6 +29,8 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [Content management tools](https://www.fourwardhq.com/blog/best-content-management-tools/): Best content management tools in 2026 for B2B SaaS marketing sites: Webflow, Framer, HubSpot Content Hub, WordPress, Storyblok and Sanity, compared on publishing speed, robots.txt control, AI crawler access and pricing.
+- [SaaS comparison pages](https://www.fourwardhq.com/blog/saas-comparison-pages/): SaaS comparison pages in 2026: X vs Y, alternatives and category pages, which to build first, seven steps to build one, how AI answers pick them up, and mistakes to avoid.
 - [Free technical SEO tools](https://www.fourwardhq.com/blog/seo-free-tools-online-for-technical-seo/): Free technical SEO tools in 2026: Google Search Console, Bing Webmaster Tools, Screaming Frog, Ahrefs Webmaster Tools, Semrush, PageSpeed Insights, Lighthouse, Rich Results Test, Schema Markup Validator and Fourward's AI crawler checker, with free limits and gaps.
 - [llms.txt file](https://www.fourwardhq.com/blog/llmstxt-file/): How to create an llms.txt file for a B2B SaaS site: which pages to list, the Markdown format, hosting by platform, testing and upkeep.
 - [Keyword research tools](https://www.fourwardhq.com/blog/best-keyword-research-tools/): Best keyword research tools in 2026: Semrush, Ahrefs, SE Ranking, Google Keyword Planner, Google Search Console, Mangools, AnswerThePublic and Fourward's free AI visibility check, with pricing and AI search data.
