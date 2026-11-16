@@ -140,3 +140,33 @@
     });
   });
 })();
+
+/* ---------- blog homepage: topic tabs, search and feed pages (main.bh) ---------- */
+(function () {
+  var main = document.querySelector('main.bh'); if (!main) return;
+  var $$ = function (s) { return Array.prototype.slice.call(main.querySelectorAll(s)); };
+  var items = $$('.bh-item'), pages = main.querySelector('.bh-pages'), empty = main.querySelector('.bh-empty');
+  var input = main.querySelector('.bh-search input'), feed = main.querySelector('#feed');
+  var PER = 12, cat = 'all', q = '', page = 1;
+  items.forEach(function (li) { li._q = li.textContent.toLowerCase(); });
+  function render(scroll) {
+    var shown = items.filter(function (li) { return (cat === 'all' || li.getAttribute('data-cat') === cat) && (!q || li._q.indexOf(q) >= 0); });
+    var n = Math.max(1, Math.ceil(shown.length / PER)); if (page > n) page = n;
+    items.forEach(function (li) { li.hidden = true; });
+    shown.slice((page - 1) * PER, page * PER).forEach(function (li) { li.hidden = false; });
+    empty.hidden = shown.length > 0;
+    main.classList.toggle('is-filtering', cat !== 'all' || !!q);
+    pages.innerHTML = '';
+    if (n > 1) {
+      var add = function (label, p, on, dis) { var b = document.createElement('button'); b.type = 'button'; b.textContent = label; if (on) b.className = 'is-on'; if (dis) b.disabled = true; b.addEventListener('click', function () { page = p; render(true); }); pages.appendChild(b); };
+      add('Previous', page - 1, false, page === 1);
+      for (var i = 1; i <= n; i++) add(String(i), i, i === page, false);
+      add('Next', page + 1, false, page === n);
+    }
+    $$('button[data-cat]').forEach(function (b) { var on = b.getAttribute('data-cat') === cat; b.classList.toggle('is-on', on); if (b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    if (scroll && feed) feed.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  }
+  $$('button[data-cat]').forEach(function (b) { b.addEventListener('click', function () { cat = b.getAttribute('data-cat'); page = 1; render(cat !== 'all' || !!b.closest('.bh-cats')); }); });
+  if (input) input.addEventListener('input', function () { q = input.value.trim().toLowerCase(); page = 1; render(false); });
+  render(false);
+})();
