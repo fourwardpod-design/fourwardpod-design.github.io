@@ -29,6 +29,9 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [B2B PR agencies](https://www.fourwardhq.com/blog/best-b2b-pr-agencies/): Best B2B PR agencies in 2026: Fourward, SHIFT Communications, 5W Public Relations, PAN Communications, Highwire, Idea Grove, CCGroup and Spotlight, compared on media relations, analyst relations and pricing.
+- [ChatGPT news](https://www.fourwardhq.com/blog/chatgpt-news/): ChatGPT news (November 2026): ChatGPT Wallet for agent checkout, the rise in zero-source answers and in-answer links, SparkToro's purchase intent study, and six steps for B2B SaaS marketers.
+- [Competitive pricing strategy](https://www.fourwardhq.com/blog/saas-competitive-pricing-strategy/): SaaS competitive pricing strategy in 2026: three price positions, six steps to benchmark competitor pricing pages, typical-team bills for Asana, monday.com and ClickUp, and how to position plans.
 - [SaaS churn rate](https://www.fourwardhq.com/blog/average-churn-rate-for-saas-companies/): Average churn rate for SaaS companies in 2026: benchmarks by price, customer size and B2B or B2C, churn and retention formulas, what a good rate is, and eight lifecycle fixes.
 - [SEO tools for SaaS](https://www.fourwardhq.com/blog/best-seo-tools-for-saas/): Best SEO tools for SaaS in 2026, one per job: Semrush, Ahrefs, Google Search Console, Screaming Frog, Clearscope, SE Ranking, Bing Webmaster Tools, Peec AI and Fourward's free AI visibility check, with pricing.
 - [Track AI brand mentions](https://www.fourwardhq.com/blog/how-to-track-brand-mentions-in-ai-search/): How to track brand mentions in AI search in 2026: seven steps to measure ChatGPT, Gemini and Google AI Mode mentions, the four monthly metrics, Search Console data and tool costs.
