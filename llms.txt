@@ -29,6 +29,8 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [Content optimization tools](https://www.fourwardhq.com/blog/web-optimizer-software-for-content/): Best web optimizer software for content in 2026: Surfer, Clearscope, Semrush Content Toolkit, Frase, NEURONwriter, PageOptimizer Pro, MarketMuse and Fourward's free AI visibility check, with scoring methods and pricing.
+- [Crawler signature](https://www.fourwardhq.com/blog/what-is-a-crawler-signature/): What a crawler signature is: Web Bot Auth and RFC 9421 HTTP Message Signatures, the three signature headers, which bots sign (OpenAI, Google), and how to verify bots by signature, IP or reverse DNS.
 - [AI crawler software](https://www.fourwardhq.com/blog/ai-crawler-software/): AI crawler software for SaaS sites: Cloudflare AI Crawl Control, Vercel's AI bots ruleset, Known Agents, TollBit and Screaming Frog Log File Analyser, with published prices and how to choose.
 - [B2B PR agencies](https://www.fourwardhq.com/blog/best-b2b-pr-agencies/): Best B2B PR agencies in 2026: Fourward, SHIFT Communications, 5W Public Relations, PAN Communications, Highwire, Idea Grove, CCGroup and Spotlight, compared on media relations, analyst relations and pricing.
 - [ChatGPT news](https://www.fourwardhq.com/blog/chatgpt-news/): ChatGPT news (November 2026): ChatGPT Wallet for agent checkout, the rise in zero-source answers and in-answer links, SparkToro's purchase intent study, and six steps for B2B SaaS marketers.
