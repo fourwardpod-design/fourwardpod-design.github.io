@@ -29,6 +29,11 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [Ahrefs alternatives](https://www.fourwardhq.com/blog/ahrefs-alternatives/): Best Ahrefs alternatives in 2026 by job: Semrush, SE Ranking, Majestic, AccuRanker, Google Search Console and Fourward's free AI visibility check, with pricing.
+- [Rank tracking tools](https://www.fourwardhq.com/blog/best-rank-tracking-tools/): Best rank tracking tools in 2026: Semrush, SE Ranking, Ahrefs, AccuRanker, Advanced Web Ranking, Nightwatch, Mangools SERPWatcher and Fourward's free AI visibility check, compared on update frequency, keyword limits, price and AI answer tracking.
+- [G2 reviews for SaaS](https://www.fourwardhq.com/blog/g2-reviews-for-saas/): G2 reviews for SaaS: how to earn them without buying them, G2 Grid thresholds (10 reviews per category), the November 2026 incentive rules, FTC rules and G2's role in AI answers.
+- [SaaS analyst relations](https://www.fourwardhq.com/blog/saas-analyst-relations/): SaaS analyst relations in 2026: Gartner, Forrester and IDC, what a 30 or 60 minute briefing looks like, what AR costs and when it is worth the money.
+- [SaaS demand generation](https://www.fourwardhq.com/blog/saas-demand-generation/): SaaS demand generation in practice: demand creation vs capture, seven channels and their jobs, how they connect, early signals such as branded search, costs and mistakes.
 - [B2B lead nurturing](https://www.fourwardhq.com/blog/b2b-lead-nurturing/): B2B lead nurturing for SaaS: four stages, entry, behaviour and exit triggers, an example six-email sequence, HubSpot costs and how to measure it without open rates.
 - [Schema markup tools](https://www.fourwardhq.com/blog/best-schema-markup-tools/): Best schema markup tools in 2026: Google Rich Results Test, Schema Markup Validator, Google Search Console, Yoast SEO, Rank Math, Sitebulb, Schema App, WordLift and Fourward's free AI visibility check, with pricing.
 - [SEO reporting tools](https://www.fourwardhq.com/blog/best-seo-reporting-tools/): Best SEO reporting tools in 2026: Google Data Studio, Semrush My Reports, SE Ranking, Ahrefs Report Builder, AgencyAnalytics, DashThis, Databox, Whatagraph and Fourward's free AI visibility check, with pricing for board and client reports.
