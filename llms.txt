@@ -29,6 +29,9 @@ Fourward was founded in 2026 by Sharang Misri, Deepak Sharma, Geetanjali Sharma 
 
 ## Blog
 
+- [B2B lead nurturing](https://www.fourwardhq.com/blog/b2b-lead-nurturing/): B2B lead nurturing for SaaS: four stages, entry, behaviour and exit triggers, an example six-email sequence, HubSpot costs and how to measure it without open rates.
+- [Schema markup tools](https://www.fourwardhq.com/blog/best-schema-markup-tools/): Best schema markup tools in 2026: Google Rich Results Test, Schema Markup Validator, Google Search Console, Yoast SEO, Rank Math, Sitebulb, Schema App, WordLift and Fourward's free AI visibility check, with pricing.
+- [SEO reporting tools](https://www.fourwardhq.com/blog/best-seo-reporting-tools/): Best SEO reporting tools in 2026: Google Data Studio, Semrush My Reports, SE Ranking, Ahrefs Report Builder, AgencyAnalytics, DashThis, Databox, Whatagraph and Fourward's free AI visibility check, with pricing for board and client reports.
 - [Content optimization tools](https://www.fourwardhq.com/blog/web-optimizer-software-for-content/): Best web optimizer software for content in 2026: Surfer, Clearscope, Semrush Content Toolkit, Frase, NEURONwriter, PageOptimizer Pro, MarketMuse and Fourward's free AI visibility check, with scoring methods and pricing.
 - [Crawler signature](https://www.fourwardhq.com/blog/what-is-a-crawler-signature/): What a crawler signature is: Web Bot Auth and RFC 9421 HTTP Message Signatures, the three signature headers, which bots sign (OpenAI, Google), and how to verify bots by signature, IP or reverse DNS.
 - [AI crawler software](https://www.fourwardhq.com/blog/ai-crawler-software/): AI crawler software for SaaS sites: Cloudflare AI Crawl Control, Vercel's AI bots ruleset, Known Agents, TollBit and Screaming Frog Log File Analyser, with published prices and how to choose.
